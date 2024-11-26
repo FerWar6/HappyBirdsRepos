@@ -1,0 +1,10 @@
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Engine.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\Engine.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\EngineCore.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\EngineCore.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\PreLoader.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\PreLoader.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\Renderer.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\main.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\main.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Managers\GameManager.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\GameManager.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Objects\BuildingBlock.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\BuildingBlock.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Objects\Object.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\Object.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Textures\SpriteSheet.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\SpriteSheet.obj
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Textures\TextureItem.cpp;C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\Intermediateswindows-x86_64\Debug\TextureItem.obj
