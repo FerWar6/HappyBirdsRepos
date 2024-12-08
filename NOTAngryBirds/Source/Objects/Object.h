@@ -11,6 +11,7 @@ public:
 	virtual void FixedUpdate();
 
 	virtual void Render(sf::RenderWindow& window);
+
 	sf::FloatRect GetRect();
 	sf::Vector2f GetPos();
 	sf::Vector2f GetSize();

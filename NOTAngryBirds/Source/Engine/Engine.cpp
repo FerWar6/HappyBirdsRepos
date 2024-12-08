@@ -1,10 +1,17 @@
 #include "Engine.h"
 #include "Objects/Object.h"
+
 Engine::Engine()
 	: preLoader(),
 	manager(),
 	block(sf::FloatRect(100,100,100,100), preLoader.GetTexture("block"))
 {
+    Start();
+}
+
+void Engine::Start()
+{
+
 }
 
 void Engine::Update()
@@ -21,5 +28,6 @@ void Engine::FixedUpdate()
 	for (auto& obj : manager.GetObjects()) {
 		obj->FixedUpdate();
 	}
+
 }
 

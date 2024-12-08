@@ -9,11 +9,11 @@ BuildingBlock::BuildingBlock(sf::FloatRect rect, sf::Texture& txr)
 
 void BuildingBlock::FixedUpdate()
 {
+	//physics calculations here
 }
 
 void BuildingBlock::Render(sf::RenderWindow& window)
 {
-	std::cout << "rendering block" << std::endl;
 	sprite.setPosition(GetPos());
 	window.draw(sprite);
 }

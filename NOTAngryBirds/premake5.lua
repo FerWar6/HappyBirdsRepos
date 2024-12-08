@@ -1,29 +1,32 @@
 workspace "NOTAngryBirds"
     configurations { "Debug", "Release", "Dist" }
-   architecture "x64"
+    architecture "x64"
 
-   project "NOTAngryBirds"
+project "NOTAngryBirds"
     kind "ConsoleApp"
     language "C++"
     OutputDir = "%{cfg.system}-%{cfg.architecture}/%{cfg.buildcfg}"
     targetdir("build/" .. OutputDir .. "/")
-    objdir("build/Intermediates" .. OutputDir .. "/")
+    objdir("build/Intermediates/" .. OutputDir .. "/")
 
-    files{
+    files {
         "source/**.h",
         "source/**.hpp",
         "source/**.c",
         "source/**.cpp"
     }
 
-    includedirs{
+    includedirs {
         "Dependencies/SFML-2.6.1/include",
+        "Dependencies/box2d-3.0.0/include",
         "Source"
     }
 
-    libdirs{"Dependencies/SFML-2.6.1/lib"}
+    libdirs {
+        "Dependencies/SFML-2.6.1/lib",
+        "Dependencies/box2d-3.0.0/lib"
+    }
 
-    -- Libs we need for SFML
     links {
         "opengl32.lib",
         "freetype.lib", 
@@ -35,21 +38,20 @@ workspace "NOTAngryBirds"
         "vorbisfile.lib",
         "vorbis.lib",
         "ogg.lib",
-        "ws2_32.lib" 
+        "ws2_32.lib",
+        "box2d.lib"
     }
-    -- Windows specific settings, maybe needed for Linux support we wont have
+
     filter "system:windows"
         cppdialect "C++17"
         systemversion "latest"
 
     defines { "GAME_PLATFORM_WINDOWS", "SFML_STATIC" }
 
-    -- Settings for different build modes
     filter "configurations:Debug"
         defines { "DEBUG", "ST_PLATFORM_WINDOWS" }
         runtime "Debug"
         symbols "On"
-        -- Debug variants for SFML libs
         links { 
             "sfml-audio-s-d.lib",
             "sfml-graphics-s-d.lib",
@@ -63,7 +65,6 @@ workspace "NOTAngryBirds"
         runtime "Release"
         optimize "On"
         symbols "On"
-        -- Normal release variants for SFML libs
         links { 
             "sfml-audio-s.lib",
             "sfml-graphics-s.lib",

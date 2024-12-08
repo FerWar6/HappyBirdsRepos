@@ -1,0 +1,3 @@
+﻿  Renderer.cpp
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(53,17): warning C4101: 'dynamicBox': unreferenced local variable
+  NOTAngryBirds.vcxproj -> C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\windows-x86_64\Debug\NOTAngryBirds.exe
