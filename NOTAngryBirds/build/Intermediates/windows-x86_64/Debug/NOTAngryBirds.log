@@ -1,3 +1,18 @@
 ﻿  Renderer.cpp
-C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(53,17): warning C4101: 'dynamicBox': unreferenced local variable
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(13,22): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(13,22): warning C4244:         with
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(13,22): warning C4244:         [
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(13,22): warning C4244:             T=unsigned int
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(13,22): warning C4244:         ]
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(32,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(32,38): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(46,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(46,38): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(64,22): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(64,22): warning C4244:         with
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(64,22): warning C4244:         [
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(64,22): warning C4244:             T=unsigned int
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(64,22): warning C4244:         ]
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(94,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\source\Engine\Renderer.cpp(110,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   NOTAngryBirds.vcxproj -> C:\Projects\NOTAngryBirdsRepos\NOTAngryBirds\build\windows-x86_64\Debug\NOTAngryBirds.exe

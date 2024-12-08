@@ -3,64 +3,60 @@
   "WorkspaceRootPath": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Dependencies\\box2d-3.0.0\\include\\box2d\\types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Dependencies\\box2d-3.0.0\\include\\box2d\\types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Objects\\BuildingBlock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Objects\\BuildingBlock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\EngineCore.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\EngineCore.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Objects\\BuildingBlock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Objects\\BuildingBlock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Managers\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\GameManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Managers\\GameManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Objects\\BuildingBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Objects\\BuildingBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\PreLoader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Engine\\PreLoader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Objects\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Objects\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Managers\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Objects\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Objects\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Objects\\BuildingBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Objects\\BuildingBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\EngineCore.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\EngineCore.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\EngineCore.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\EngineCore.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\source\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:source\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\GameManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Managers\\GameManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Objects\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|solutionrelative:Source\\Objects\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6BACAE02-D76C-2A39-A0A7-73B60C276F15}|NOTAngryBirds.vcxproj|C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\ServiceLocator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -77,12 +73,25 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 444,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 431,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "EngineCore.cpp",
+              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.cpp",
+              "RelativeDocumentMoniker": "Source\\Engine\\EngineCore.cpp",
+              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.cpp",
+              "RelativeToolTip": "Source\\Engine\\EngineCore.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAQwB0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-08T16:27:31.251Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "BuildingBlock.cpp",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Objects\\BuildingBlock.cpp",
               "RelativeDocumentMoniker": "Source\\Objects\\BuildingBlock.cpp",
@@ -91,25 +100,24 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-26T22:34:11.614Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "types.h",
-              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Dependencies\\box2d-3.0.0\\include\\box2d\\types.h",
-              "RelativeDocumentMoniker": "Dependencies\\box2d-3.0.0\\include\\box2d\\types.h",
-              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Dependencies\\box2d-3.0.0\\include\\box2d\\types.h",
-              "RelativeToolTip": "Dependencies\\box2d-3.0.0\\include\\box2d\\types.h",
-              "ViewState": "AgIAAIMCAAAAAAAAAADgv5oCAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-08T12:09:41.224Z",
+              "Title": "Renderer.cpp",
+              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.cpp",
+              "RelativeDocumentMoniker": "Source\\Engine\\Renderer.cpp",
+              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.cpp",
+              "RelativeToolTip": "Source\\Engine\\Renderer.cpp",
+              "ViewState": "AgIAADUAAAAAAAAAAAAYwEcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-26T17:09:56.344Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\main.cpp",
               "RelativeDocumentMoniker": "Source\\Engine\\main.cpp",
@@ -117,8 +125,7 @@
               "RelativeToolTip": "Source\\Engine\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-06T10:34:55.137Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T10:34:55.137Z"
             },
             {
               "$type": "Document",
@@ -128,40 +135,37 @@
               "RelativeDocumentMoniker": "Source\\Managers\\GameManager.cpp",
               "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\GameManager.cpp",
               "RelativeToolTip": "Source\\Managers\\GameManager.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-26T21:17:53.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T21:17:53.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 6,
               "Title": "PreLoader.cpp",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\PreLoader.cpp",
               "RelativeDocumentMoniker": "Source\\Engine\\PreLoader.cpp",
               "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\PreLoader.cpp",
               "RelativeToolTip": "Source\\Engine\\PreLoader.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-26T17:08:33.076Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T17:08:33.076Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Engine.cpp",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Engine.cpp",
               "RelativeDocumentMoniker": "Source\\Engine\\Engine.cpp",
               "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Engine.cpp",
               "RelativeToolTip": "Source\\Engine\\Engine.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-26T16:53:32.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T16:53:32.553Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 8,
               "Title": "Object.cpp",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Objects\\Object.cpp",
               "RelativeDocumentMoniker": "Source\\Objects\\Object.cpp",
@@ -170,26 +174,26 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-26T17:05:10.896Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Renderer.cpp",
-              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.cpp",
-              "RelativeDocumentMoniker": "Source\\Engine\\Renderer.cpp",
-              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.cpp",
-              "RelativeToolTip": "Source\\Engine\\Renderer.cpp",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADIAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-26T17:09:56.344Z",
-              "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 242,
+          "DockedWidth": 255,
           "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "EngineCore.h",
+              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.h",
+              "RelativeDocumentMoniker": "Source\\Engine\\EngineCore.h",
+              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.h",
+              "RelativeToolTip": "Source\\Engine\\EngineCore.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-26T22:46:05.267Z",
+              "IsPinned": true
+            },
             {
               "$type": "Document",
               "DocumentIndex": 9,
@@ -201,12 +205,24 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-11-26T22:34:31.507Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Renderer.h",
+              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.h",
+              "RelativeDocumentMoniker": "Source\\Engine\\Renderer.h",
+              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.h",
+              "RelativeToolTip": "Source\\Engine\\Renderer.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAvwBMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-26T17:09:51.395Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "Engine.h",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Engine.h",
               "RelativeDocumentMoniker": "Source\\Engine\\Engine.h",
@@ -214,37 +230,11 @@
               "RelativeToolTip": "Source\\Engine\\Engine.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-26T13:50:22.979Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Renderer.h",
-              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.h",
-              "RelativeDocumentMoniker": "Source\\Engine\\Renderer.h",
-              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\Renderer.h",
-              "RelativeToolTip": "Source\\Engine\\Renderer.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-26T17:09:51.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T13:50:22.979Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "EngineCore.h",
-              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.h",
-              "RelativeDocumentMoniker": "Source\\Engine\\EngineCore.h",
-              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.h",
-              "RelativeToolTip": "Source\\Engine\\EngineCore.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-26T22:46:05.267Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "Object.h",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Objects\\Object.h",
               "RelativeDocumentMoniker": "Source\\Objects\\Object.h",
@@ -256,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "GameManager.h",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\GameManager.h",
               "RelativeDocumentMoniker": "Source\\Managers\\GameManager.h",
@@ -264,12 +254,11 @@
               "RelativeToolTip": "Source\\Managers\\GameManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAEwBAAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-26T21:17:44.298Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T21:17:44.298Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "ServiceLocator.h",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Managers\\ServiceLocator.h",
               "RelativeDocumentMoniker": "Source\\Managers\\ServiceLocator.h",
@@ -281,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "PreLoader.h",
               "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\PreLoader.h",
               "RelativeDocumentMoniker": "Source\\Engine\\PreLoader.h",
@@ -290,18 +279,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-11-26T22:18:10.875Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "EngineCore.cpp",
-              "DocumentMoniker": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.cpp",
-              "RelativeDocumentMoniker": "Source\\Engine\\EngineCore.cpp",
-              "ToolTip": "C:\\Projects\\NOTAngryBirdsRepos\\NOTAngryBirds\\Source\\Engine\\EngineCore.cpp",
-              "RelativeToolTip": "Source\\Engine\\EngineCore.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-26T22:46:02.478Z"
             }
           ]
         }

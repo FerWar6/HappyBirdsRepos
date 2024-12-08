@@ -6,23 +6,24 @@
 #include "Objects/Object.h"
 #include "SFML/Graphics.hpp"
 #include "Managers/GameManager.h"
+#include <iostream>
 class Renderer
 {
 public:
 	Renderer(sf::RenderWindow& win);
+	void Start();
 	void Render();
 private:
-	b2WorldDef worldDef;
 	b2WorldId worldId;
 
-	b2BodyDef groundBodyDef;
-	b2ShapeDef groundShapeDef;
 	b2BodyId groundId;
+	sf::Vector2f groundSize = sf::Vector2f(1000, 10);
+	b2BodyId circleBodyId1;
+	b2BodyId bodyId1;
+	float boxSize1 = 50;
 
-	b2BodyDef bodyDef;
-	b2BodyId bodyId;
-	b2Polygon dynamicBox;
-	b2ShapeDef shapeDef;
+	b2BodyId bodyId2;
+	float boxSize2 = 15;
 
 	sf::RenderWindow& window;
 	GameManager* manager;

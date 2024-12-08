@@ -8,6 +8,7 @@ EngineCore::EngineCore()
 	int winHeight = 750;
 	std::string name = "crazy game";
 	window.create(sf::VideoMode(winWidth, winHeight), name);
+	renderer.Start();
 	Start();
 }
 
