@@ -7,6 +7,8 @@
 #include "SFML/Graphics.hpp"
 #include "Managers/GameManager.h"
 #include <iostream>
+
+class EngineCore;
 class Renderer
 {
 public:
@@ -14,16 +16,13 @@ public:
 	void Start();
 	void Render();
 private:
+
+	int scale = 50;
 	b2WorldId worldId;
 
 	b2BodyId groundId;
-	sf::Vector2f groundSize = sf::Vector2f(1000, 10);
-	b2BodyId circleBodyId1;
-	b2BodyId bodyId1;
-	float boxSize1 = 50;
-
-	b2BodyId bodyId2;
-	float boxSize2 = 15;
+	b2BodyId cubeId1;
+	b2BodyId cubeId2;
 
 	sf::RenderWindow& window;
 	GameManager* manager;

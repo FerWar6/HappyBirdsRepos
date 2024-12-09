@@ -18,13 +18,13 @@ project "NOTAngryBirds"
 
     includedirs {
         "Dependencies/SFML-2.6.1/include",
-        "Dependencies/box2d-3.0.0/include",
+        "Dependencies/box2d-main/include",
         "Source"
     }
 
     libdirs {
         "Dependencies/SFML-2.6.1/lib",
-        "Dependencies/box2d-3.0.0/lib"
+        "Dependencies/box2d-main/lib"
     }
 
     links {

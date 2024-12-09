@@ -5,9 +5,12 @@ EngineCore::EngineCore()
 	renderer(window)
 {
 	int winWidth = 1050;
-	int winHeight = 750;
+	int winHeight = 1050;
 	std::string name = "crazy game";
 	window.create(sf::VideoMode(winWidth, winHeight), name);
+    //b2WorldDef worldDef = b2DefaultWorldDef();
+    //worldDef.gravity = { 0.0f, -9.81f };
+    //worldId = b2CreateWorld(&worldDef);
 	renderer.Start();
 	Start();
 }
@@ -35,7 +38,8 @@ void EngineCore::LoopEngine()
 
 		while (accumulator >= timeStep) {
 			engine.FixedUpdate();
-			accumulator -= timeStep;
+            //b2World_Step(worldId, timeStep, 8);
+            accumulator -= timeStep;
 		}
 		engine.Update();
 		renderer.Render();

@@ -11,8 +11,6 @@ public:
 	void Update();
 	void FixedUpdate();
 private:
-
-
 	PreLoader preLoader;
 	GameManager manager;
 	BuildingBlock block;

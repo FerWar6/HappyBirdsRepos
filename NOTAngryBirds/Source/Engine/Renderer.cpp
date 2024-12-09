@@ -10,49 +10,39 @@ Renderer::Renderer(sf::RenderWindow& win)
 
 void Renderer::Start()
 {
-    float windowHalf = window.getSize().x / 2;
     b2WorldDef worldDef = b2DefaultWorldDef();
-    worldDef.gravity = { 0.0f, -9.8f };
+    worldDef.gravity = { 0.0f, -9.81f };
     worldId = b2CreateWorld(&worldDef);
-    
 
-    b2BodyDef groundBodyDef = b2DefaultBodyDef();
-    groundBodyDef.position = { windowHalf, -500 };
-    groundId = b2CreateBody(worldId, &groundBodyDef);
+    b2BodyDef groundDef = b2DefaultBodyDef();
+    groundDef.position = { 0.0f, -5.0f }; // Adjusted closer to visible range
+    groundId = b2CreateBody(worldId, &groundDef);
 
-    b2Polygon groundBox = b2MakeBox(groundSize.x, groundSize.y);
-
+    b2Polygon groundBox = b2MakeBox(8.0f, 0.5f); // Width 8m, Height 0.5m
     b2ShapeDef groundShapeDef = b2DefaultShapeDef();
     b2CreatePolygonShape(groundId, &groundShapeDef, &groundBox);
 
-    b2BodyDef bodyDef1 = b2DefaultBodyDef();
-    bodyDef1.type = b2_dynamicBody;
-    bodyDef1.position = { windowHalf, 0 };
+    // Create first dynamic cube
+    b2BodyDef cubeDef1 = b2DefaultBodyDef();
+    cubeDef1.type = b2_dynamicBody;
+    cubeDef1.position = { 0.55f, 10.0f }; // Initial position of the first cube
+    cubeId1 = b2CreateBody(worldId, &cubeDef1);
 
-    bodyDef1.rotation = { -0.799335, 0.600886 };
-    bodyId1 = b2CreateBody(worldId, &bodyDef1);
+    b2Polygon cubeBox1 = b2MakeBox(0.5f, 0.5f); // Cube size 0.5m x 0.5m
+    b2ShapeDef cubeShapeDef1 = b2DefaultShapeDef();
+    cubeShapeDef1.density = 1.0f;
+    b2CreatePolygonShape(cubeId1, &cubeShapeDef1, &cubeBox1);
 
-    b2Polygon dynamicBox1 = b2MakeSquare(boxSize1);
-    b2ShapeDef shapeDef1 = b2DefaultShapeDef();
-    shapeDef1.density = 1.0f;
-    shapeDef1.friction = 0.3f;
+    // Create second dynamic cube (falls on top of the first cube)
+    b2BodyDef cubeDef2 = b2DefaultBodyDef();
+    cubeDef2.type = b2_dynamicBody;
+    cubeDef2.position = { 0.0f, 15.0f }; // Initial position of the second cube (above the first one)
+    cubeId2 = b2CreateBody(worldId, &cubeDef2);
 
-    b2CreatePolygonShape(bodyId1, &shapeDef1, &dynamicBox1);
-
-
-    b2BodyDef bodyDef2 = b2DefaultBodyDef();
-    bodyDef2.type = b2_dynamicBody;
-    bodyDef2.position = { windowHalf -45, -100 };
-    bodyDef2.rotation = { -0.799335, 0.600886 };
-    bodyId2 = b2CreateBody(worldId, &bodyDef2);
-
-    b2Polygon dynamicBox2 = b2MakeSquare(boxSize2);
-
-    b2ShapeDef shapeDef2 = b2DefaultShapeDef();
-    shapeDef2.density = 1.0f;
-    shapeDef2.friction = 0.3f;
-
-    b2CreatePolygonShape(bodyId2, &shapeDef2, &dynamicBox2);
+    b2Polygon cubeBox2 = b2MakeBox(0.5f, 0.5f); // Cube size 0.5m x 0.5m
+    b2ShapeDef cubeShapeDef2 = b2DefaultShapeDef();
+    cubeShapeDef2.density = 1.0f;
+    b2CreatePolygonShape(cubeId2, &cubeShapeDef2, &cubeBox2);
 }
 void Renderer::Render()
 {
@@ -61,64 +51,39 @@ void Renderer::Render()
     //for (auto& obj : objectsToRender) {
     //    obj->Render(window);
     //}
-    float windowHalf = window.getSize().x / 2;
-    float timeStep = 1.0f / 1000;
-    int subStepCount = 5;
-    double angleRadians;
-    double angleDegrees;
-    b2World_Step(worldId, timeStep, subStepCount);
+    const float fixedTimeStep = 1.0f / 6000.0f;
+    b2World_Step(worldId, fixedTimeStep, 8);
+    //std::cout << "working" << std::endl;
+    // Render ground
+    b2Vec2 groundPos = b2Body_GetPosition(groundId);
+    sf::RectangleShape groundRect(sf::Vector2f(800.0f, 50.0f)); // Adjusted for pixels
+    groundRect.setOrigin(400.0f, 25.0f);
+    groundRect.setPosition(400.0f + (groundPos.x * scale), 600 - (groundPos.y * scale));
+    groundRect.setFillColor(sf::Color::Green);
+    window.draw(groundRect);
 
-    b2Vec2 position = b2Body_GetPosition(groundId);
-    b2Rot rotation = b2Body_GetRotation(groundId);
+    // Render first cube
+    b2Vec2 cubePos1 = b2Body_GetPosition(cubeId1);
+    b2Rot cubeRotation1 = b2Body_GetRotation(cubeId1); // Get the rotation as b2Rot
+    float cubeAngle1 = std::atan2(cubeRotation1.s, cubeRotation1.c); // Convert to angle in radians
+    sf::RectangleShape cubeRect1(sf::Vector2f(50.0f, 50.0f)); // Adjusted for pixels
+    cubeRect1.setOrigin(25.0f, 25.0f);
+    cubeRect1.setPosition(400.0f + (cubePos1.x * scale), 600 - (cubePos1.y * scale)); // Render using its position
+    cubeRect1.setRotation(-cubeAngle1 * 180.0f / 3.14159f); // Convert radians to degrees
+    cubeRect1.setFillColor(sf::Color::Red);
+    window.draw(cubeRect1);
 
-    sf::RectangleShape groundShape;
-    sf::Vector2f groundPos = sf::Vector2f(position.x, -position.y);
+    // Render second cube
+    b2Vec2 cubePos2 = b2Body_GetPosition(cubeId2);
+    b2Rot cubeRotation2 = b2Body_GetRotation(cubeId2); // Get the rotation as b2Rot
+    float cubeAngle2 = std::atan2(cubeRotation2.s, cubeRotation2.c); // Convert to angle in radians
+    sf::RectangleShape cubeRect2(sf::Vector2f(50.0f, 50.0f)); // Adjusted for pixels
+    cubeRect2.setOrigin(25.0f, 25.0f);
+    cubeRect2.setPosition(400.0f + (cubePos2.x * scale), 600 - (cubePos2.y * scale)); // Render using its position
+    cubeRect2.setRotation(-cubeAngle2 * 180.0f / 3.14159f); // Convert radians to degrees
+    cubeRect2.setFillColor(sf::Color::Blue);
+    window.draw(cubeRect2);
 
-    groundShape.setPosition(groundPos);
-    groundShape.setSize(groundSize);
-    groundShape.setOrigin(groundSize.x / 2, 0);
-    groundShape.setFillColor(sf::Color::Green);
-    window.draw(groundShape);
 
-    position = b2Body_GetPosition(bodyId1);
-    rotation = b2Body_GetRotation(bodyId1);
-    
-    angleRadians = std::atan2(rotation.c, rotation.s);
-    angleDegrees = angleRadians * (180.0 / PI);
-
-    sf::RectangleShape shape1;
-    sf::Vector2f shape1Pos = sf::Vector2f(position.x, -position.y);
-
-    float testMiltiplier = 2.5f;
-    shape1.setPosition(shape1Pos);
-    shape1.setRotation(angleDegrees);
-    shape1.setOrigin(boxSize1 / 2, boxSize1 / 2);
-    shape1.setSize(sf::Vector2f(boxSize1 * testMiltiplier, boxSize1 * testMiltiplier));
-    shape1.setFillColor(sf::Color::Red);
-    window.draw(shape1);
-
-    position = b2Body_GetPosition(bodyId2);
-    rotation = b2Body_GetRotation(bodyId2);
-
-    sf::RectangleShape shape2;
-    sf::Vector2f shape2Pos = sf::Vector2f(position.x, -position.y);
-
-    angleRadians = std::atan2(rotation.c, rotation.s);
-    angleDegrees = angleRadians * (180.0 / PI);
-
-    shape2.setPosition(shape2Pos);
-    shape2.setRotation(angleDegrees);
-    shape2.setOrigin(boxSize2/2, boxSize2 / 2);
-    shape2.setSize(sf::Vector2f(boxSize2 * testMiltiplier, boxSize2 * testMiltiplier));
-    shape2.setFillColor(sf::Color::Blue);
-    window.draw(shape2);
-    sf::Vertex line[] =
-    {
-        sf::Vertex(sf::Vector2f(5,5), sf::Color::Red),
-        sf::Vertex(sf::Vector2f(50,50), sf::Color::Red)
-    };
-    window.draw(shape1);
-    window.draw(line, 2, sf::Lines);
-    //std::cout << "x pos: " << position.x << " y pos: " << position.y << std::endl;
     window.display();
 }
