@@ -1,5 +1,6 @@
 #include "Object.h"
 #include "Managers/ServiceLocator.h"
+#include <iostream>
 
 Object::Object(sf::FloatRect r)
 	: manager(sl::GetGameManager()),
@@ -8,8 +9,17 @@ Object::Object(sf::FloatRect r)
 	manager->AddObject(this);
 }
 
+Object::Object(b2Vec2 pos, b2Vec2 size)
+	: manager(sl::GetGameManager()),
+	rect(sf::FloatRect(pos.x, pos.y, size.x, size.y))
+{
+	std::cout << "object pos: " << GetPos().x << " , " << GetPos().y << "\n";
+	std::cout << "object size: " << GetSize().x << " , " << GetSize().y << "\n";
+	manager->AddObject(this);
+}
+
 Object::Object()
-	: manager(sl::GetGameManager()), 
+	: manager(sl::GetGameManager()),
 	rect(0,0,0,0) 
 {
 	manager->AddObject(this);

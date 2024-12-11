@@ -47,10 +47,10 @@ void Renderer::Start()
 void Renderer::Render()
 {
     window.clear();
-    //objectsToRender = manager->GetObjects();
-    //for (auto& obj : objectsToRender) {
-    //    obj->Render(window);
-    //}
+    objectsToRender = manager->GetObjects();
+    for (auto& obj : objectsToRender) {
+        obj->Render(window);
+    }
     const float fixedTimeStep = 1.0f / 6000.0f;
     b2World_Step(worldId, fixedTimeStep, 8);
     //std::cout << "working" << std::endl;
@@ -61,17 +61,6 @@ void Renderer::Render()
     groundRect.setPosition(400.0f + (groundPos.x * scale), 600 - (groundPos.y * scale));
     groundRect.setFillColor(sf::Color::Green);
     window.draw(groundRect);
-
-    // Render first cube
-    b2Vec2 cubePos1 = b2Body_GetPosition(cubeId1);
-    b2Rot cubeRotation1 = b2Body_GetRotation(cubeId1); // Get the rotation as b2Rot
-    float cubeAngle1 = std::atan2(cubeRotation1.s, cubeRotation1.c); // Convert to angle in radians
-    sf::RectangleShape cubeRect1(sf::Vector2f(50.0f, 50.0f)); // Adjusted for pixels
-    cubeRect1.setOrigin(25.0f, 25.0f);
-    cubeRect1.setPosition(400.0f + (cubePos1.x * scale), 600 - (cubePos1.y * scale)); // Render using its position
-    cubeRect1.setRotation(-cubeAngle1 * 180.0f / 3.14159f); // Convert radians to degrees
-    cubeRect1.setFillColor(sf::Color::Red);
-    window.draw(cubeRect1);
 
     // Render second cube
     b2Vec2 cubePos2 = b2Body_GetPosition(cubeId2);
@@ -84,6 +73,6 @@ void Renderer::Render()
     cubeRect2.setFillColor(sf::Color::Blue);
     window.draw(cubeRect2);
 
-
+    //std::cout << "rendering obj at: " << cubePos2.x * scale << " , " << -cubePos2.y * scale << "\n";
     window.display();
 }

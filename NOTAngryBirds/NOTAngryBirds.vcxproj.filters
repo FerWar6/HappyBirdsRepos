@@ -45,6 +45,8 @@
     <ClInclude Include="source\Textures\TextureItem.h">
       <Filter>Textures</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Objects\PhysicsObject.h" />
+    <ClInclude Include="Source\Managers\LevelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Engine\Engine.cpp">
@@ -77,5 +79,7 @@
     <ClCompile Include="source\Textures\TextureItem.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Objects\PhysicsObject.cpp" />
+    <ClCompile Include="Source\Managers\LevelManager.cpp" />
   </ItemGroup>
 </Project>

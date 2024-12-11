@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Managers/GameManager.h"
+#include "Managers/LevelManager.h"
 #include "Engine/PreLoader.h"
-#include "Objects/BuildingBlock.h"
+#include "Objects/PhysicsObject.h"
 class Engine
 {
 public:
@@ -10,8 +11,10 @@ public:
 	void Start();
 	void Update();
 	void FixedUpdate();
+
+	GameManager* GetManager();
 private:
 	PreLoader preLoader;
-	GameManager manager;
-	BuildingBlock block;
+	GameManager gameManager;
+	LevelManager levelManager;
 };

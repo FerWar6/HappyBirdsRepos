@@ -144,7 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="Source\Managers\LevelManager.h" />
+    <ClInclude Include="Source\Objects\PhysicsObject.h" />
     <ClInclude Include="source\Engine\Engine.h" />
     <ClInclude Include="source\Engine\EngineCore.h" />
     <ClInclude Include="source\Engine\PreLoader.h" />
@@ -157,7 +158,8 @@
     <ClInclude Include="source\Textures\TextureItem.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="Source\Managers\LevelManager.cpp" />
+    <ClCompile Include="Source\Objects\PhysicsObject.cpp" />
     <ClCompile Include="source\Engine\Engine.cpp" />
     <ClCompile Include="source\Engine\EngineCore.cpp" />
     <ClCompile Include="source\Engine\PreLoader.cpp" />
