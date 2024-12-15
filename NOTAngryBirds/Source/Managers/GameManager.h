@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 #include <box2d/box2d.h>
 
 class Object;
-
 class GameManager
 {
 public:
@@ -22,4 +22,5 @@ private:
     std::vector<Object*> objects;
     std::vector<Object*> markedForAddition;
     std::vector<Object*> markedForDeletion;
+    //std::vector<T> allObjects;
 };

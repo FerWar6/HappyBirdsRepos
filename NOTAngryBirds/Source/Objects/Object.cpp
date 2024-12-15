@@ -16,7 +16,7 @@ Object::Object(b2Vec2 pos, b2Vec2 size)
 	//std::cout << "object pos: " << GetPos().x << " , " << GetPos().y << "\n";
 	//std::cout << "object size: " << GetSize().x << " , " << GetSize().y << "\n";
 	manager->AddObject(this);
-	std::cout << "object pointer: " << this << "\n";
+	//std::cout << "object pointer: " << this << "\n";
 }
 
 Object::Object()

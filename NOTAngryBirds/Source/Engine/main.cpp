@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include "Engine/EngineCore.h"
-int main() {
-	EngineCore core = EngineCore();
+#include <cstdlib>
+int main() 
+{
+	EngineCore* core = (EngineCore*)malloc(sizeof(EngineCore));
+	core = new EngineCore();
     return 0;
 }

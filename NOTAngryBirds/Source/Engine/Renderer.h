@@ -17,12 +17,12 @@ public:
 	void Render();
 private:
 
-	int scale = 50;
-	b2WorldId worldId;
+	//int scale = 50;
+	//b2WorldId worldId;
 
-	b2BodyId groundId;
-	b2BodyId cubeId1;
-	b2BodyId cubeId2;
+	//b2BodyId groundId;
+	//b2BodyId cubeId1;
+	//b2BodyId cubeId2;
 
 	sf::RenderWindow& window;
 	GameManager* manager;

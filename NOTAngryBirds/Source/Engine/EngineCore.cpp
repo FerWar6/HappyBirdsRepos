@@ -1,5 +1,6 @@
 #include "EngineCore.h"
 #include <iostream>
+#include <stdio.h>
 EngineCore::EngineCore()
 	: engine(),
 	renderer(window)
@@ -13,19 +14,23 @@ EngineCore::EngineCore()
     worldId = b2CreateWorld(&worldDef);
 	engine.GetManager()->SetWorldId(&worldId);
 	engine.Start();
-	renderer.Start();
+	//renderer.Start();
 	Start();
 }
 
 void EngineCore::Start()
 {
-	std::cout << "Starting Engine" << std::endl;
+	
 	LoopEngine();
 }
 
 void EngineCore::LoopEngine()
 {
-	while (window.isOpen())
+	//after this line the objects in the allOjbects vector stay the same, but the object* in markedforaddition get changed
+	std::cout << "gvhgj";
+
+
+	/*while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -45,5 +50,5 @@ void EngineCore::LoopEngine()
 		}
 		engine.Update();
 		renderer.Render();
-	}
+	}*/
 }
