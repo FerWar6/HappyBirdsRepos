@@ -1,7 +1,7 @@
 #pragma once
 #include "box2d/box2d.h"
 #include "Objects/Object.h"
-class PhysicsObject : Object
+class PhysicsObject : public Object
 {
 public:
 	PhysicsObject(b2Vec2 posInMeters, b2Vec2 sizeInMeters, 

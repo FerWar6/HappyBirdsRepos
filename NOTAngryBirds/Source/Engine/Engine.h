@@ -14,7 +14,13 @@ public:
 	void FixedUpdate();
 
 	GameManager* GetManager();
+	std::vector<std::unique_ptr<Object>>& GetGameObjects();
+
 private:
+	b2DebugDraw debugDrawer;
+
+	std::vector<std::unique_ptr<Object>> gameObjects;
+
 	PreLoader preLoader;
 	GameManager gameManager;
 	LevelManager levelManager;

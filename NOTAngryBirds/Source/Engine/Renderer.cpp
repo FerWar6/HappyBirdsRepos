@@ -3,9 +3,10 @@
 #include <cmath>
 #define PI 3.14159265358979323846
 
-Renderer::Renderer(sf::RenderWindow& win)
+Renderer::Renderer(sf::RenderWindow& win, std::vector<std::unique_ptr<Object>>& objRef)
     : manager(sl::GetGameManager()),
-    window(win)
+    window(win),
+    gameObjectsRef(objRef)
 {}
 
 void Renderer::Start()
@@ -47,8 +48,7 @@ void Renderer::Start()
 void Renderer::Render()
 {
     window.clear();
-    objectsToRender = manager->GetObjects();
-    for (auto& obj : objectsToRender) {
+    for (auto& obj : gameObjectsRef) {
         obj->Render(window);
     }
     //const float fixedTimeStep = 1.0f / 6000.0f;

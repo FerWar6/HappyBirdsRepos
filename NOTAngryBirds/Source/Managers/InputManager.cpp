@@ -4,15 +4,13 @@
 
 InputManager::InputManager()
 	: clicked(false)
-{
-}
+{}
 
 void InputManager::InputCheck()
 {
 
 	if (IsClicking() && !clicked) {
-		levelManager->AddObject(b2Vec2{ 5,-5 }, b2_dynamicBody);
-		//do click thing
+		//on klick down action
 		std::cout << "Click action" << "\n";
 		clicked = true;
 	}

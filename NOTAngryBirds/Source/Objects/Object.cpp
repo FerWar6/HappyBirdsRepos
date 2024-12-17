@@ -13,10 +13,7 @@ Object::Object(b2Vec2 pos, b2Vec2 size)
 	: manager(sl::GetGameManager()),
 	rect(sf::FloatRect(pos.x, pos.y, size.x, size.y))
 {
-	//std::cout << "object pos: " << GetPos().x << " , " << GetPos().y << "\n";
-	//std::cout << "object size: " << GetSize().x << " , " << GetSize().y << "\n";
 	manager->AddObject(this);
-	//std::cout << "object pointer: " << this << "\n";
 }
 
 Object::Object()

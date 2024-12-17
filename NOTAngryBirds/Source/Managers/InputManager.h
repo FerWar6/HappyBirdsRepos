@@ -7,7 +7,6 @@ public:
 	void InputCheck();
 	bool IsClicking();
 	bool clicked;
-	LevelManager* levelManager;
 private:
 
 };

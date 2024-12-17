@@ -12,32 +12,24 @@ Engine::Engine()
 
 void Engine::Start()
 {
-	//levelManager.AddObject(b2Vec2{ 5.0, -5.0 }, b2_staticBody);
-	levelManager.AddObject(b2Vec2{ 5.0, -10.0 }, b2_dynamicBody);
+	gameObjects.push_back(std::make_unique<PhysicsObject>(b2Vec2{ 5.0, -10.0 }, b2Vec2{ 2.0, 2.0 }, b2_dynamicBody, 1));
+	gameObjects.push_back(std::make_unique<PhysicsObject>(b2Vec2{ 7.0, -5.0 }, b2Vec2{ 1.0, 1.0 }, b2_dynamicBody, 1));
+	gameObjects.push_back(std::make_unique<PhysicsObject>(b2Vec2{ 0, -20.0 }, b2Vec2{ 10, 2.0 }, b2_staticBody, 1));
 }
 
 void Engine::Update()
 {
-	//std::cout << "UPDATE CALLED" << "\n";
 	gameManager.UpdateObjectsVector();
 	inputManager.InputCheck();
-	for (auto& obj : gameManager.GetObjects()) {
+	for (auto& obj : gameObjects) {
 		obj->Update();
 	}
 }
 
 void Engine::FixedUpdate()
 {
-	//std::cout << "FIXEDUPDATE CALLED" << "\n";
 	gameManager.UpdateObjectsVector();
-	for (auto& obj : gameManager.GetObjects()) {
-		//std::cout << "object pointer 1: " << gameManager.GetObjects()[0] << "\n";
-		//std::cout << "object pointer 2: " << gameManager.GetObjects()[1] << "\n";
-		//obj->GetSize();
-		//std::cout << "size.x: " << obj->GetSize().x << "\n";
-		obj->GetPos();
-		obj->GetRect();
-		obj->Update();
+	for (auto& obj : gameObjects) {
 		obj->FixedUpdate();
 	}
 }
@@ -47,3 +39,7 @@ GameManager* Engine::GetManager()
 	return &gameManager;
 }
 
+std::vector<std::unique_ptr<Object>>& Engine::GetGameObjects()
+{
+	return gameObjects;
+}
