@@ -5,26 +5,26 @@ EngineCore::EngineCore()
 	: engine(),
 	renderer(window, engine.GetGameObjects())
 {
-	int winWidth = 1050;
-	int winHeight = 1050;
+	int winWidth = 1500;
+	int winHeight = 900;
 	std::string name = "Happy Birds";
 	window.create(sf::VideoMode(winWidth, winHeight), name);
+	engine.GetManager()->SetWindow(&window);
+	window.setPosition(sf::Vector2i(200,65));
+	sf::Style::Close;
+
     b2WorldDef worldDef = b2DefaultWorldDef();
-    worldDef.gravity = { 0.0f, -9.8f };
+    worldDef.gravity = { 0.0f, 9.8f };
     worldId = b2CreateWorld(&worldDef);
 	engine.GetManager()->SetWorldId(&worldId);
-
-
-
-
+	
 	engine.Start();
-	//renderer.Start();
+	renderer.Start();
 	Start();
 }
 
 void EngineCore::Start()
 {
-	
 	LoopEngine();
 }
 
@@ -45,8 +45,9 @@ void EngineCore::LoopEngine()
 
 		//TO-DO: check for any updates in gameobjects
 		while (accumulator >= timeStep) {
+			//std::cout << accumulator << "\n";
 			engine.FixedUpdate();
-            b2World_Step(worldId, 0.005, 8);
+            b2World_Step(worldId, timeStep, 4);
             accumulator -= timeStep;
 		}
 		engine.Update();

@@ -5,6 +5,7 @@
 #include "Managers/InputManager.h"
 #include "Engine/PreLoader.h"
 #include "Objects/PhysicsObject.h"
+#include "Level/Grid.h"
 class Engine
 {
 public:
@@ -15,14 +16,13 @@ public:
 
 	GameManager* GetManager();
 	std::vector<std::unique_ptr<Object>>& GetGameObjects();
+	GameManager gameManager;
+	PreLoader preLoader;
 
 private:
 	b2DebugDraw debugDrawer;
 
 	std::vector<std::unique_ptr<Object>> gameObjects;
-
-	PreLoader preLoader;
-	GameManager gameManager;
 	LevelManager levelManager;
 	InputManager inputManager;
 };

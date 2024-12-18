@@ -18,8 +18,11 @@ private:
 
 	b2WorldId worldId;
 	sf::Clock gameClock;
+
+	int fixedUpdateFrames = 60;
+	const float timeStep = 1.0f / fixedUpdateFrames;
+	float deltTime = 0.0f;
 	float accumulator = 0.0f;
-	const float timeStep = 1.0f / 60; // 60 updates per second
 };
 
 

@@ -1,11 +1,13 @@
 #include "PreLoader.h"
 #include <filesystem>
 #include <iostream>
+#include "Managers/ServiceLocator.h"
 
 namespace fs = std::filesystem;
 
 PreLoader::PreLoader()
 {
+	sl::GetGameManager()->preLoaderPtr = this;
 	std::string uiPath = "Assets/UI";
 	LoadTextures(uiPath);
 	LoadSpriteSheets();
@@ -22,6 +24,7 @@ sf::Texture& PreLoader::GetTexture(std::string name)
 			textureName.erase(pos);
 		}
 		if (name.compare(textureName) == 0) {
+			//std::cout << "successful return of texture: " << name << std::endl;
 			return texture.GetTexture();
 		}
 	}

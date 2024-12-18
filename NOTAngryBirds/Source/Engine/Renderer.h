@@ -15,14 +15,11 @@ public:
 	Renderer(sf::RenderWindow& win, std::vector<std::unique_ptr<Object>>& objRef);
 	void Start();
 	void Render();
+
+	sf::Sprite grid;
 private:
 
-	//int scale = 50;
-	//b2WorldId worldId;
-
-	//b2BodyId groundId;
-	//b2BodyId cubeId1;
-	//b2BodyId cubeId2;
+	int scale = 50;
 	std::vector<std::unique_ptr<Object>>& gameObjectsRef;
 	sf::RenderWindow& window;
 	GameManager* manager;

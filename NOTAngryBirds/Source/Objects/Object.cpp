@@ -6,14 +6,14 @@ Object::Object(sf::FloatRect r)
 	: manager(sl::GetGameManager()),
 	rect(r)
 {
-	manager->AddObject(this);
+	//manager->AddObject(this);
 }
 
 Object::Object(b2Vec2 pos, b2Vec2 size)
 	: manager(sl::GetGameManager()),
 	rect(sf::FloatRect(pos.x, pos.y, size.x, size.y))
 {
-	manager->AddObject(this);
+	//manager->AddObject(this);
 }
 
 Object::Object()
