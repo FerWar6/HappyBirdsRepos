@@ -13,12 +13,13 @@ Engine::Engine()
 
 void Engine::Start()
 {
-
-	PhysicsObject* physicsObj = new PhysicsObject(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody);
+	PhysicsObject* physicsObj1 = new PhysicsObject(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody);
 	Transform* objTrans = new Transform();
-	physicsObj->AddComponent(objTrans);
+	physicsObj1->AddComponent(objTrans);
+	PhysicsObject* physicsObj2 = new PhysicsObject(b2Vec2{ 25, 15.75 }, b2Vec2{ .5, 1.5 });
+	PhysicsObject* physicsObj3 = new PhysicsObject(b2Vec2{ 25, 14.25 }, b2Vec2{ .5, 1.5 });
 	Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
-	Launcher* launcher = new Launcher();
+	launcherRef = new Launcher();
 }
 
 void Engine::Update()

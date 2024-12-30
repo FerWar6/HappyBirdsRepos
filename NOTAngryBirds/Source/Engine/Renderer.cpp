@@ -18,9 +18,6 @@ void Renderer::Render()
     window.clear();
     for (auto& obj : gameObjectsRef) {
         obj->Render(window);
-
     }
-    std::cout << gameObjectsRef.size() << "\n";
-
     window.display();
 }

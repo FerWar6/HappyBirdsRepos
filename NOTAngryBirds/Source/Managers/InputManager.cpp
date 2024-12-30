@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include "Engine/Engine.h"
+#include "Level/Launcher.h"
 #include <windows.h>
 #include <iostream>
 
@@ -15,12 +16,11 @@ void InputManager::InputCheck()
 	if (IsClicking() && !clicked) {
 		int scale = 50;
 		//on click down action
-		sf::Vector2i posVec = enginePtr->GetManager()->gridPtr->posOnGrid;
-		b2Vec2 spawnPos = b2Vec2{ ((float)posVec.x / scale) + .25f, ((float)posVec.y / scale) + .25f };
-		//b2Vec2{ (float)posVec.x / scale, (float)posVec.y / scale }
-		//b2Vec2 pos = b2Vec2{ pos.x / scale, pos.y / scale };
-		//std::cout << "x: " << pos.x << " y: " << pos.y << "\n";
-		PhysicsObject* obj = new PhysicsObject(spawnPos, b2Vec2{ .5, .5 });
+		//sf::Vector2i posVec = enginePtr->GetManager()->gridPtr->posOnGrid;
+		//b2Vec2 spawnPos = b2Vec2{ ((float)posVec.x / scale) + .25f, ((float)posVec.y / scale) + .25f };
+		b2Vec2 spawnPos = b2Vec2{ enginePtr->launcherRef->GetLaunchPoint().x / scale,enginePtr->launcherRef->GetLaunchPoint().y / scale };
+		//std::cout << "x: " << enginePtr->launcherRef->GetLaunchMomentum().x << " y: " << enginePtr->launcherRef->GetLaunchMomentum().y << "\n";
+		PhysicsObject* obj = new PhysicsObject(spawnPos, b2Vec2{ .5, .5 }, enginePtr->launcherRef->GetLaunchMomentum());
 
 		std::cout << "Click action" << "\n";
 		clicked = true;

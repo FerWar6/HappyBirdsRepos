@@ -31,6 +31,7 @@ public:
 	PreLoader& GetPreLoader();
 	LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
+	Launcher* launcherRef;
 private:
 	GameManager gameManager;
 	PreLoader preLoader;
