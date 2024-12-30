@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Objects/Object.h"
+#include "Components/Transform.h"
 #include <iostream>
 Engine::Engine()
 	: preLoader(),
@@ -7,31 +8,51 @@ Engine::Engine()
 	levelManager(),
 	inputManager(this)
 {
+	gameManager.enginePtr = this;
 }
 
 void Engine::Start()
 {
-	gameObjects.push_back(std::make_unique<PhysicsObject>(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody));
+
+	PhysicsObject* physicsObj = new PhysicsObject(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody);
+	Transform* objTrans = new Transform();
+	physicsObj->AddComponent(objTrans);
 	Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
+	Launcher* launcher = new Launcher();
 }
 
 void Engine::Update()
 {
-	gameManager.UpdateObjectsVector();
 	inputManager.InputCheck();
-	for (auto& obj : gameObjects) {
-		obj->Update();
-	}
-	for (auto& obj : gameManager.GetObjects()) {
+	for (auto& obj : objects) {
 		obj->Update();
 	}
 }
 
 void Engine::FixedUpdate()
 {
-	gameManager.UpdateObjectsVector();
-	for (auto& obj : gameObjects) {
+	for (auto& obj : objects) {
 		obj->FixedUpdate();
+	}
+}
+
+void Engine::UpdateObjectsVector()
+{
+	if (!markedForAddition.empty()) {
+		objects.insert(objects.end(), markedForAddition.begin(), markedForAddition.end());
+		markedForAddition.clear();
+	}
+
+	if (!markedForDeletion.empty()) {
+		for (Object* obj : markedForDeletion) {
+			auto it = std::find(objects.begin(), objects.end(), obj);
+			if (it != objects.end()) {
+				objects.erase(it);
+			}
+			delete obj;
+			obj = nullptr;
+		}
+		markedForDeletion.clear();
 	}
 }
 
@@ -40,7 +61,32 @@ GameManager* Engine::GetManager()
 	return &gameManager;
 }
 
-std::vector<std::unique_ptr<Object>>& Engine::GetGameObjects()
+void Engine::AddObject(Object* p)
 {
-	return gameObjects;
+	objects.push_back(p);
+}
+
+void Engine::DeleteObject(Object* o)
+{
+	markedForDeletion.push_back(o);
+}
+
+GameManager& Engine::GetGameManager()
+{
+	return gameManager;
+}
+
+PreLoader& Engine::GetPreLoader()
+{
+	return preLoader;
+}
+
+LevelManager& Engine::GetLevelManager()
+{
+	return levelManager;
+}
+
+InputManager& Engine::GetInputManager()
+{
+	return inputManager;
 }

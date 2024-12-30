@@ -1,45 +1,36 @@
 #include "Object.h"
 #include "Managers/ServiceLocator.h"
+#include "Engine/Engine.h"
 #include <iostream>
 
-Object::Object(sf::FloatRect r)
-	: manager(sl::GetGameManager()),
-	rect(r)
-{
-	//manager->AddObject(this);
-}
-
-Object::Object(b2Vec2 pos, b2Vec2 size)
-	: manager(sl::GetGameManager()),
-	rect(sf::FloatRect(pos.x, pos.y, size.x, size.y))
-{
-	//manager->AddObject(this);
-}
-
 Object::Object()
-	: manager(sl::GetGameManager()),
-	rect(0,0,0,0) 
+	: manager(sl::GetGameManager())
 {
-	manager->AddObject(this);
+	manager->enginePtr->AddObject(this);
 }
 
-void Object::Update() {}
-void Object::FixedUpdate() {}
-void Object::Render(sf::RenderWindow& window) {}
+Object::~Object()
+{
+}
 
-sf::FloatRect Object::GetRect()
+Component* Object::GetComponent(std::string name)
 {
-	return rect;
+	for (auto& comp : components) {
+		if (comp->name == name) return comp;
+	}
+	std::cout << "returned nullptr from GetComponent\n";
+	return nullptr;
 }
-sf::Vector2f Object::GetPos()
+
+void Object::AddComponent(Component* c)
 {
-	return rect.getPosition();
+	components.push_back(c);
 }
-sf::Vector2f Object::GetSize()
+
+bool Object::HasComponent(std::string componentName)
 {
-	return rect.getSize();
-}
-void Object::Delete()
-{
-	manager->DeleteObject(this);
+	for (auto& comp : components) {
+		if (comp->name == componentName) return true;
+	}
+	return false;
 }

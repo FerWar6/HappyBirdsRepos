@@ -15,12 +15,12 @@ void InputManager::InputCheck()
 	if (IsClicking() && !clicked) {
 		int scale = 50;
 		//on click down action
-		sf::Vector2i posVec = enginePtr->gameManager.gridPtr->posOnGrid;
+		sf::Vector2i posVec = enginePtr->GetManager()->gridPtr->posOnGrid;
 		b2Vec2 spawnPos = b2Vec2{ ((float)posVec.x / scale) + .25f, ((float)posVec.y / scale) + .25f };
 		//b2Vec2{ (float)posVec.x / scale, (float)posVec.y / scale }
 		//b2Vec2 pos = b2Vec2{ pos.x / scale, pos.y / scale };
 		//std::cout << "x: " << pos.x << " y: " << pos.y << "\n";
-		enginePtr->GetGameObjects().push_back(std::make_unique<PhysicsObject>(spawnPos, b2Vec2{.5, .5}));
+		PhysicsObject* obj = new PhysicsObject(spawnPos, b2Vec2{ .5, .5 });
 
 		std::cout << "Click action" << "\n";
 		clicked = true;

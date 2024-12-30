@@ -10,7 +10,6 @@ public:
 	void Start();
 	void LoopEngine();
 
-
 private:
 	Engine engine;
 	Renderer renderer;

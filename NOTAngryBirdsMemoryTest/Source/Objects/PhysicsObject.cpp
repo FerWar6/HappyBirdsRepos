@@ -1,4 +1,5 @@
 #include "PhysicsObject.h"
+#include "PhysicsObject.h"
 #include <iostream>
 PhysicsObject::PhysicsObject(b2Vec2 posInMeters, b2Vec2 sizeInMeters,
     b2BodyType type, float density)
@@ -24,10 +25,17 @@ b2BodyId PhysicsObject::GetBodyId()
 
 void PhysicsObject::Update()
 {
+    return;
 }
 
 void PhysicsObject::FixedUpdate()
 {
+    return;
+}
+
+void PhysicsObject::Delete()
+{
+    return;
 }
 
 //void PhysicsObject::Render(sf::RenderWindow& window)

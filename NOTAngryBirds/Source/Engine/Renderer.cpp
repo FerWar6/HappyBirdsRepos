@@ -3,7 +3,7 @@
 #include <cmath>
 #define PI 3.14159265358979323846
 
-Renderer::Renderer(sf::RenderWindow& win, std::vector<std::unique_ptr<Object>>& objRef)
+Renderer::Renderer(sf::RenderWindow& win, std::vector<Object*>& objRef)
     : manager(sl::GetGameManager()),
     window(win),
     gameObjectsRef(objRef)
@@ -16,12 +16,11 @@ void Renderer::Start()
 void Renderer::Render()
 {
     window.clear();
-    for (auto& obj : manager->GetObjects()) {
-        obj->Render(window);
-    }
     for (auto& obj : gameObjectsRef) {
         obj->Render(window);
+
     }
+    std::cout << gameObjectsRef.size() << "\n";
 
     window.display();
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Objects/Object.h"
 #include "Managers/InputManager.h"
-class Grid : Object
+class Grid : public Object
 {
 public:
 	Grid(sf::RenderWindow& window, InputManager& inputManager);

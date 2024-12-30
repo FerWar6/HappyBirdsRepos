@@ -1,6 +1,7 @@
 #pragma once
 #include "box2d/box2d.h"
 #include "Objects/Object.h"
+#include "Components/SpriteRenderer.h"
 class PhysicsObject : public Object
 {
 public:

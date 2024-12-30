@@ -6,6 +6,8 @@
 #include "Engine/PreLoader.h"
 #include "Objects/PhysicsObject.h"
 #include "Level/Grid.h"
+#include "Level/Launcher.h"
+
 class Engine
 {
 public:
@@ -13,16 +15,25 @@ public:
 	void Start();
 	void Update();
 	void FixedUpdate();
+	void UpdateObjectsVector();
 
 	GameManager* GetManager();
-	std::vector<std::unique_ptr<Object>>& GetGameObjects();
+
+
+	void AddObject(Object* obj);
+	void DeleteObject(Object* obj);
+
+	std::vector<Object*> objects;
+
+	std::vector<Object*> markedForAddition;
+	std::vector<Object*> markedForDeletion;
+	GameManager& GetGameManager();
+	PreLoader& GetPreLoader();
+	LevelManager& GetLevelManager();
+	InputManager& GetInputManager();
+private:
 	GameManager gameManager;
 	PreLoader preLoader;
-
-private:
-	b2DebugDraw debugDrawer;
-
-	std::vector<std::unique_ptr<Object>> gameObjects;
 	LevelManager levelManager;
 	InputManager inputManager;
 };

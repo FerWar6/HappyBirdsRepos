@@ -3,7 +3,7 @@
 #include <stdio.h>
 EngineCore::EngineCore()
 	: engine(),
-	renderer(window, engine.GetGameObjects())
+	renderer(window, engine.objects)
 {
 	int winWidth = 1500;
 	int winHeight = 900;
@@ -39,6 +39,7 @@ void EngineCore::LoopEngine()
 				window.close();
 			}
 		}
+		engine.UpdateObjectsVector();
 
 		sf::Time elapsed = gameClock.restart();
 		accumulator += elapsed.asSeconds();

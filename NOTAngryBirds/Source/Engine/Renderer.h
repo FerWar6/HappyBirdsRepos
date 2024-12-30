@@ -12,7 +12,7 @@ class EngineCore;
 class Renderer
 {
 public:
-	Renderer(sf::RenderWindow& win, std::vector<std::unique_ptr<Object>>& objRef);
+	Renderer(sf::RenderWindow& win, std::vector<Object*>& objRef);
 	void Start();
 	void Render();
 
@@ -20,7 +20,7 @@ public:
 private:
 
 	int scale = 50;
-	std::vector<std::unique_ptr<Object>>& gameObjectsRef;
+	std::vector<Object*>& gameObjectsRef;
 	sf::RenderWindow& window;
 	GameManager* manager;
 	std::vector<Object*> objectsToRender;
