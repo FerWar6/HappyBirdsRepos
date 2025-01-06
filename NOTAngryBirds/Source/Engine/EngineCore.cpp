@@ -10,6 +10,7 @@ EngineCore::EngineCore()
 	std::string name = "Happy Birds";
 	window.create(sf::VideoMode(winWidth, winHeight), name);
 	engine.GetManager()->SetWindow(&window);
+	//window.setPosition(sf::Vector2i(700,300));
 	window.setPosition(sf::Vector2i(200,65));
 	sf::Style::Close;
 

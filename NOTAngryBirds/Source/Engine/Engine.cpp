@@ -2,6 +2,9 @@
 #include "Objects/Object.h"
 #include "Components/Transform.h"
 #include <iostream>
+#include <fstream>
+#include <filesystem>
+
 Engine::Engine()
 	: preLoader(),
 	gameManager(),
@@ -20,6 +23,43 @@ void Engine::Start()
 	PhysicsObject* physicsObj3 = new PhysicsObject(b2Vec2{ 25, 14.25 }, b2Vec2{ .5, 1.5 });
 	Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
 	launcherRef = new Launcher();
+
+	std::string levelsPath = "Assets/Levels/";
+	int levelNum = 1;
+
+	std::ofstream MyFile(levelsPath + "level" + std::to_string(levelNum) + ".txt");
+
+	// Write to the file
+	MyFile << "Files can be tricky, but it is fun enough! \n";
+
+	MyFile.close();
+
+	std::string myText;
+
+	std::ifstream MyReadFile("Assets/Levels/level1.txt");
+
+	// Use a while loop together with the getline() function to read the file line by line
+	while (getline(MyReadFile, myText)) {
+		// Output the text from the file
+		std::cout << myText;
+	}
+
+	const std::filesystem::path pathToShow{ argc >= 2 ? argv[1] : std::filesystem::current_path() };
+
+	for (const auto& entry : std::filesystem::directory_iterator(pathToShow)) {
+		const auto filenameStr = entry.path().filename().string();
+		if (entry.is_directory()) {
+			std::cout << "dir:  " << filenameStr << '\n';
+		}
+		else if (entry.is_regular_file()) {
+			std::cout << "file: " << filenameStr << '\n';
+		}
+		else
+			std::cout << "??    " << filenameStr << '\n';
+	}
+
+	// Close the file
+	MyReadFile.close();
 }
 
 void Engine::Update()

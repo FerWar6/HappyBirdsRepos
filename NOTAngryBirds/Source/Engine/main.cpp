@@ -1,7 +1,5 @@
-#include <SFML/Graphics.hpp>
 #include "Engine/EngineCore.h"
-#include <cstdlib>
-int main() 
+int main()
 {
 	EngineCore core = EngineCore();
 }

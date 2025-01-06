@@ -1,6 +1,7 @@
 #include "InputManager.h"
 #include "Engine/Engine.h"
 #include "Level/Launcher.h"
+#include "Objects/CannonBall.h"
 #include <windows.h>
 #include <iostream>
 
@@ -21,7 +22,7 @@ void InputManager::InputCheck()
 		b2Vec2 spawnPos = b2Vec2{ enginePtr->launcherRef->GetLaunchPoint().x / scale,enginePtr->launcherRef->GetLaunchPoint().y / scale };
 		//std::cout << "x: " << enginePtr->launcherRef->GetLaunchMomentum().x << " y: " << enginePtr->launcherRef->GetLaunchMomentum().y << "\n";
 		PhysicsObject* obj = new PhysicsObject(spawnPos, b2Vec2{ .5, .5 }, enginePtr->launcherRef->GetLaunchMomentum());
-
+		//CannonBall* ball = new CannonBall(spawnPos);
 		std::cout << "Click action" << "\n";
 		clicked = true;
 	}
