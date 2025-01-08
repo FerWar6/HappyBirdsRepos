@@ -5,9 +5,6 @@ PhysicsObject::PhysicsObject(b2Vec2 posInMeters, b2Vec2 sizeInMeters,
     : Object(),
     size(sizeInMeters.x, sizeInMeters.y)
 {
-    SpriteRenderer* spriteRen = new SpriteRenderer();
-    AddComponent(spriteRen);
-
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = type;
     defaultBody.position = { posInMeters.x, posInMeters.y };
@@ -23,9 +20,6 @@ PhysicsObject::PhysicsObject(b2Vec2 posInMeters, b2Vec2 sizeInMeters,
     : Object(),
     size(sizeInMeters.x, sizeInMeters.y)
 {
-    SpriteRenderer* spriteRen = new SpriteRenderer();
-    AddComponent(spriteRen);
-
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = b2_dynamicBody;
     defaultBody.position = { posInMeters.x, posInMeters.y };

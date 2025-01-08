@@ -1,4 +1,6 @@
 #include "Object.h"
+#include "Object.h"
+#include "Object.h"
 #include "Managers/ServiceLocator.h"
 #include <iostream>
 
@@ -39,7 +41,9 @@ sf::Vector2f Object::GetSize()
 {
 	return rect.getSize();
 }
-void Object::Delete()
+void Object::SetSizeInM(b2Vec2 sizeInM)
 {
-	manager->DeleteObject(this);
+}
+void Object::SetSize(sf::Vector2f size)
+{
 }

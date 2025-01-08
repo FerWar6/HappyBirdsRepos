@@ -1,6 +1,8 @@
 #include "Engine.h"
 #include "Objects/Object.h"
-#include "Components/Transform.h"
+#include "Objects/Components/SpriteRenderer.h"
+#include "Objects/Components/RectRigidbody.h"
+#include "Objects/Components/CircleRigidbody.h"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -16,14 +18,68 @@ Engine::Engine()
 
 void Engine::Start()
 {
-	PhysicsObject* physicsObj1 = new PhysicsObject(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody);
-	Transform* objTrans = new Transform();
-	physicsObj1->AddComponent(objTrans);
-	PhysicsObject* physicsObj2 = new PhysicsObject(b2Vec2{ 25, 15.75 }, b2Vec2{ .5, 1.5 });
-	PhysicsObject* physicsObj3 = new PhysicsObject(b2Vec2{ 25, 14.25 }, b2Vec2{ .5, 1.5 });
 	Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
-	launcherRef = new Launcher();
+	launcherPtr = new Launcher();
+	{
+		Object* obj = new Object();
+		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody, 1, gameManager.GetWorldId());
+		obj->AddComponent(body);
+		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
+		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		obj->AddComponent(ren);
+	}
+	{
+		Object* obj = new Object();
+		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 0, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
+		obj->AddComponent(body);
+		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
+		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		obj->AddComponent(ren);
+	}
+	{
+		Object* obj = new Object();
+		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 30, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
+		obj->AddComponent(body);
+		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
+		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		obj->AddComponent(ren);
+	}
 
+
+
+	{
+		Object* obj = new Object();
+
+		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 25, 15.75 }, b2Vec2{ .5, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
+		obj->AddComponent(body);
+
+		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
+		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		obj->AddComponent(ren);
+	}
+	{
+		Object* obj = new Object();
+
+		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 25, 14.25 }, b2Vec2{ 1, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
+		obj->AddComponent(body);
+
+		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
+		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		obj->AddComponent(ren);
+	}
+
+
+
+	{
+		Object* obj = new Object();
+
+		CircleRigidbody* body = new CircleRigidbody(*obj, b2Vec2{ 15, 5 }, 1, b2_dynamicBody, gameManager.GetWorldId());
+		obj->AddComponent(body);
+
+		sf::Texture& txr = preLoader.GetTexture("CannonBall");
+		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		obj->AddComponent(ren);
+	}
 	std::string levelsPath = "Assets/Levels/";
 	int levelNum = 1;
 
@@ -43,21 +99,6 @@ void Engine::Start()
 		// Output the text from the file
 		std::cout << myText;
 	}
-
-	const std::filesystem::path pathToShow{ argc >= 2 ? argv[1] : std::filesystem::current_path() };
-
-	for (const auto& entry : std::filesystem::directory_iterator(pathToShow)) {
-		const auto filenameStr = entry.path().filename().string();
-		if (entry.is_directory()) {
-			std::cout << "dir:  " << filenameStr << '\n';
-		}
-		else if (entry.is_regular_file()) {
-			std::cout << "file: " << filenameStr << '\n';
-		}
-		else
-			std::cout << "??    " << filenameStr << '\n';
-	}
-
 	// Close the file
 	MyReadFile.close();
 }

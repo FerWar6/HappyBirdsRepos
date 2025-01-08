@@ -52,8 +52,6 @@ std::vector<SpriteSheet>& PreLoader::GetSpriteSheets()
 	return spriteSheets;
 }
 
-
-
 void PreLoader::LoadTextures(std::string path)
 {
 	for (const auto& entry : fs::directory_iterator(path)) {

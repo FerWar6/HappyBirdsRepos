@@ -9,5 +9,6 @@ public:
 	void AddObject(b2Vec2 pos, b2BodyType type);
 private:
 	std::vector<PhysicsObject> objs;
+	std::string levelsPath = "Assets/Levels/";
 	//std::vector<PhysicsObject*> objs;
 };

@@ -153,7 +153,7 @@ void Launcher::DrawPreview(sf::RenderWindow& window)
 		float velocity = GetLaunchVelocity() * 3.14159f;
 		bool flipPreview = !(angle < 3.14159f / 2 && angle > -3.14159f / 2);
 		if (flipPreview) angle = angle - (angle - 3.14159f/2) * 2;
-		//float x = i * 7 + previewStartDistance;
+		//float x = i * 7;
 		float x = (startDistanceMultiplier + i) * GetXWidth(angle, velocity, amountOfDots, archLenght);
 		float y = (x * tan(angle) + (g * std::pow(x, 2)) / (2 * std::pow(velocity, 2) * std::pow(cos(angle), 2)));
 		sf::Vector2f launchPos(GetLaunchPoint());

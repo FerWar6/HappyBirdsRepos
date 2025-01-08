@@ -7,6 +7,7 @@
 #include "Objects/PhysicsObject.h"
 #include "Level/Grid.h"
 #include "Level/Launcher.h"
+#include "Engine/Enums/Scenes.h"
 
 class Engine
 {
@@ -31,8 +32,9 @@ public:
 	PreLoader& GetPreLoader();
 	LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
-	Launcher* launcherRef;
+	Launcher* launcherPtr;
 private:
+	Scene currentScene;
 	GameManager gameManager;
 	PreLoader preLoader;
 	LevelManager levelManager;
