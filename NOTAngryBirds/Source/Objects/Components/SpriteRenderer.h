@@ -3,7 +3,7 @@
 #include "SFML/Graphics.hpp"
 struct SpriteRenderer : Component
 {
-	SpriteRenderer(Object& obj, sf::Texture& txrRef);
+	SpriteRenderer(sf::Texture& txrRef);
 	sf::Sprite sprite;
 	void Render(sf::RenderWindow& window) override;
 };

@@ -3,6 +3,7 @@
 #include "Objects/Components/SpriteRenderer.h"
 #include "Objects/Components/RectRigidbody.h"
 #include "Objects/Components/CircleRigidbody.h"
+#include "Managers/ServiceLocator.h"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -11,7 +12,8 @@ Engine::Engine()
 	: preLoader(),
 	gameManager(),
 	levelManager(),
-	inputManager(this)
+	inputManager(this),
+	currentScene(Scene::MainMenu)
 {
 	gameManager.enginePtr = this;
 }
@@ -22,63 +24,50 @@ void Engine::Start()
 	launcherPtr = new Launcher();
 	{
 		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody, 1, gameManager.GetWorldId());
-		obj->AddComponent(body);
+		RectRigidbody* body = new RectRigidbody(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody, 1, gameManager.GetWorldId());
 		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
-		obj->AddComponent(ren);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 	}
 	{
 		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 0, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
-		obj->AddComponent(body);
+		RectRigidbody* body = new RectRigidbody(b2Vec2{ 0, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
 		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
-		obj->AddComponent(ren);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 	}
 	{
 		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 30, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
-		obj->AddComponent(body);
+		RectRigidbody* body = new RectRigidbody(b2Vec2{ 30, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
 		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
-		obj->AddComponent(ren);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 	}
 
 
 
 	{
 		Object* obj = new Object();
-
-		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 25, 15.75 }, b2Vec2{ .5, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
-		obj->AddComponent(body);
-
+		RectRigidbody* body = new RectRigidbody(b2Vec2{ 25, 15.75 }, b2Vec2{ .5, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
 		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
-		obj->AddComponent(ren);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 	}
 	{
 		Object* obj = new Object();
-
-		RectRigidbody* body = new RectRigidbody(*obj, b2Vec2{ 25, 14.25 }, b2Vec2{ 1, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
-		obj->AddComponent(body);
-
+		RectRigidbody* body = new RectRigidbody(b2Vec2{ 25, 14.25 }, b2Vec2{ 1, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
 		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
-		obj->AddComponent(ren);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 	}
 
 
 
 	{
 		Object* obj = new Object();
-
-		CircleRigidbody* body = new CircleRigidbody(*obj, b2Vec2{ 15, 5 }, 1, b2_dynamicBody, gameManager.GetWorldId());
-		obj->AddComponent(body);
-
+		CircleRigidbody* body = new CircleRigidbody(b2Vec2{ 15, 5 }, 1, b2_dynamicBody, gameManager.GetWorldId());
 		sf::Texture& txr = preLoader.GetTexture("CannonBall");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
-		obj->AddComponent(ren);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
+	}
+	{
+		Object* obj = new Object();
+		sf::Texture& txr = preLoader.GetTexture("CannonBall");
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 	}
 	std::string levelsPath = "Assets/Levels/";
 	int levelNum = 1;

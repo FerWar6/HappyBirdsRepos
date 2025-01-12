@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <iostream>
 #include "Managers/ServiceLocator.h"
-
+#include "Managers/GameManager.h"
 namespace fs = std::filesystem;
 
 PreLoader::PreLoader()

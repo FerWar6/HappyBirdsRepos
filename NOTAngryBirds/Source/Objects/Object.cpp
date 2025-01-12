@@ -3,17 +3,19 @@
 #include "Engine/Engine.h"
 #include <iostream>
 
-Object::Object()
+Object::Object(bool setAsSelected)
 	: manager(sl::GetGameManager()),
 	transform()
 {
+	if (setAsSelected) sl::SetSelectedObj(this);
 	manager->enginePtr->AddObject(this);
 }
 
-Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size)
+Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size, bool setAsSelected)
 	: manager(sl::GetGameManager()),
 	transform(Vector2(pos.x, pos.y), rot, Size(size.x, size.y))
 {
+	if (setAsSelected) sl::SetSelectedObj(this);
 	manager->enginePtr->AddObject(this);
 }
 
@@ -50,6 +52,7 @@ Component* Object::GetComponent(std::string name)
 
 void Object::AddComponent(Component* c)
 {
+	c->object = this;
 	components.push_back(c);
 }
 
@@ -106,3 +109,4 @@ void Object::SetSize(sf::Vector2f s)
 	transform.size.w = s.x;
 	transform.size.h = s.y;
 }
+

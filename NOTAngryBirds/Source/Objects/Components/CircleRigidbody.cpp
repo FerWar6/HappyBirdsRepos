@@ -2,9 +2,9 @@
 #include "Objects/Object.h"
 #include "Managers/GameManager.h"
 
-CircleRigidbody::CircleRigidbody(Object& obj, b2Vec2 posInM, float radiusInM,
+CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM,
     b2BodyType type, b2WorldId& id, float density)
-    : Component(obj, "CircleRigidbody")
+    : Component("CircleRigidbody")
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = type;
@@ -18,11 +18,11 @@ CircleRigidbody::CircleRigidbody(Object& obj, b2Vec2 posInM, float radiusInM,
     b2Circle circleData = { b2Vec2{0,0}, radiusInM };
     b2CreateCircleShape(bodyId, &shapeDef, &circleData);
 
-    object.SetSizeInM(b2Vec2{ radiusInM * 2, radiusInM * 2 });
+    object->SetSizeInM(b2Vec2{ radiusInM * 2, radiusInM * 2 });
 }
 
-CircleRigidbody::CircleRigidbody(Object& obj, b2Vec2 posInM, float radiusInM, b2Vec2 startVel, b2WorldId& id, float density)
-    : Component(obj, "CircleRigidbody")
+CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, b2Vec2 startVel, b2WorldId& id, float density)
+    : Component("CircleRigidbody")
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = b2_dynamicBody;
@@ -37,15 +37,15 @@ CircleRigidbody::CircleRigidbody(Object& obj, b2Vec2 posInM, float radiusInM, b2
     b2Circle circleData = { b2Vec2{0,0}, radiusInM };
     b2CreateCircleShape(bodyId, &shapeDef, &circleData);
 
-    object.SetSizeInM(b2Vec2{ radiusInM * 2, radiusInM * 2 });
+    object->SetSizeInM(b2Vec2{ radiusInM * 2, radiusInM * 2 });
 }
 
 void CircleRigidbody::FixedUpdate()
 {
     b2Vec2 pos = b2Body_GetPosition(bodyId);
     b2Rot rot = b2Body_GetRotation(bodyId);
-    object.SetPosInM(pos);
-    object.SetRot(std::atan2(rot.s, rot.c) * 180 / 3.14159f);
+    object->SetPosInM(pos);
+    object->SetRot(std::atan2(rot.s, rot.c) * 180 / 3.14159f);
 }
 
 //void CircleRigidbody::Render(sf::RenderWindow& window)

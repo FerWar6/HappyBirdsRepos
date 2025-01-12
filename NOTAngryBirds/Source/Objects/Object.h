@@ -7,8 +7,8 @@
 class Object
 {
 public:
-	Object();
-	Object(sf::Vector2f pos, float rotation, sf::Vector2f size);
+	Object(bool setAsSelected = true);
+	Object(sf::Vector2f pos, float rotation, sf::Vector2f size, bool setAsSelected = true);
 	~Object();
 
 	virtual void Update();
@@ -33,7 +33,7 @@ public:
 	void SetSizeInM(b2Vec2 sizeInM);
 	void SetSize(sf::Vector2f size);
 
-protected:
+private:
 	Transform transform;
 	std::vector<Component*> components;
 };

@@ -18,6 +18,7 @@ InputManager::InputManager(Engine* e)
 
 void InputManager::InputCheck()
 {
+	//mouseOne, mouseOneDown, mouseOneUp
 	cursorPos = sf::Mouse::getPosition(enginePtr->GetManager()->GetWindow());
 	//std::cout << "x: " << cursorPos.x << " y: " << cursorPos.y << "\n";
 	if (IsClicking() && !clicked) {
@@ -30,14 +31,15 @@ void InputManager::InputCheck()
 
 		//add starting velocity
 		float ballSize = 0.5f;
-		CircleRigidbody* body = new CircleRigidbody(*obj, spawnPos, ballSize, enginePtr->launcherPtr->GetLaunchMomentum(), enginePtr->GetManager()->GetWorldId());
+		CircleRigidbody* body = new CircleRigidbody(spawnPos, ballSize, enginePtr->launcherPtr->GetLaunchMomentum(), enginePtr->GetManager()->GetWorldId());
 		obj->AddComponent(body);
 
 		sf::Texture& txr = enginePtr->GetPreLoader().GetTexture("CannonBall");
-		SpriteRenderer* ren = new SpriteRenderer(*obj, txr);
+		SpriteRenderer* ren = new SpriteRenderer(txr);
 		obj->AddComponent(ren);
 
 		std::cout << "Click action" << "\n";
+		onMouseLeftDown.Invoke();
 		clicked = true;
 	}
 	else if (!IsClicking() && clicked) {
