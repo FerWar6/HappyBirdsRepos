@@ -7,15 +7,26 @@ Object::Object(bool setAsSelected)
 	: manager(sl::GetGameManager()),
 	transform()
 {
-	if (setAsSelected) sl::SetSelectedObj(this);
-	manager->enginePtr->AddObject(this);
+	Start(setAsSelected);
 }
 
-Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size, bool setAsSelected)
+Object::Object(Transform trans, bool setAsSelected)
+	: manager(sl::GetGameManager()),
+	transform(trans)
+{
+	Start(setAsSelected);
+}
+
+Object::Object(sf::Vector2f pos, sf::Vector2f size, float rot, bool setAsSelected)
 	: manager(sl::GetGameManager()),
 	transform(Vector2(pos.x, pos.y), rot, Size(size.x, size.y))
 {
-	if (setAsSelected) sl::SetSelectedObj(this);
+	Start(setAsSelected);
+}
+
+void Object::Start(bool setAsSel)
+{
+	if (setAsSel) sl::SetSelectedObj(this);
 	manager->enginePtr->AddObject(this);
 }
 
@@ -41,13 +52,23 @@ void Object::Render(sf::RenderWindow& w) {
 	}
 }
 
-Component* Object::GetComponent(std::string name)
+Component* Object::GetComponent(ComponentType type)
 {
 	for (auto& comp : components) {
-		if (comp->name == name) return comp;
+		if (comp->type == type) return comp;
 	}
 	std::cout << "returned nullptr from GetComponent\n";
 	return nullptr;
+}
+
+Component* Object::GetComponent(int indexInVector)
+{
+	return components[indexInVector]->GetComponentPtr();
+}
+
+std::vector<Component*>& Object::GetComponents()
+{
+	return components;
 }
 
 void Object::AddComponent(Component* c)
@@ -56,10 +77,10 @@ void Object::AddComponent(Component* c)
 	components.push_back(c);
 }
 
-bool Object::HasComponent(std::string componentName)
+bool Object::HasComponent(ComponentType type)
 {
 	for (auto& comp : components) {
-		if (comp->name == componentName) return true;
+		if (comp->type == type) return true;
 	}
 	return false;
 }
@@ -67,6 +88,12 @@ bool Object::HasComponent(std::string componentName)
 const sf::Vector2f Object::GetPos()
 {
 	return sf::Vector2f(transform.position.x, transform.position.y);
+}
+
+const b2Vec2 Object::GetPosInM()
+{
+	int scale = manager->worldScale;
+	return b2Vec2{ transform.position.x / scale, transform.position.y / scale};
 }
 
 void Object::SetPosInM(b2Vec2 posInM)
@@ -80,6 +107,12 @@ void Object::SetPos(sf::Vector2f pos)
 {
 	transform.position.x = pos.x;
 	transform.position.y = pos.y;
+}
+
+void Object::SetPos(float x, float y)
+{
+	transform.position.x = x;
+	transform.position.y = y;
 }
 
 const float Object::GetRot()
@@ -97,6 +130,13 @@ const sf::Vector2f Object::GetSize()
 	return sf::Vector2f(transform.size.w, transform.size.h);
 }
 
+const b2Vec2 Object::GetSizeInM()
+{
+	int scale = manager->worldScale;
+	//std::cout << transform.size.w / scale << "\n";
+	return b2Vec2{ transform.size.w / scale, transform.size.h / scale };
+}
+
 void Object::SetSizeInM(b2Vec2 posInM)
 {
 	int scale = manager->worldScale;
@@ -109,4 +149,11 @@ void Object::SetSize(sf::Vector2f s)
 	transform.size.w = s.x;
 	transform.size.h = s.y;
 }
+
+const Transform Object::GetTransform()
+{
+	return transform;
+}
+
+
 

@@ -5,11 +5,12 @@
 class InputManager;
 struct Button : public Component
 {
-	Button(std::function<void()> onClick, InputManager& inputM);
+	Button(std::function<void()> onClick);
 	~Button();
+	void Update() override;
 	std::function<void()> OnClick;
-	sf::Vector2i& mousePos;
 private:
 	InputManager& inputMan;
 	void HandleClick();
+	bool HoveringOver();
 };

@@ -34,11 +34,10 @@ void InputManager::InputCheck()
 		CircleRigidbody* body = new CircleRigidbody(spawnPos, ballSize, enginePtr->launcherPtr->GetLaunchMomentum(), enginePtr->GetManager()->GetWorldId());
 		obj->AddComponent(body);
 
-		sf::Texture& txr = enginePtr->GetPreLoader().GetTexture("CannonBall");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
+		SpriteRenderer* ren = new SpriteRenderer("CannonBall");
 		obj->AddComponent(ren);
 
-		std::cout << "Click action" << "\n";
+		//std::cout << "Click action" << "\n";
 		onMouseLeftDown.Invoke();
 		clicked = true;
 	}
@@ -51,5 +50,25 @@ void InputManager::InputCheck()
 bool InputManager::IsClicking()
 {
 	return (GetKeyState(VK_LBUTTON) & 0x8000) != 0;
+}
+
+bool InputManager::GetKey(KeyCode key)
+{
+	switch (key) {
+	case KeyCode::MouseLeft:
+		return (GetKeyState(VK_LBUTTON) & 0x8000) != 0;
+		break;
+
+	case KeyCode::MouseMiddle:
+		return (GetKeyState(VK_MBUTTON) & 0x8000) != 0;
+
+		break;
+	case KeyCode::MouseRight:
+
+		break;
+	default:
+		return false;
+		break;
+	}
 }
 

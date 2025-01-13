@@ -25,14 +25,16 @@ public:
 	void DeleteObject(Object* obj);
 
 	std::vector<Object*> objects;
-
 	std::vector<Object*> markedForAddition;
 	std::vector<Object*> markedForDeletion;
+
 	GameManager& GetGameManager();
 	PreLoader& GetPreLoader();
 	LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
+
 	Launcher* launcherPtr;
+	void MoveToScene(Scene scene);
 private:
 	Scene currentScene;
 	GameManager gameManager;

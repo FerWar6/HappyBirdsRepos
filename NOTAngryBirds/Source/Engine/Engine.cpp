@@ -3,6 +3,7 @@
 #include "Objects/Components/SpriteRenderer.h"
 #include "Objects/Components/RectRigidbody.h"
 #include "Objects/Components/CircleRigidbody.h"
+#include "Objects/Components/Button.h"
 #include "Managers/ServiceLocator.h"
 #include <iostream>
 #include <fstream>
@@ -20,76 +21,17 @@ Engine::Engine()
 
 void Engine::Start()
 {
+	std::string path = "Assets/Levels/level1.txt";
+	//levelManager.SaveExistingLevel(path, objects);
+	levelManager.LoadLevel(path);
 	Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
 	launcherPtr = new Launcher();
 	{
 		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(b2Vec2{ 0, 17.5 }, b2Vec2{ 100, 2 }, b2_staticBody, 1, gameManager.GetWorldId());
-		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
+		obj->SetPos(600,600);
+		SpriteRenderer* ren = new SpriteRenderer("StartButton");
+		Button* butt = new Button(std::bind(&Engine::MoveToScene, this, Scene::Level));
 	}
-	{
-		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(b2Vec2{ 0, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
-		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
-	}
-	{
-		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(b2Vec2{ 30, 17.5 }, b2Vec2{ 2, 30 }, b2_staticBody, 1, gameManager.GetWorldId());
-		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
-	}
-
-
-
-	{
-		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(b2Vec2{ 25, 15.75 }, b2Vec2{ .5, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
-		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
-	}
-	{
-		Object* obj = new Object();
-		RectRigidbody* body = new RectRigidbody(b2Vec2{ 25, 14.25 }, b2Vec2{ 1, 1.5 }, b2_dynamicBody, 1, gameManager.GetWorldId());
-		sf::Texture& txr = preLoader.GetTexture("BoxPlaceholder");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
-	}
-
-
-
-	{
-		Object* obj = new Object();
-		CircleRigidbody* body = new CircleRigidbody(b2Vec2{ 15, 5 }, 1, b2_dynamicBody, gameManager.GetWorldId());
-		sf::Texture& txr = preLoader.GetTexture("CannonBall");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
-	}
-	{
-		Object* obj = new Object();
-		sf::Texture& txr = preLoader.GetTexture("CannonBall");
-		SpriteRenderer* ren = new SpriteRenderer(txr);
-	}
-	std::string levelsPath = "Assets/Levels/";
-	int levelNum = 1;
-
-	std::ofstream MyFile(levelsPath + "level" + std::to_string(levelNum) + ".txt");
-
-	// Write to the file
-	MyFile << "Files can be tricky, but it is fun enough! \n";
-
-	MyFile.close();
-
-	std::string myText;
-
-	std::ifstream MyReadFile("Assets/Levels/level1.txt");
-
-	// Use a while loop together with the getline() function to read the file line by line
-	while (getline(MyReadFile, myText)) {
-		// Output the text from the file
-		std::cout << myText;
-	}
-	// Close the file
-	MyReadFile.close();
 }
 
 void Engine::Update()
@@ -160,4 +102,9 @@ LevelManager& Engine::GetLevelManager()
 InputManager& Engine::GetInputManager()
 {
 	return inputManager;
+}
+
+void Engine::MoveToScene(Scene scene)
+{
+	std::cout << "clicked on button\n";
 }

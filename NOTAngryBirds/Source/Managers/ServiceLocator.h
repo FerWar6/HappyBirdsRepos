@@ -1,9 +1,14 @@
 #pragma once
 #include <stdexcept>
 struct GameManager;
+class PreLoader;
 class Object;
 
 namespace ServiceLocator {
+    inline PreLoader* preLdr = nullptr;
+    inline PreLoader* GetPreLoader() { return preLdr; }
+    inline void SetPreLoader(PreLoader* pl) { preLdr = pl; }
+
     inline GameManager* gameManager = nullptr;
     inline GameManager* GetGameManager() { return gameManager; }
     inline void SetGameManager(GameManager* gm) { gameManager = gm; }

@@ -9,7 +9,7 @@ class Object;
 class PreLoader;
 class Grid;
 class Engine;
-
+class InputManager;
 
 struct GameManager
 {
@@ -21,6 +21,7 @@ struct GameManager
     void SetWindow(sf::RenderWindow* window);
     sf::RenderWindow& GetWindow();
 
+    InputManager& GetInputManager();
     Engine* enginePtr;
     PreLoader* preLoaderPtr;
     Grid* gridPtr;

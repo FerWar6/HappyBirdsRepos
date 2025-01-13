@@ -23,6 +23,11 @@ sf::RenderWindow& GameManager::GetWindow()
     return *winPtr;
 }
 
+InputManager& GameManager::GetInputManager()
+{
+    return enginePtr->GetInputManager();
+}
+
 b2WorldId& GameManager::GetWorldId()
 {
     return *worldId;

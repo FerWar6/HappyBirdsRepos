@@ -1,16 +1,17 @@
 #pragma once
 #include <iostream>
-//#include "SFML/Graphics.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
-
+#include "Engine/Enums/ComponentTypes.h"
 class Object;
 
 struct Component
 {
-	Component(std::string n);
+	Component(ComponentType t);
 	virtual void Update() {}
 	virtual void FixedUpdate() {}
 	virtual void Render(sf::RenderWindow& window) {}
+	virtual void OnComponentAdded(Component& com) {}
+	virtual Component* GetComponentPtr();
 	Object* object;
-	std::string name;
+	ComponentType type;
 };

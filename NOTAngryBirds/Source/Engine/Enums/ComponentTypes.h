@@ -1,0 +1,8 @@
+#pragma once
+enum ComponentType {
+	BASE,
+	SPRITE_RENDERER,
+	CIRCLE_RIGIDBODY,
+	RECT_RIGIDBODY,
+	BUTTON
+};

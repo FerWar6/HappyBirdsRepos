@@ -1,6 +1,7 @@
 #pragma once
-#include "Level/LevelManager.h"
 #include "Events/Event.h"
+#include "Engine/Enums/KeyCode.h"
+#include "SFML/Graphics.hpp"
 class Engine;
 class InputManager
 {
@@ -10,6 +11,8 @@ public:
 	bool IsClicking();
 	bool clicked;
 	sf::Vector2i cursorPos;
+
+	bool GetKey(KeyCode key);
 
 	Event<void> onMouseLeftDown; //left is 1, middle is 2 and right is 3
 private:

@@ -1,9 +1,14 @@
 #include "Component.h"
 #include "Managers/ServiceLocator.h"
 #include "Objects/Object.h"
-Component::Component(std::string n)
-	: name(n),
+Component::Component(ComponentType t)
+	: type(t),
 	object(nullptr)
 {
 	sl::GetSelectedObj()->AddComponent(this);
+}
+
+Component* Component::GetComponentPtr()
+{
+	return this;
 }

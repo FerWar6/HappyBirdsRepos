@@ -7,6 +7,7 @@ namespace fs = std::filesystem;
 
 PreLoader::PreLoader()
 {
+	sl::SetPreLoader(this);
 	sl::GetGameManager()->preLoaderPtr = this;
 	std::string uiPath = "Assets/UI";
 	LoadTextures(uiPath);
