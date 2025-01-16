@@ -1,49 +1,36 @@
 #include "InputManager.h"
 #include "Engine/Engine.h"
-#include "Level/Launcher.h"
-
-#include "Objects/Object.h"
-#include "Objects/Components/SpriteRenderer.h"
-#include "Objects/Components/RectRigidbody.h"
-#include "Objects/Components/CircleRigidbody.h"
-
 
 #include <windows.h>
 #include <iostream>
 
 InputManager::InputManager(Engine* e)
 	: enginePtr(e),
-	clicked(false)
+	mouseLeftClicked(false),
+	mouseRightClicked(false)
 {}
 
 void InputManager::InputCheck()
 {
-	//mouseOne, mouseOneDown, mouseOneUp
-	cursorPos = sf::Mouse::getPosition(enginePtr->GetManager()->GetWindow());
-	//std::cout << "x: " << cursorPos.x << " y: " << cursorPos.y << "\n";
-	if (IsClicking() && !clicked) {
-		int scale = 50;
-		//on click down action
+	mousePos = sf::Mouse::getPosition(enginePtr->GetManager()->GetWindow());
 
-		b2Vec2 spawnPos = b2Vec2{ enginePtr->launcherPtr->GetLaunchPoint().x / scale,enginePtr->launcherPtr->GetLaunchPoint().y / scale };
-
-		Object* obj = new Object();
-
-		//add starting velocity
-		float ballSize = 0.5f;
-		CircleRigidbody* body = new CircleRigidbody(spawnPos, ballSize, enginePtr->launcherPtr->GetLaunchMomentum(), enginePtr->GetManager()->GetWorldId());
-		obj->AddComponent(body);
-
-		SpriteRenderer* ren = new SpriteRenderer("CannonBall");
-		obj->AddComponent(ren);
-
-		//std::cout << "Click action" << "\n";
+	//mouse left
+	if (GetKey(KeyCode::MOUSE_L) && !mouseLeftClicked) {
 		onMouseLeftDown.Invoke();
-		clicked = true;
+		mouseLeftClicked = true;
 	}
-	else if (!IsClicking() && clicked) {
-		//look to see if button up
-		clicked = false;
+	else if (!GetKey(KeyCode::MOUSE_L) && mouseLeftClicked) {
+		onMouseLeftUp.Invoke();
+		mouseLeftClicked = false;
+	}
+	//mouse right
+	if (GetKey(KeyCode::MOUSE_R) && !mouseRightClicked) {
+		onMouseRightDown.Invoke();
+		mouseRightClicked = true;
+	}
+	else if (!GetKey(KeyCode::MOUSE_R) && mouseRightClicked) {
+		onMouseRightUp.Invoke();
+		mouseRightClicked = false;
 	}
 }
 
@@ -55,16 +42,16 @@ bool InputManager::IsClicking()
 bool InputManager::GetKey(KeyCode key)
 {
 	switch (key) {
-	case KeyCode::MouseLeft:
+	case KeyCode::MOUSE_L:
 		return (GetKeyState(VK_LBUTTON) & 0x8000) != 0;
 		break;
 
-	case KeyCode::MouseMiddle:
+	case KeyCode::MOUSE_M:
 		return (GetKeyState(VK_MBUTTON) & 0x8000) != 0;
 
 		break;
-	case KeyCode::MouseRight:
-
+	case KeyCode::MOUSE_R:
+		return (GetKeyState(VK_RBUTTON) & 0x8000) != 0;
 		break;
 	default:
 		return false;

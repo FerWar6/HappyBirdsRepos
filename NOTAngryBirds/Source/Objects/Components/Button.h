@@ -1,8 +1,8 @@
 #pragma once
 #include "Objects/Components/Component.h"
 #include <functional>
-
 class InputManager;
+
 struct Button : public Component
 {
 	Button(std::function<void()> onClick);

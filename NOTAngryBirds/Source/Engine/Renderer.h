@@ -12,6 +12,7 @@ class EngineCore;
 class Renderer
 {
 public:
+	//render request
 	Renderer(sf::RenderWindow& win, std::vector<Object*>& objRef);
 	void Start();
 	void Render();

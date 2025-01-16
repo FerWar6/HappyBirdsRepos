@@ -22,7 +22,7 @@ void Button::Update()
     // set the color of the spriterenderer if you have it
     if (object->HasComponent(ComponentType::SPRITE_RENDERER)) {
         SpriteRenderer* renPtr = (SpriteRenderer*)object->GetComponent(ComponentType::SPRITE_RENDERER);
-        if (HoveringOver() && inputMan.GetKey(KeyCode::MouseLeft)) {
+        if (HoveringOver() && inputMan.GetKey(KeyCode::MOUSE_L)) {
             renPtr->sprite.setColor(sf::Color(200, 200, 200));
         }
         else if (HoveringOver()) {
@@ -43,6 +43,6 @@ bool Button::HoveringOver()
 {
     sf::Vector2i s = (sf::Vector2i)object->GetSize();
     sf::Vector2i p = (sf::Vector2i)object->GetPos();
-    sf::Vector2i mP = inputMan.cursorPos;
+    sf::Vector2i mP = inputMan.mousePos;
     return mP.x > p.x - s.x / 2 && mP.x < p.x + s.x / 2 && mP.y > p.y - s.y / 2 && mP.y < p.y + s.y / 2;
 }

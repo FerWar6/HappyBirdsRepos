@@ -9,7 +9,7 @@ class Object
 public:
 	Object(bool setAsSelected = true);
 	Object(Transform trans, bool setAsSelected = true);
-	Object(sf::Vector2f pos, sf::Vector2f size = sf::Vector2f(0,0), float rotation = 0, bool setAsSelected = true);
+	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1), bool setAsSelected = true);
 	~Object();
 
 	virtual void Update();

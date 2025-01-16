@@ -17,7 +17,7 @@ Object::Object(Transform trans, bool setAsSelected)
 	Start(setAsSelected);
 }
 
-Object::Object(sf::Vector2f pos, sf::Vector2f size, float rot, bool setAsSelected)
+Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size, bool setAsSelected)
 	: manager(sl::GetGameManager()),
 	transform(Vector2(pos.x, pos.y), rot, Size(size.x, size.y))
 {

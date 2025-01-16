@@ -1,6 +1,6 @@
 #pragma once
 enum KeyCode {
-	MouseLeft,
-	MouseRight,
-	MouseMiddle
+	MOUSE_L,
+	MOUSE_R,
+	MOUSE_M
 };

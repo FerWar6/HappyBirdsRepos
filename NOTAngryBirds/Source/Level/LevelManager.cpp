@@ -230,6 +230,7 @@ void LevelManager::LoadLevel(std::string& lvlPath)
 	}
 }
 
+//TODO - use a template to make this into 1 function
 std::string LevelManager::AddToSring(float num)
 {
 	return std::to_string(num) + " ";

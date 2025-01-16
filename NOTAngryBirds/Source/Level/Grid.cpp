@@ -27,8 +27,8 @@ Grid::Grid(sf::RenderWindow& w, InputManager& im)
 
 void Grid::Update()
 {
-	posOnGrid = CalculatePosOnGrid(inputMan.cursorPos);
-	if (gridCursorSprite.getPosition() != (sf::Vector2f)posOnGrid) 
+	posOnGrid = CalculatePosOnGrid(inputMan.mousePos);
+	if (gridCursorSprite.getPosition() != (sf::Vector2f)posOnGrid)
 		gridCursorSprite.setPosition((sf::Vector2f)posOnGrid);
 }
 

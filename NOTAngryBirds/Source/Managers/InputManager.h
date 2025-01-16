@@ -9,12 +9,17 @@ public:
 	InputManager(Engine* engine);
 	void InputCheck();
 	bool IsClicking();
-	bool clicked;
-	sf::Vector2i cursorPos;
+	sf::Vector2i mousePos;
 
 	bool GetKey(KeyCode key);
+	//left is 1, middle is 2 and right is 3
+	Event<void> onMouseLeftDown; 
+	Event<void> onMouseLeftUp;
+	bool mouseLeftClicked;
 
-	Event<void> onMouseLeftDown; //left is 1, middle is 2 and right is 3
+	Event<void> onMouseRightDown;
+	Event<void> onMouseRightUp;
+	bool mouseRightClicked;
 private:
 	Engine* enginePtr;
 };

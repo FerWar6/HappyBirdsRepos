@@ -4,10 +4,8 @@
 #include "Level/LevelManager.h"
 #include "Managers/InputManager.h"
 #include "Engine/PreLoader.h"
-#include "Objects/PhysicsObject.h"
 #include "Level/Grid.h"
-#include "Level/Launcher.h"
-#include "Engine/Enums/Scenes.h"
+#include "Engine/Scenes/Scene.h"
 
 class Engine
 {
@@ -33,12 +31,16 @@ public:
 	LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
 
-	Launcher* launcherPtr;
-	void MoveToScene(Scene scene);
+	void MoveToScene(std::string sceneName);
 private:
-	Scene currentScene;
 	GameManager gameManager;
 	PreLoader preLoader;
 	LevelManager levelManager;
 	InputManager inputManager;
+
+	Scene* currentScene;
+	std::vector<Scene> allScenes;
+	std::string scenePath = "Assets/Scenes/";
+	void LoadScenes();
+	void LoadScene(std::string& path);
 };
