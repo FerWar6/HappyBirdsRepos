@@ -53,3 +53,8 @@ b2BodyType RectRigidbody::GetBodyType()
 {
     return b2Body_GetType(bodyId);
 }
+
+std::string RectRigidbody::GetSaveData()
+{
+    return std::string();
+}

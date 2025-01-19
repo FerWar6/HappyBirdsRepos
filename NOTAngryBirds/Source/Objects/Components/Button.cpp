@@ -3,9 +3,12 @@
 #include "Objects/Components/SpriteRenderer.h"
 #include "Managers/InputManager.h"
 #include "Managers/ServiceLocator.h"
-Button::Button(std::function<void()> onClick)
-	: Component(ComponentType::BUTTON),
-    OnClick(onClick),
+#include "Engine/PreLoader.h"
+
+Button::Button(ButtFuncId function)
+    : Component(ComponentType::BUTTON),
+    funcId(function),
+    OnClick(sl::GetPreLoader()->buttonFunctions.GetButtonFunction(function)),
     inputMan(sl::GetGameManager()->GetInputManager())
 {
     inputMan.onMouseLeftDown.AddListener(std::bind(&Button::HandleClick, this));
@@ -34,9 +37,12 @@ void Button::Update()
     }
 }
 
+
 void Button::HandleClick()
 {
-    if (OnClick && HoveringOver()) OnClick();
+    if (OnClick && HoveringOver()) {
+        OnClick();
+    }
 }
 
 bool Button::HoveringOver()
@@ -45,4 +51,13 @@ bool Button::HoveringOver()
     sf::Vector2i p = (sf::Vector2i)object->GetPos();
     sf::Vector2i mP = inputMan.mousePos;
     return mP.x > p.x - s.x / 2 && mP.x < p.x + s.x / 2 && mP.y > p.y - s.y / 2 && mP.y < p.y + s.y / 2;
+}
+
+std::string Button::GetSaveData()
+{
+    std::string data;
+    data += std::to_string(type) + " ";
+    data += std::to_string(funcId) + " ";
+    std::cout << data << "\n";
+    return data;
 }

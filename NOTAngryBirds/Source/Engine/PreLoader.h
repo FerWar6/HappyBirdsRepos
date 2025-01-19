@@ -3,6 +3,7 @@
 
 #include "Textures/TextureItem.h"
 #include "Textures/SpriteSheet.h"
+#include "Managers/ButtonFunctions.h"
 class PreLoader
 {
 public:
@@ -11,6 +12,7 @@ public:
 	SpriteSheet& GetSpriteSheet(std::string name);
 	std::vector<TextureItem>& GetTextureItems();
 	std::vector<SpriteSheet>& GetSpriteSheets();
+	ButtonFunctions buttonFunctions;
 private:
 	void LoadTextures(std::string path);
 	void LoadSpriteSheets();

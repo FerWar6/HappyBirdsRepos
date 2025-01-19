@@ -12,6 +12,8 @@ struct Launcher : public Component
 	void FixedUpdate() override;
 	void Render(sf::RenderWindow& window) override;
 	sf::Sprite dotSprite;
+
+	std::string GetSaveData() override;
 private:
 	InputManager& inputMan;
 

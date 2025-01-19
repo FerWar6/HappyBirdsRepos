@@ -19,4 +19,6 @@ struct SpriteRenderer : Component
 	sf::Vector2f GetOriginFromTxr(sf::Vector2u txrSize);
 	std::string txrName; //for now this is the name of the texture because of how I set up the preloader
 	//if preloader ever changes and it requires a path to the texture this will also have to change
+
+	std::string GetSaveData() override;
 };

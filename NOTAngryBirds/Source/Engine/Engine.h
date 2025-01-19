@@ -31,16 +31,17 @@ public:
 	LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
 
-	void MoveToScene(std::string sceneName);
+	void LoadScene(std::string name);
 private:
 	GameManager gameManager;
 	PreLoader preLoader;
 	LevelManager levelManager;
 	InputManager inputManager;
-
+	
 	Scene* currentScene;
 	std::vector<Scene> allScenes;
 	std::string scenePath = "Assets/Scenes/";
 	void LoadScenes();
-	void LoadScene(std::string& path);
+	void ClearCurrentScene();
+	Scene* GetScene(std::string name);
 };

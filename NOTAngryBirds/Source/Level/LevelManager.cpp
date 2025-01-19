@@ -211,9 +211,11 @@ void LevelManager::LoadLevel(std::string& lvlPath)
 					}
 					case ComponentType::BUTTON:
 					{
-						//TODO - load the onclick button function from components
-						std::function<void()> onButtonClick;
-						new Button(onButtonClick);
+						int funcIdIndex;
+						ButtFuncId funcId;
+						file >> funcIdIndex;
+						funcId = (ButtFuncId)funcIdIndex;
+						new Button(funcId);
 						break;
 					}
 					default:
@@ -221,6 +223,9 @@ void LevelManager::LoadLevel(std::string& lvlPath)
 						break;
 					}
 				}
+			}
+			else {
+				std::cout << "Data in " << lvlPath << " not an object. \n";
 			}
 		}
 		file.close();

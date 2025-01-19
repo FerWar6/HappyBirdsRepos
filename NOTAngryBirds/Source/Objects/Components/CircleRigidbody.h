@@ -17,4 +17,6 @@ struct CircleRigidbody : public Component
 
 	float density;
 	b2BodyType GetBodyType();
+
+	std::string GetSaveData() override;
 };

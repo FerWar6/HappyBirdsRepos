@@ -155,5 +155,26 @@ const Transform Object::GetTransform()
 	return transform;
 }
 
+std::string Object::GetSaveData()
+{
+	std::string data;
+	Transform& t = transform;
+	data += "obj ";
+	data += std::to_string(t.position.x) + " ";
+	data += std::to_string(t.position.y) + " ";
+	data += std::to_string(t.rotation) + " ";
+	data += std::to_string(t.size.w) + " ";
+	data += std::to_string(t.size.h) + " ";
+
+	data += "cps ";
+	int numOfComps = components.size();
+	data += std::to_string(numOfComps) + " ";
+
+	for (int i = 0; i < numOfComps; i++) {
+		data += GetComponent(i)->GetSaveData();
+	}
+	return data;
+}
+
 
 

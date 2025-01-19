@@ -12,3 +12,8 @@ Component* Component::GetComponentPtr()
 {
 	return this;
 }
+
+std::string Component::GetSaveData()
+{
+	return std::string();
+}

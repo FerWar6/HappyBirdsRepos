@@ -87,6 +87,11 @@ void Launcher::Render(sf::RenderWindow& window)
     if(primed && (HoveringOver(buttonMinRadius)) ) DrawPreview(window);
 }
 
+std::string Launcher::GetSaveData()
+{
+    return std::string();
+}
+
 void Launcher::HandleClick()
 {
     //holding click primes the cannon

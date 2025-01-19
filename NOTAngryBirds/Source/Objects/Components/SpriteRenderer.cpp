@@ -82,3 +82,11 @@ sf::Vector2f SpriteRenderer::GetOriginFromTxr(sf::Vector2u txrSize)
 {
 	return sf::Vector2f((float)(txrSize.x / 2), (float)(txrSize.y / 2));
 }
+
+std::string SpriteRenderer::GetSaveData()
+{
+	std::string data;
+	data += std::to_string(type) + " ";
+	data += txrName + " ";
+	return data;
+}

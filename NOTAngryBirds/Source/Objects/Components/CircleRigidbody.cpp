@@ -72,6 +72,11 @@ b2BodyType CircleRigidbody::GetBodyType()
     return b2Body_GetType(bodyId);
 }
 
+std::string CircleRigidbody::GetSaveData()
+{
+    return std::string();
+}
+
 //void CircleRigidbody::Render(sf::RenderWindow& window)
 //{
 //    int scale = object.manager->worldScale;

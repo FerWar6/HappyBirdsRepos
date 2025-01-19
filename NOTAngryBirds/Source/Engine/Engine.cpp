@@ -9,6 +9,7 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+
 namespace fs = std::filesystem;
 
 Engine::Engine()
@@ -19,20 +20,17 @@ Engine::Engine()
 	currentScene(nullptr)
 {
 	gameManager.enginePtr = this;
+	preLoader.buttonFunctions.LinkButtonFunctions(this);
 }
 
 void Engine::Start()
 {
 	LoadScenes();
+	LoadScene("MainMenu");
+	//std::string path = "Assets/Levels/level1.txt";
+	//levelManager.LoadLevel(path);
 	//levelManager.SaveExistingLevel(path, objects);
-	std::string path = "Assets/Levels/level1.txt";
-	levelManager.LoadLevel(path);
 	//Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
-	{
-		new Object(sf::Vector2f(600, 600));
-		new SpriteRenderer("StartButton", true);
-		new Button(std::bind(&Engine::MoveToScene, this, "MainMenu"));
-	}
 	//{
 	//	new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
 	//	sf::Vector2f scale(1.5, 1.5);
@@ -40,6 +38,12 @@ void Engine::Start()
 	//	ren->lockRotation = true;
 	//	new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
 	//	new Launcher("PreviewDot");
+	//}
+	//{
+	//	Object* obj = new Object(sf::Vector2f(150, 150));
+	//	new SpriteRenderer("LevelSelectButton", true);
+	//	new Button(ButtFuncId::MOVE_TO_SCENE);
+	//	std::cout << obj->GetSaveData() << "\n";
 	//}
 }
 
@@ -113,12 +117,6 @@ InputManager& Engine::GetInputManager()
 	return inputManager;
 }
 
-void Engine::MoveToScene(std::string sceneName)
-{
-	std::cout << sceneName << "\n";
-	std::cout << "clicked on button\n";
-}
-
 void Engine::LoadScenes()
 {
 	for (const auto& entry : fs::directory_iterator(scenePath)) {
@@ -132,10 +130,30 @@ void Engine::LoadScenes()
 	}
 }
 
-void Engine::LoadScene(std::string& name)
+void Engine::ClearCurrentScene()
 {
-	//clear previous scene
-	// find scene from name
-	// load all objects in the scene
-	//set currentscene as this scene
+	if (objects.size() > 0) {
+		markedForDeletion.insert(markedForDeletion.end(), objects.begin(), objects.end());
+		objects.clear();
+	}
+}
+
+void Engine::LoadScene(std::string name)
+{
+	//this prevents the game from loading the same scene twice, but there could be functionality to reload a scene
+	Scene* newScene = GetScene(name);
+	if (newScene != currentScene) {
+		ClearCurrentScene();
+		newScene->LoadScene();
+		currentScene = newScene;
+	}
+}
+
+Scene* Engine::GetScene(std::string name)
+{
+	for (auto& scene : allScenes) {
+		if (scene.sceneName == name) {
+			return &scene;
+		}
+	}
 }

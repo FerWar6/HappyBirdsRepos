@@ -40,6 +40,8 @@ public:
 	void SetSize(sf::Vector2f size);
 
 	const Transform GetTransform();
+
+	std::string GetSaveData();
 private:
 	void Start(bool setAsSelected);
 	Transform transform;

@@ -12,6 +12,7 @@ struct Component
 	virtual void Render(sf::RenderWindow& window) {}
 	virtual void OnComponentAdded(Component& com) {}
 	virtual Component* GetComponentPtr();
+	virtual std::string GetSaveData();
 	Object* object;
 	ComponentType type;
 };

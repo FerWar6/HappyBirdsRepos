@@ -6,6 +6,7 @@
 namespace fs = std::filesystem;
 
 PreLoader::PreLoader()
+	: buttonFunctions()
 {
 	sl::SetPreLoader(this);
 	sl::GetGameManager()->preLoaderPtr = this;
