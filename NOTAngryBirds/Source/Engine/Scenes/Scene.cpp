@@ -14,7 +14,6 @@ Scene::Scene(std::string& pathToScne)
 	: pathToScene(pathToScne),
 	sceneName(GetNameFromPath())
 {
-	std::cout << pathToScene << "\n";
 }
 
 void Scene::SaveScene()

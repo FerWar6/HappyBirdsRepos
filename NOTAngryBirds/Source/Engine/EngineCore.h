@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics/RenderWindow.hpp"
 #include "Engine/Engine.h"
 #include "Engine/Renderer.h"
 
@@ -10,6 +10,9 @@ public:
 	void Start();
 	void LoopEngine();
 
+	int winWidth;
+	int winHeight;
+	std::string windowName;
 private:
 	Engine engine;
 	Renderer renderer;

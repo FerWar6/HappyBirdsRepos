@@ -7,6 +7,7 @@
 #include "Level/Grid.h"
 #include "Engine/Scenes/Scene.h"
 
+class Object;
 class Engine
 {
 public:

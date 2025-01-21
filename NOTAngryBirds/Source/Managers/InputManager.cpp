@@ -1,19 +1,17 @@
 #include "InputManager.h"
 #include "Engine/Engine.h"
-
+#include "Managers/ServiceLocator.h"
+#include "Managers/GameManager.h"
 #include <windows.h>
 #include <iostream>
 
-InputManager::InputManager(Engine* e)
-	: enginePtr(e),
-	mouseLeftClicked(false),
+InputManager::InputManager()
+	: mouseLeftClicked(false),
 	mouseRightClicked(false)
 {}
 
-void InputManager::InputCheck()
+void InputManager::UpdateInputs()
 {
-	mousePos = sf::Mouse::getPosition(enginePtr->GetManager()->GetWindow());
-
 	//mouse left
 	if (GetKey(KeyCode::MOUSE_L) && !mouseLeftClicked) {
 		onMouseLeftDown.Invoke();
@@ -34,9 +32,19 @@ void InputManager::InputCheck()
 	}
 }
 
-bool InputManager::IsClicking()
+void InputManager::SetMousePos(sf::RenderWindow& win)
 {
-	return (GetKeyState(VK_LBUTTON) & 0x8000) != 0;
+	mousePos = sf::Mouse::getPosition(win);
+}
+
+bool InputManager::GetKeyDown(KeyCode key)
+{
+	return false;
+}
+
+bool InputManager::GetKeyUp(KeyCode key)
+{
+	return false;
 }
 
 bool InputManager::GetKey(KeyCode key)
@@ -56,6 +64,13 @@ bool InputManager::GetKey(KeyCode key)
 	default:
 		return false;
 		break;
+	}
+}
+
+void InputManager::InstantiateInputKeys()
+{
+	for (int i = 0; i < KeyCode::COUNT; i++) {
+
 	}
 }
 

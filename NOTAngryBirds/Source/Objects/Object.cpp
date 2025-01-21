@@ -24,6 +24,14 @@ Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size, bool setAsSelecte
 	Start(setAsSelected);
 }
 
+Object::Object(Transform trans, std::vector<Object*>& objects)
+	: manager(sl::GetGameManager()),
+	transform(trans)
+{
+	sl::SetSelectedObj(this);
+	objects.push_back(this);
+}
+
 void Object::Start(bool setAsSel)
 {
 	if (setAsSel) sl::SetSelectedObj(this);

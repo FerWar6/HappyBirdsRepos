@@ -1,18 +1,20 @@
 #pragma once
 #include "Events/Event.h"
-#include "Engine/Enums/KeyCode.h"
+#include "DataTypes/InputKey.h"
 #include "SFML/Graphics.hpp"
 class Engine;
 class InputManager
 {
 public:
-	InputManager(Engine* engine);
-	void InputCheck();
-	bool IsClicking();
+	InputManager();
+	void UpdateInputs();
+	void SetMousePos(sf::RenderWindow& win);
 	sf::Vector2i mousePos;
-
+	bool GetKeyDown(KeyCode key);
+	bool GetKeyUp(KeyCode key);
 	bool GetKey(KeyCode key);
-	//left is 1, middle is 2 and right is 3
+
+	std::vector<InputKey> inputKeys;
 	Event<void> onMouseLeftDown; 
 	Event<void> onMouseLeftUp;
 	bool mouseLeftClicked;
@@ -21,6 +23,6 @@ public:
 	Event<void> onMouseRightUp;
 	bool mouseRightClicked;
 private:
-	Engine* enginePtr;
+	void InstantiateInputKeys();
 };
 

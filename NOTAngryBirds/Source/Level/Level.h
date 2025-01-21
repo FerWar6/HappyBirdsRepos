@@ -1,6 +1,13 @@
 #pragma once
-#include "vector"
-#include "Objects/PhysicsObject.h"
+#include <string>
+#include <vector>
+class Object;
 struct Level {
-	std::vector<PhysicsObject*> levelObjects;
+	Level(std::string& pathToScene);
+	std::string pathToLevel;
+	std::string levelName;
+	void SaveLevel();
+	void LoadLevel();
+	void LoadLevel(std::vector<Object*>& objects);
+	std::string GetNameFromPath();
 };

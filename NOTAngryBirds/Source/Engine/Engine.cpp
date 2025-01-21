@@ -6,6 +6,7 @@
 #include "Objects/Components/Button.h"
 #include "Objects/Components/Launcher.h"
 #include "Managers/ServiceLocator.h"
+#include "Level/LevelEditor.h"
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -16,11 +17,17 @@ Engine::Engine()
 	: preLoader(),
 	gameManager(),
 	levelManager(),
-	inputManager(this),
+	inputManager(),
 	currentScene(nullptr)
 {
 	gameManager.enginePtr = this;
-	preLoader.buttonFunctions.LinkButtonFunctions(this);
+	LevelEditor* editorPtr = nullptr;
+	preLoader.buttonFunctions.LinkButtonFunctions(this, editorPtr);
+
+	bool editorMode = true;
+	if (editorMode) {
+		LevelEditor editor(inputManager, editorPtr);
+	}
 }
 
 void Engine::Start()
@@ -49,6 +56,7 @@ void Engine::Start()
 
 void Engine::Update()
 {
+	inputManager.SetMousePos(gameManager.GetWindow());
 	inputManager.InputCheck();
 	for (auto& obj : objects) {
 		obj->Update();
@@ -68,7 +76,6 @@ void Engine::UpdateObjectsVector()
 		objects.insert(objects.end(), markedForAddition.begin(), markedForAddition.end());
 		markedForAddition.clear();
 	}
-
 	if (!markedForDeletion.empty()) {
 		for (Object* obj : markedForDeletion) {
 			auto it = std::find(objects.begin(), objects.end(), obj);

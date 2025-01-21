@@ -83,6 +83,14 @@ sf::Vector2f SpriteRenderer::GetOriginFromTxr(sf::Vector2u txrSize)
 	return sf::Vector2f((float)(txrSize.x / 2), (float)(txrSize.y / 2));
 }
 
+bool SpriteRenderer::UseSizeCheck(sf::Vector2f size)
+{
+	if (size.x == 1 && size.y == 1) {
+		return true;
+	}
+	return false;
+}
+
 std::string SpriteRenderer::GetSaveData()
 {
 	std::string data;

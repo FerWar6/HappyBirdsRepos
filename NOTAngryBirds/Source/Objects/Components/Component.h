@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "Engine/Enums/ComponentTypes.h"
+#include "DataTypes/Enums/ComponentTypes.h"
 class Object;
 
 struct Component

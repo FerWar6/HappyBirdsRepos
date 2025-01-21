@@ -10,6 +10,7 @@ public:
 	Object(bool setAsSelected = true);
 	Object(Transform trans, bool setAsSelected = true);
 	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1), bool setAsSelected = true);
+	Object(Transform trans, std::vector<Object*>& objects); // used for editor mode
 	~Object();
 
 	virtual void Update();

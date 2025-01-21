@@ -5,6 +5,7 @@ class Engine;
 
 enum ButtFuncId {
 	MOVE_TO_SCENE,
+	SELECT_IN_EDITOR,
 	COUNT
 };
 struct ButtonFunction {
@@ -19,11 +20,12 @@ struct ButtonFunction {
 private:
 	std::function<void()> function;
 };
+class LevelEditor;
 
 struct ButtonFunctions
 {
 	ButtonFunctions() {};
-	void LinkButtonFunctions(Engine* engine);
+	void LinkButtonFunctions(Engine* engine, LevelEditor* editor);
 	//TODO - figure out if there is a way to pass the function by referance instead of using the copy constructor
 	std::function<void()> GetButtonFunction(ButtFuncId functionId) {
 		for (auto func : buttonFunctions) {
@@ -31,6 +33,6 @@ struct ButtonFunctions
 				return func.GetFunction();
 			}
 		}
-	};
+	}
 	std::vector<ButtonFunction> buttonFunctions;
 };

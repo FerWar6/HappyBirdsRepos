@@ -1,18 +1,31 @@
 #include "EngineCore.h"
 #include <iostream>
 #include <stdio.h>
+#include "wtypes.h"
+
 EngineCore::EngineCore()
 	: engine(),
 	renderer(window, engine.objects)
 {
-	int winWidth = 1500;
-	int winHeight = 900;
-	std::string name = "Happy Birds";
-	window.create(sf::VideoMode(winWidth, winHeight), name);
+	//dont quite understand this yet, but it puts the console in a more visible place
+	HWND consoleWindow = GetConsoleWindow();
+	SetWindowPos(consoleWindow, 0, 1000, 1000, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+
+	RECT desktop;
+	const HWND hDesktop = GetDesktopWindow();
+	GetWindowRect(hDesktop, &desktop);
+	sf::Vector2i screenSize(desktop.right, desktop.bottom);
+	int widthMargin = 200;
+	int heightMargin = 150;
+	winWidth = screenSize.x - widthMargin * 2;
+	winHeight = screenSize.y - heightMargin * 2;
+	windowName = "Happy Birds";
+	window.create(sf::VideoMode(winWidth, winHeight), windowName);
 	engine.GetManager()->SetWindow(&window);
-	window.setPosition(sf::Vector2i(700,300));
+	window.setPosition(sf::Vector2i(widthMargin, heightMargin));
+	//window.setPosition(sf::Vector2i(700,300));
 	//window.setPosition(sf::Vector2i(200,65));
-	sf::Style::Close;
 
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = { 0.0f, 9.8f };

@@ -1,6 +1,7 @@
 #include "ButtonFunctions.h"
 #include "Engine/Engine.h"
-void ButtonFunctions::LinkButtonFunctions(Engine* engine)
+#include "Level/LevelEditor.h"
+void ButtonFunctions::LinkButtonFunctions(Engine* engine, LevelEditor* editor)
 {
 	int numOfFunc = static_cast<int>(ButtFuncId::COUNT);
 	for (int i = 0; i < numOfFunc; i++) {
@@ -8,6 +9,9 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 		switch (currentFunc) {
 		case MOVE_TO_SCENE:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "LevelSelectMenu"));
+			break;
+		case SELECT_IN_EDITOR:
+			buttonFunctions.emplace_back(currentFunc, std::bind(&LevelEditor::SetSelectedObject, editor));
 			break;
 		default:
 			std::cout << "Button function is missing id";
