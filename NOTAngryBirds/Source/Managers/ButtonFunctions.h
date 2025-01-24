@@ -6,7 +6,7 @@ class Engine;
 enum ButtFuncId {
 	MOVE_TO_SCENE,
 	SELECT_IN_EDITOR,
-	COUNT
+	BUTTON_FUNCTIONS_COUNT
 };
 struct ButtonFunction {
 	ButtonFunction(ButtFuncId id, std::function<void()> func)

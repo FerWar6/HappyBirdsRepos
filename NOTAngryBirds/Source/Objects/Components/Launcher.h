@@ -8,7 +8,7 @@ class InputManager;
 struct Launcher : public Component
 {
 	Launcher(std::string txrName);
-	~Launcher();
+	void Update() override;
 	void FixedUpdate() override;
 	void Render(sf::RenderWindow& window) override;
 	sf::Sprite dotSprite;
@@ -25,8 +25,7 @@ private:
 	float maxAngle;
 	bool primed;
 
-	void HandleClick();
-	void HandleUp();
+	void SpawnProjectile();
 	bool HoveringOver(float min, float max = 0);
 
 

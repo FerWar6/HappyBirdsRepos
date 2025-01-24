@@ -3,5 +3,5 @@ enum KeyCode {
 	MOUSE_L,
 	MOUSE_R,
 	MOUSE_M,
-	COUNT
+	KEYCODE_COUNT
 };

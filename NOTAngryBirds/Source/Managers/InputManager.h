@@ -15,13 +15,6 @@ public:
 	bool GetKey(KeyCode key);
 
 	std::vector<InputKey> inputKeys;
-	Event<void> onMouseLeftDown; 
-	Event<void> onMouseLeftUp;
-	bool mouseLeftClicked;
-
-	Event<void> onMouseRightDown;
-	Event<void> onMouseRightUp;
-	bool mouseRightClicked;
 private:
 	void InstantiateInputKeys();
 };

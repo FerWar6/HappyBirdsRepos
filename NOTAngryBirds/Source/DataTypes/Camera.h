@@ -18,7 +18,7 @@ struct Camera {
 		sf::Vector2f newPos = pos - position;
 		view.move(newPos);
 		position = pos;
-		std::cout << "x: " << position.x << " y: " << position.y << "\n";
+		//std::cout << "x: " << position.x << " y: " << position.y << "\n";
 	}
 	sf::Vector2f GetPos() {
 		return position;

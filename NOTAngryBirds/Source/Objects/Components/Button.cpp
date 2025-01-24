@@ -10,17 +10,10 @@ Button::Button(ButtFuncId function)
     funcId(function),
     OnClick(sl::GetPreLoader()->buttonFunctions.GetButtonFunction(function)),
     inputMan(sl::GetGameManager()->GetInputManager())
-{
-    inputMan.onMouseLeftDown.AddListener(std::bind(&Button::HandleClick, this));
-}
-
-Button::~Button()
-{
-    inputMan.onMouseLeftDown.RemoveListener(std::bind(&Button::HandleClick, this));
-}
-
+{}
 void Button::Update()
 {
+    if (inputMan.GetKeyDown(MOUSE_L)) HandleClick();
     //bool to check if there is a sprite renderer
     // set the color of the spriterenderer if you have it
     if (object->HasComponent(ComponentType::SPRITE_RENDERER)) {

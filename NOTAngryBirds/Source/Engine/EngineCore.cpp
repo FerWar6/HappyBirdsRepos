@@ -20,6 +20,10 @@ EngineCore::EngineCore()
 	int heightMargin = 150;
 	winWidth = screenSize.x - widthMargin * 2;
 	winHeight = screenSize.y - heightMargin * 2;
+
+	winWidth = 1500;
+	winHeight = 900;
+
 	windowName = "Happy Birds";
 	window.create(sf::VideoMode(winWidth, winHeight), windowName);
 	engine.GetManager()->SetWindow(&window);

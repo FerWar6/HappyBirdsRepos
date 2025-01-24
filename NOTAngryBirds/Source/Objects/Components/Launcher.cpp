@@ -15,9 +15,6 @@ Launcher::Launcher(std::string txrNm)
     sf::Texture& txrRef = sl::GetPreLoader()->GetTexture(txrNm);
     dotSprite.setTexture(txrRef);
     dotSprite.setOrigin(txrRef.getSize().x / 2, txrRef.getSize().y / 2);
-    inputMan.onMouseLeftDown.AddListener(std::bind(&Launcher::HandleClick, this));
-    inputMan.onMouseRightDown.AddListener(std::bind(&Launcher::HandleClick, this));
-    inputMan.onMouseLeftUp.AddListener(std::bind(&Launcher::HandleUp, this));
     buttonMinRadius = 120;
     buttonMaxRadius = 500;
     minVelocity = 5;
@@ -28,11 +25,27 @@ Launcher::Launcher(std::string txrNm)
     moveSpeed = 1;
 }
 
-Launcher::~Launcher()
+void Launcher::Update()
 {
-    inputMan.onMouseLeftDown.RemoveListener(std::bind(&Launcher::HandleClick, this));
-    inputMan.onMouseRightDown.RemoveListener(std::bind(&Launcher::HandleClick, this));
-    inputMan.onMouseLeftUp.RemoveListener(std::bind(&Launcher::HandleUp, this));
+    //holding click primes the cannon
+    //when primed you can move the cannon back to the center and unprime it
+    //when primed you can move it back as far as you want and release to shoot the cannonball
+
+    //if (inputMan.GetKeyDown(MOUSE_L)) primed = true;
+    //if (inputMan.GetKeyDown(MOUSE_R)) primed = false;
+    //if (inputMan.GetKeyUp(MOUSE_L)) SpawnProjectile();
+
+
+    if (inputMan.GetKeyDown(MOUSE_L)) {
+        primed = true;
+    }
+    if (inputMan.GetKeyDown(MOUSE_R)) {
+        primed = false;
+    }
+    if (inputMan.GetKeyUp(MOUSE_L)) {
+        SpawnProjectile();
+    }
+
 }
 
 void Launcher::FixedUpdate()
@@ -91,17 +104,7 @@ std::string Launcher::GetSaveData()
 {
     return std::string();
 }
-
-void Launcher::HandleClick()
-{
-    //holding click primes the cannon
-    //when primed you can move the cannon back to the center and unprime it
-    //when primed you can move it back as far as you want and release to shoot the cannonball
-    if (!inputMan.GetKey(KeyCode::MOUSE_R)) primed = true;
-    if (primed && inputMan.GetKey(KeyCode::MOUSE_L) && inputMan.GetKey(KeyCode::MOUSE_R)) primed = false;
-}
-
-void Launcher::HandleUp()
+void Launcher::SpawnProjectile()
 {
     if (primed && (HoveringOver(buttonMinRadius))) {
         int scale = object->manager->worldScale;
@@ -111,6 +114,7 @@ void Launcher::HandleUp()
         new CircleRigidbody(spawnPos, ballSize, CalcLinearVelocity(), object->manager->GetWorldId());
         new SpriteRenderer("CannonBall");
         primed = false;
+        //std::cout << "created projectile \n";
     }
     else {
         primed = false;

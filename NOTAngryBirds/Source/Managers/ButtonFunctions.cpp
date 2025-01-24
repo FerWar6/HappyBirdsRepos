@@ -3,7 +3,7 @@
 #include "Level/LevelEditor.h"
 void ButtonFunctions::LinkButtonFunctions(Engine* engine, LevelEditor* editor)
 {
-	int numOfFunc = static_cast<int>(ButtFuncId::COUNT);
+	int numOfFunc = static_cast<int>(ButtFuncId::BUTTON_FUNCTIONS_COUNT);
 	for (int i = 0; i < numOfFunc; i++) {
 		ButtFuncId currentFunc = ButtFuncId(i);
 		switch (currentFunc) {

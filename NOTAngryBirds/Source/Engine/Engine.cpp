@@ -24,7 +24,7 @@ Engine::Engine()
 	LevelEditor* editorPtr = nullptr;
 	preLoader.buttonFunctions.LinkButtonFunctions(this, editorPtr);
 
-	bool editorMode = true;
+	bool editorMode = false;
 	if (editorMode) {
 		LevelEditor editor(inputManager, editorPtr);
 	}
@@ -57,8 +57,8 @@ void Engine::Start()
 void Engine::Update()
 {
 	inputManager.SetMousePos(gameManager.GetWindow());
-	inputManager.InputCheck();
-	for (auto& obj : objects) {
+	inputManager.UpdateInputs();
+	for (auto obj : objects) {
 		obj->Update();
 	}
 }
@@ -96,7 +96,7 @@ GameManager* Engine::GetManager()
 
 void Engine::AddObject(Object* p)
 {
-	objects.push_back(p);
+	markedForAddition.push_back(p);
 }
 
 void Engine::DeleteObject(Object* o)
