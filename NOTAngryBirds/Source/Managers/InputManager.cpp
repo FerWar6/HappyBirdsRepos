@@ -14,7 +14,7 @@ void InputManager::UpdateInputs()
 {
 	MSG msg = {};
 	//std::cout << "Scroll the mouse wheel to see messages...\n";
-
+	std::cout << GetKeyState(WM_MOUSEHWHEEL) << "\n";
 	while (GetMessage(&msg, nullptr, 0, 0)) {
 		if (msg.message == WM_MOUSEWHEEL) {
 			// Extract wheel delta

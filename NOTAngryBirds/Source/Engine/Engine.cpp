@@ -24,7 +24,7 @@ Engine::Engine()
 	LevelEditor* editorPtr = nullptr;
 	preLoader.buttonFunctions.LinkButtonFunctions(this, editorPtr);
 
-	bool editorMode = false;
+	bool editorMode = true;
 	if (editorMode) {
 		LevelEditor editor(inputManager, editorPtr);
 	}
