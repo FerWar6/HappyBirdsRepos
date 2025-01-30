@@ -14,6 +14,7 @@ public:
 	LevelEditor(InputManager& inputMan, LevelEditor* selfPtr);
 
 	sf::Sprite moveWidgetSprite;
+	sf::Sprite gridSprite;
 	void OpenEditorConsole();
 	void OpenEditorWindow();
 	void CheckInput();
@@ -21,9 +22,16 @@ public:
 	std::vector<Object*> markedForAddition;
 	std::vector<Object*> markedForDeletion;
 	void UpdateObjectsVector();
-	void SetSelectedObject();
+	void SetSelectedObj(Object* obj);
+	void ClearSelectedObj();
 private:
+	void Update();
+	void FixedUpdate();
+	void UpdateInput();
+
+	void Render();
 	InputManager& inputMan;
+	Object* selObj; // the selected object in the editor
 	Level* currentLevel;
 	void LoopEditor();
 	void LoadLevels();
@@ -40,6 +48,4 @@ private:
 	const float timeStep = 1.0f / fixedUpdateFrames;
 	float deltTime = 0.0f;
 	float accumulator = 0.0f;
-
-	sf::Vector2i testOldMousePos;
 };

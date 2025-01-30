@@ -10,9 +10,6 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine, LevelEditor* editor)
 		case MOVE_TO_SCENE:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "LevelSelectMenu"));
 			break;
-		case SELECT_IN_EDITOR:
-			buttonFunctions.emplace_back(currentFunc, std::bind(&LevelEditor::SetSelectedObject, editor));
-			break;
 		default:
 			std::cout << "Button function is missing id";
 		}

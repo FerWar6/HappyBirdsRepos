@@ -7,6 +7,7 @@
 #include "Objects/Components/RectRigidbody.h"
 #include "Objects/Components/CircleRigidbody.h"
 #include "Objects/Components/Button.h"
+#include "Objects/Components//EditorItem.h"
 #include <filesystem>
 #include <fstream>
 
@@ -21,7 +22,7 @@ void Level::SaveLevel()
 
 }
 
-void Level::LoadLevel()
+void Level::LoadLevel() //load level inside of game
 {
 	std::ifstream file; //this is a file pointer/cursor to somewhere in the file
 	file.open(pathToLevel, std::ios::in); //read from text file
@@ -116,7 +117,7 @@ void Level::LoadLevel()
 	}
 }
 
-void Level::LoadLevel(std::vector<Object*>& objects)
+void Level::LoadLevel(std::vector<Object*>& objects) //load level inside of editor
 {
 	std::ifstream file; //this is a file pointer/cursor to somewhere in the file
 	file.open(pathToLevel, std::ios::in); //read from text file
@@ -199,8 +200,10 @@ void Level::LoadLevel(std::vector<Object*>& objects)
 						break;
 					}
 				}
+				//std::cout << "added an editorItem component to " << numOfComps << ". \n";
+
 				//add a button so you can select it in the editor
-				new Button(ButtFuncId::SELECT_IN_EDITOR);
+				new EditorItem();
 			}
 			else {
 				std::cout << "Data in " << pathToLevel << " not an object. \n";

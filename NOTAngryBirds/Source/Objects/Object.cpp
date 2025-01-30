@@ -69,6 +69,14 @@ Component* Object::GetComponent(ComponentType type)
 	return nullptr;
 }
 
+bool Object::GetComponent(Component* ptr, ComponentType type)
+{
+	for (auto* comp : components) {
+		if (comp->type == type) ptr = comp;
+	}
+	return ptr;
+}
+
 Component* Object::GetComponent(int indexInVector)
 {
 	return components[indexInVector]->GetComponentPtr();

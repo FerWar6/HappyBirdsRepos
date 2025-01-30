@@ -28,6 +28,7 @@ Engine::Engine()
 	if (editorMode) {
 		LevelEditor editor(inputManager, editorPtr);
 	}
+	//inputManager.SetWindow(window);
 }
 
 void Engine::Start()
@@ -38,14 +39,14 @@ void Engine::Start()
 	//levelManager.LoadLevel(path);
 	//levelManager.SaveExistingLevel(path, objects);
 	//Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
-	//{
-	//	new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
-	//	sf::Vector2f scale(1.5, 1.5);
-	//	SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
-	//	ren->lockRotation = true;
-	//	new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
-	//	new Launcher("PreviewDot");
-	//}
+	{
+		new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
+		sf::Vector2f scale(1.5, 1.5);
+		SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
+		ren->lockRotation = true;
+		new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
+		new Launcher("PreviewDot");
+	}
 	//{
 	//	Object* obj = new Object(sf::Vector2f(150, 150));
 	//	new SpriteRenderer("LevelSelectButton", true);

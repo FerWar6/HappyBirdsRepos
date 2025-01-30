@@ -19,6 +19,7 @@ public:
 
 
 	Component* GetComponent(ComponentType type);
+	bool GetComponent(Component* ptr, ComponentType type);
 	Component* GetComponent(int indexInVector);
 	std::vector<Component*>& GetComponents();
 	void AddComponent(Component* component);

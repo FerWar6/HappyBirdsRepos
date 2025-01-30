@@ -1,21 +1,31 @@
 #include "LevelEditor.h"
-#include "Objects/Object.h"
 #include "Managers/ServiceLocator.h"
+#include "Objects/Object.h"
 #include "Managers/GameManager.h"
 #include "Managers/InputManager.h"
+#include "Objects/Components/Component.h"
+#include "Objects/Components/SpriteRenderer.h"
+#include "Objects/Components/EditorItem.h"
 #include "Engine/PreLoader.h"
 #include <filesystem>
-#include <cctype>
 
 namespace fs = std::filesystem;
 
 LevelEditor::LevelEditor(InputManager& input, LevelEditor* selfPtr)
 	: currentLevel(nullptr),
 	inputMan(input),
-	cam()
+	cam(),
+	selObj(nullptr)
 {
+	sl::SetLevelEditor(this);
+	inputMan.SetWindow(window);
+
+
+
+
 	sf::Texture& txrRef = sl::GetPreLoader()->GetTexture("EditorMove");
 	moveWidgetSprite.setTexture(txrRef);
+	moveWidgetSprite.setOrigin(sf::Vector2f(8, 92));
 	selfPtr = this;
 	std::cout << "\n";
 	OpenEditorConsole();
@@ -26,9 +36,17 @@ void LevelEditor::OpenEditorConsole()
 {
 	LoadLevels();
 	DebugLevels();
-	while (input != "exit") {
-		std::cin >> input;
-		CheckInput();
+
+	bool loadFirstLevel = true;
+	if (loadFirstLevel) {
+		currentLevel = &allLevels[0];
+		OpenEditorWindow();
+	}
+	else {
+		while (input != "exit") {
+			std::cin >> input;
+			CheckInput();
+		}
 	}
 }
 
@@ -40,12 +58,22 @@ void LevelEditor::OpenEditorWindow()
 	window.create(sf::VideoMode(winWidth, winHeight), name);
 	cam.SetView(window);
 	currentLevel->LoadLevel(markedForAddition);
+
+
+	sf::Texture& gridTxr = sl::GetPreLoader()->GetTexture("GridSquare");
+	gridTxr.setRepeated(true);
+	sf::Vector2u winSize = window.getSize();
+	gridSprite.setTexture(gridTxr);
+	sf::IntRect rect(0, 0, winSize.x, winSize.y);
+	gridSprite.setTextureRect(rect);
+
+
 	LoopEditor();
 }
 
 void LevelEditor::LoopEditor()
 {
-	while (window.isOpen())
+	while (window.isOpen() && !inputMan.GetKey(ESCAPE))
 	{
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -53,6 +81,9 @@ void LevelEditor::LoopEditor()
 				std::cout << "Closed engine" << std::endl;
 				window.close();
 			}
+		}
+		if (inputMan.GetKey(CONTROL) && inputMan.GetKey(C)) {
+			std::cout << "pressed ctrl\n";
 		}
 		UpdateObjectsVector();
 
@@ -68,34 +99,72 @@ void LevelEditor::LoopEditor()
 			accumulator -= timeStep;
 		}
 		//engine update functionality
-		inputMan.SetMousePos(window);
-		inputMan.UpdateInputs();
-		for (auto& obj : objects) {
-			//obj->Update();
-		}
-
+		Update();
+		UpdateInput();
 		//renderer functionality
-		window.setView(cam.GetView());
-		window.clear();
-		for (auto& obj : objects) {
-			obj->Render(window);
-		}
-		moveWidgetSprite.setPosition((sf::Vector2f)inputMan.mousePos);
-		window.draw(moveWidgetSprite);
-		window.display();
-		if (inputMan.GetKey(KeyCode::MOUSE_L)) {
-			cam.SetPos((sf::Vector2f)(testOldMousePos - inputMan.mousePos));
-			//move view based on the viewpos before this was called and the
-		}
-		else
-		{
-			testOldMousePos = inputMan.mousePos + (sf::Vector2i)cam.GetPos();
-		}
-		if (inputMan.GetKey(KeyCode::MOUSE_R)) {
-			cam.SetPos(0,0);
-		}
+		Render();
 	}
 }
+
+void LevelEditor::Update()
+{
+	for (auto& obj : objects) {
+		obj->Update();
+	}
+}
+
+void LevelEditor::Render()
+{
+	window.clear();
+	window.setView(cam.GetView());
+
+	window.draw(gridSprite);
+	for (auto& obj : objects) {
+		obj->Render(window);
+	}
+	if (selObj) {
+		moveWidgetSprite.setPosition(selObj->GetPos());
+		window.draw(moveWidgetSprite);
+	}
+
+	window.display();
+}
+
+void LevelEditor::UpdateInput()
+{
+	inputMan.SetMousePos(window);
+	inputMan.UpdateInputs();
+
+	if (inputMan.GetKey(MOUSE_R)) {
+		cam.SetPos(cam.GetPos() + (sf::Vector2f)(inputMan.oldMousePos - inputMan.mousePos));
+	}
+	else {
+		inputMan.oldMousePos = inputMan.mousePos;
+	}
+	int increment = 50;
+	if (inputMan.GetKeyDown(ARROW_UP) && selObj) {
+		sf::Vector2f newPos = selObj->GetPos();
+		newPos.y -= increment;
+		selObj->SetPos(newPos);
+	}
+	if (inputMan.GetKeyDown(ARROW_DOWN) && selObj) {
+		sf::Vector2f newPos = selObj->GetPos();
+		newPos.y += increment;
+		selObj->SetPos(newPos);
+	}
+	if (inputMan.GetKeyDown(ARROW_LEFT) && selObj) {
+		sf::Vector2f newPos = selObj->GetPos();
+		newPos.x -= increment;
+		selObj->SetPos(newPos);
+	}
+	if (inputMan.GetKeyDown(ARROW_RIGHT) && selObj) {
+		sf::Vector2f newPos = selObj->GetPos();
+		newPos.x += increment;
+		selObj->SetPos(newPos);
+	}
+}
+
+
 void LevelEditor::CheckInput()
 {
 	//make the input lower case
@@ -147,11 +216,23 @@ void LevelEditor::UpdateObjectsVector()
 		markedForDeletion.clear();
 	}
 }
-void LevelEditor::SetSelectedObject()
+void LevelEditor::SetSelectedObj(Object* obj)
 {
-	std::cout << "test" << std::endl;
-
+	if (selObj) {
+		((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(false);
+	}
+	selObj = obj; //sets new selected object
+	((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(true);
 }
+
+void LevelEditor::ClearSelectedObj()
+{
+	if (selObj) {
+		((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(false);
+	}
+	selObj = nullptr;
+}
+
 
 void LevelEditor::LoadLevels()
 {

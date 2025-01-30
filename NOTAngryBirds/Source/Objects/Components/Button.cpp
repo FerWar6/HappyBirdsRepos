@@ -6,7 +6,7 @@
 #include "Engine/PreLoader.h"
 
 Button::Button(ButtFuncId function)
-    : Component(ComponentType::BUTTON),
+    : Component(BUTTON),
     funcId(function),
     OnClick(sl::GetPreLoader()->buttonFunctions.GetButtonFunction(function)),
     inputMan(sl::GetGameManager()->GetInputManager())
