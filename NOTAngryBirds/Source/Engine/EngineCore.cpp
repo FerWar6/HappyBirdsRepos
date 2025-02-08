@@ -1,40 +1,19 @@
 #include "EngineCore.h"
+#include "Managers/ServiceLocator.h"
+#include "Level/LevelEditor.h"
+#include <wtypes.h>
 #include <iostream>
 #include <stdio.h>
-#include "wtypes.h"
 
 EngineCore::EngineCore()
 	: engine(),
-	renderer(window, engine.objects)
+	renderer(engine.objects)
 {
-	//dont quite understand this yet, but it puts the console in a more visible place
-	HWND consoleWindow = GetConsoleWindow();
-	SetWindowPos(consoleWindow, 0, 1000, 1000, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-
-
-	RECT desktop;
-	const HWND hDesktop = GetDesktopWindow();
-	GetWindowRect(hDesktop, &desktop);
-	sf::Vector2i screenSize(desktop.right, desktop.bottom);
-	int widthMargin = 200;
-	int heightMargin = 150;
-	winWidth = screenSize.x - widthMargin * 2;
-	winHeight = screenSize.y - heightMargin * 2;
-
-	winWidth = 1500;
-	winHeight = 900;
-
-	windowName = "Happy Birds";
-	window.create(sf::VideoMode(winWidth, winHeight), windowName);
-	engine.GetManager()->SetWindow(&window);
-	window.setPosition(sf::Vector2i(widthMargin, heightMargin));
-	//window.setPosition(sf::Vector2i(700,300));
-	//window.setPosition(sf::Vector2i(200,65));
-
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = { 0.0f, 9.8f };
     worldId = b2CreateWorld(&worldDef);
-	engine.GetManager()->SetWorldId(&worldId);
+	sl::SetWorldId(&worldId);
+	sl::SetWindow(&window);
 	
 	engine.Start();
 	renderer.Start();
@@ -48,6 +27,19 @@ void EngineCore::Start()
 
 void EngineCore::LoopEngine()
 {
+	//TODO - maybe open a window to check if the player want to open edit mode or play the game
+	bool editorMode = true;
+	if (editorMode) {
+		engine.inEditMode = true;
+		LevelEditor editor;
+		engine.inEditMode = false;
+	}
+
+	int winWidth = 1500;
+	int winHeight = 900;
+	std::string windowName = "Happy Birds";
+	window.create(sf::VideoMode(winWidth, winHeight), windowName);
+
 	while (window.isOpen())
 	{
 		sf::Event event;

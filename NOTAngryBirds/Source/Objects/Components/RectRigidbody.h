@@ -2,8 +2,10 @@
 #include "Objects/Components/Component.h"
 #include "box2d/box2d.h"
 
-struct RectRigidbody : public Component
+class RectRigidbody : public Component
 {
+public:
+
 	RectRigidbody(b2Vec2 posInMeters, b2Vec2 sizeInMeters,
 		b2BodyType type, float density, b2WorldId& id);
 	RectRigidbody(b2BodyType type, float density, b2WorldId& id);

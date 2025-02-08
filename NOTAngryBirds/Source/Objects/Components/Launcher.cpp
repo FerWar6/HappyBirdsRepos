@@ -1,18 +1,18 @@
 #include "Launcher.h"
-#include "Managers/GameManager.h"
 #include "Managers/InputManager.h"
 #include "Managers/ServiceLocator.h"
 #include "Objects/Components/CircleRigidbody.h"
 #include "Objects/Components/SpriteRenderer.h"
+#include "Engine/Engine.h"
 #include "Engine/PreLoader.h"
 #include <cmath>
 #include <iostream>
 Launcher::Launcher(std::string txrNm)
     : Component(ComponentType::LAUNCHER),
-    inputMan(sl::GetGameManager()->GetInputManager()),
+    inputMan(sl::GetInputManager()),
     primed(false)
 {
-    sf::Texture& txrRef = sl::GetPreLoader()->GetTexture(txrNm);
+    sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
     dotSprite.setTexture(txrRef);
     dotSprite.setOrigin(txrRef.getSize().x / 2, txrRef.getSize().y / 2);
     buttonMinRadius = 120;
@@ -107,11 +107,11 @@ std::string Launcher::GetSaveData()
 void Launcher::SpawnProjectile()
 {
     if (primed && (HoveringOver(buttonMinRadius))) {
-        int scale = object->manager->worldScale;
+        int scale = sl::GetEngine().worldScale;
         b2Vec2 spawnPos = b2Vec2{ CalcLaunchPoint().x / scale, CalcLaunchPoint().y / scale };
         new Object();
         float ballSize = 0.5f;
-        new CircleRigidbody(spawnPos, ballSize, CalcLinearVelocity(), object->manager->GetWorldId());
+        new CircleRigidbody(spawnPos, ballSize, CalcLinearVelocity(), sl::GetWorldId());
         new SpriteRenderer("CannonBall");
         primed = false;
         //std::cout << "created projectile \n";

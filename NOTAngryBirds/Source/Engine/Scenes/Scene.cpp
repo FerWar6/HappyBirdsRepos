@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include <iostream>
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
 #include "Objects/Object.h"
@@ -7,8 +6,10 @@
 #include "Objects/Components/RectRigidbody.h"
 #include "Objects/Components/CircleRigidbody.h"
 #include "Objects/Components/Button.h"
+#include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <box2d/box2d.h>
 
 Scene::Scene(std::string& pathToScne)
 	: pathToScene(pathToScne),
@@ -70,7 +71,7 @@ void Scene::LoadScene()
 					}
 					case ComponentType::RECT_RIGIDBODY:
 					{
-						b2WorldId& id = sl::GetGameManager()->GetWorldId();
+						b2WorldId& id = sl::GetWorldId();
 						float density;
 						int enumIndex;
 						b2BodyType bodyType;
@@ -82,7 +83,7 @@ void Scene::LoadScene()
 					}
 					case ComponentType::CIRCLE_RIGIDBODY:
 					{
-						b2WorldId& id = sl::GetGameManager()->GetWorldId();
+						b2WorldId& id = sl::GetWorldId();
 						float density;
 						int enumIndex;
 						b2BodyType bodyType;

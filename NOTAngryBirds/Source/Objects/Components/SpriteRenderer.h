@@ -1,8 +1,9 @@
 #pragma once
 #include "Objects/Components/Component.h"
 #include "SFML/Graphics.hpp"
-struct SpriteRenderer : Component
+class SpriteRenderer : Component
 {
+public:
 	SpriteRenderer(std::string txrName);
 	SpriteRenderer(std::string txrName, bool useOwnSize);
 	SpriteRenderer(std::string txrName, sf::Vector2f scale, sf::Vector2f origin = sf::Vector2f(0,0));

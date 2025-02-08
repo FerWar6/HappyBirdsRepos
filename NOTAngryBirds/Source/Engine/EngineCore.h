@@ -7,13 +7,9 @@ class EngineCore
 {
 public:
 	EngineCore();
+private:
 	void Start();
 	void LoopEngine();
-
-	int winWidth;
-	int winHeight;
-	std::string windowName;
-private:
 	Engine engine;
 	Renderer renderer;
 	sf::RenderWindow window;

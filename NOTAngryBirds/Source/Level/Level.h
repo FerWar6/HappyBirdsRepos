@@ -8,6 +8,5 @@ struct Level {
 	std::string levelName;
 	void SaveLevel();
 	void LoadLevel();
-	void LoadLevel(std::vector<Object*>& objects);
 	std::string GetNameFromPath();
 };

@@ -1,6 +1,5 @@
 #include "CircleRigidbody.h"
 #include "Objects/Object.h"
-#include "Managers/GameManager.h"
 
 CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM,
     b2BodyType type, b2WorldId& id, float dens)

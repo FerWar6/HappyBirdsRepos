@@ -1,41 +1,37 @@
 #include "Object.h"
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
+#include "Level/LevelEditor.h"
 #include <iostream>
 
-Object::Object(bool setAsSelected)
-	: manager(sl::GetGameManager()),
-	transform()
+Object::Object()
+	: transform()
 {
-	Start(setAsSelected);
+	Start();
 }
 
-Object::Object(Transform trans, bool setAsSelected)
-	: manager(sl::GetGameManager()),
-	transform(trans)
+Object::Object(Transform trans)
+	: transform(trans)
 {
-	Start(setAsSelected);
+	Start();
 }
 
-Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size, bool setAsSelected)
-	: manager(sl::GetGameManager()),
-	transform(Vector2(pos.x, pos.y), rot, Size(size.x, size.y))
+Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size)
+	: transform(Vector2(pos.x, pos.y), rot, Size(size.x, size.y))
 {
-	Start(setAsSelected);
+	Start();
 }
 
-Object::Object(Transform trans, std::vector<Object*>& objects)
-	: manager(sl::GetGameManager()),
-	transform(trans)
+void Object::Start()
 {
 	sl::SetSelectedObj(this);
-	objects.push_back(this);
-}
-
-void Object::Start(bool setAsSel)
-{
-	if (setAsSel) sl::SetSelectedObj(this);
-	manager->enginePtr->AddObject(this);
+	Engine& eng = sl::GetEngine();
+	if (!eng.inEditMode) {
+		eng.AddObject(this);
+	}
+	else {
+		sl::GetLevelEditor().AddObject(this);
+	}
 }
 
 Object::~Object()
@@ -108,13 +104,13 @@ const sf::Vector2f Object::GetPos()
 
 const b2Vec2 Object::GetPosInM()
 {
-	int scale = manager->worldScale;
+	int scale = sl::GetEngine().worldScale;
 	return b2Vec2{ transform.position.x / scale, transform.position.y / scale};
 }
 
 void Object::SetPosInM(b2Vec2 posInM)
 {
-	int scale = manager->worldScale;
+	int scale = sl::GetEngine().worldScale;
 	transform.position.x = posInM.x * scale;
 	transform.position.y = posInM.y * scale;
 }
@@ -148,14 +144,14 @@ const sf::Vector2f Object::GetSize()
 
 const b2Vec2 Object::GetSizeInM()
 {
-	int scale = manager->worldScale;
+	int scale = sl::GetEngine().worldScale;
 	//std::cout << transform.size.w / scale << "\n";
 	return b2Vec2{ transform.size.w / scale, transform.size.h / scale };
 }
 
 void Object::SetSizeInM(b2Vec2 posInM)
 {
-	int scale = manager->worldScale;
+	int scale = sl::GetEngine().worldScale;
 	transform.size.w = posInM.x * scale;
 	transform.size.h = posInM.y * scale;
 }

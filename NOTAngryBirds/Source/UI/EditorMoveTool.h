@@ -1,18 +1,17 @@
 #pragma once
-#include "Objects/Components/Component.h"
+#include "UI/UIElement.h"
+#include "SFML/Graphics.hpp"
 #include <functional>
-#include "Managers/ButtonFunctions.h"
 class InputManager;
-
-class Button : public Component
+class EditorMoveTool : UIElement
 {
 public:
-	Button(ButtFuncId function);
+	EditorMoveTool();
 	void Update() override;
+	void Render(sf::RenderWindow& window) override;
+	sf::Sprite moveSprite;
 	std::function<void()> OnClick;
-	std::string GetSaveData() override;
 private:
-	ButtFuncId funcId;
 	InputManager& inputMan;
 	void HandleClick();
 	bool HoveringOver();

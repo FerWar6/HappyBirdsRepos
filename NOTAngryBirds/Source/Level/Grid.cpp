@@ -1,4 +1,5 @@
 #include "Grid.h"
+#include "Managers/ServiceLocator.h"
 #include "Engine/PreLoader.h"
 #include <SFML/Window/Cursor.hpp>
 Grid::Grid(sf::RenderWindow& w, InputManager& im)
@@ -6,20 +7,19 @@ Grid::Grid(sf::RenderWindow& w, InputManager& im)
 	window(w),
 	inputMan(im)
 {
-	manager->gridPtr = this;
 	//grid texture should be 25x25
-	sf::Texture& gridTxr = manager->preLoaderPtr->GetTexture("GridSquare");
+	sf::Texture& gridTxr = sl::GetPreLoader().GetTexture("GridSquare");
 	gridTxr.setRepeated(true);
 	sf::Vector2u winSize = window.getSize();
 	gridSprite.setTexture(gridTxr);
 	sf::IntRect rect(0, 0, winSize.x, winSize.y);
 	gridSprite.setTextureRect(rect);
 
-	sf::Texture& gridCursorTxr = manager->preLoaderPtr->GetTexture("GridHighlight");
+	sf::Texture& gridCursorTxr = sl::GetPreLoader().GetTexture("GridHighlight");
 	gridCursorSprite.setTexture(gridCursorTxr);
 
 	sf::Cursor cursor;
-	sf::Texture& txr = manager->preLoaderPtr->GetTexture("GridCursor");
+	sf::Texture& txr = sl::GetPreLoader().GetTexture("GridCursor");
 	sf::Image img = txr.copyToImage();
 	cursor.loadFromPixels(img.getPixelsPtr(), txr.getSize(), sf::Vector2u(txr.getSize().x/2, txr.getSize().y/2));
 	window.setMouseCursor(cursor);

@@ -5,7 +5,7 @@ Component::Component(ComponentType t)
 	: type(t),
 	object(nullptr)
 {
-	sl::GetSelectedObj()->AddComponent(this);
+	sl::GetSelectedObj().AddComponent(this);
 }
 
 Component* Component::GetComponentPtr()

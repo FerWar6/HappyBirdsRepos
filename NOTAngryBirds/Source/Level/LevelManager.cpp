@@ -187,7 +187,7 @@ void LevelManager::LoadLevel(std::string& lvlPath)
 					}
 					case ComponentType::RECT_RIGIDBODY:
 					{
-						b2WorldId& id = sl::GetGameManager()->GetWorldId();
+						b2WorldId& id = sl::GetWorldId();
 						float density;
 						int enumIndex;
 						b2BodyType bodyType;
@@ -199,7 +199,7 @@ void LevelManager::LoadLevel(std::string& lvlPath)
 					}
 					case ComponentType::CIRCLE_RIGIDBODY:
 					{
-						b2WorldId& id = sl::GetGameManager()->GetWorldId();
+						b2WorldId& id = sl::GetWorldId();
 						float density;
 						int enumIndex;
 						b2BodyType bodyType;

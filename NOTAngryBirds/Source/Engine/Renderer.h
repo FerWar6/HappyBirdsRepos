@@ -5,7 +5,6 @@
 #include <box2d/box2d.h>
 #include "Objects/Object.h"
 #include "SFML/Graphics.hpp"
-#include "Managers/GameManager.h"
 #include <iostream>
 
 class EngineCore;
@@ -13,7 +12,7 @@ class Renderer
 {
 public:
 	//render request
-	Renderer(sf::RenderWindow& win, std::vector<Object*>& objRef);
+	Renderer(std::vector<Object*>& objRef);
 	void Start();
 	void Render();
 
@@ -22,7 +21,6 @@ private:
 
 	int scale = 50;
 	std::vector<Object*>& gameObjectsRef;
-	sf::RenderWindow& window;
-	GameManager* manager;
+	sf::RenderWindow* window;
 	std::vector<Object*> objectsToRender;
 };

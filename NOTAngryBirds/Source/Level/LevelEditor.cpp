@@ -1,32 +1,32 @@
 #include "LevelEditor.h"
 #include "Managers/ServiceLocator.h"
 #include "Objects/Object.h"
-#include "Managers/GameManager.h"
 #include "Managers/InputManager.h"
 #include "Objects/Components/Component.h"
 #include "Objects/Components/SpriteRenderer.h"
 #include "Objects/Components/EditorItem.h"
+#include "UI/Hierarchy.h"
+#include "UI/EditorMoveTool.h"
 #include "Engine/PreLoader.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;
 
-LevelEditor::LevelEditor(InputManager& input, LevelEditor* selfPtr)
+LevelEditor::LevelEditor()
 	: currentLevel(nullptr),
-	inputMan(input),
+	inputMan(sl::GetInputManager()),
 	cam(),
 	selObj(nullptr)
 {
 	sl::SetLevelEditor(this);
+
+	new Hierarchy();
+	new EditorMoveTool();
 	inputMan.SetWindow(window);
 
-
-
-
-	sf::Texture& txrRef = sl::GetPreLoader()->GetTexture("EditorMove");
+	sf::Texture& txrRef = sl::GetPreLoader().GetTexture("EditorMove");
 	moveWidgetSprite.setTexture(txrRef);
 	moveWidgetSprite.setOrigin(sf::Vector2f(8, 92));
-	selfPtr = this;
 	std::cout << "\n";
 	OpenEditorConsole();
 }
@@ -57,16 +57,14 @@ void LevelEditor::OpenEditorWindow()
 	std::string name = currentLevel->levelName;
 	window.create(sf::VideoMode(winWidth, winHeight), name);
 	cam.SetView(window);
-	currentLevel->LoadLevel(markedForAddition);
+	currentLevel->LoadLevel();
 
-
-	sf::Texture& gridTxr = sl::GetPreLoader()->GetTexture("GridSquare");
+	sf::Texture& gridTxr = sl::GetPreLoader().GetTexture("GridSquare");
 	gridTxr.setRepeated(true);
 	sf::Vector2u winSize = window.getSize();
 	gridSprite.setTexture(gridTxr);
 	sf::IntRect rect(0, 0, winSize.x, winSize.y);
 	gridSprite.setTextureRect(rect);
-
 
 	LoopEditor();
 }
@@ -78,7 +76,7 @@ void LevelEditor::LoopEditor()
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				std::cout << "Closed engine" << std::endl;
+				std::cout << "Closed editor" << std::endl;
 				window.close();
 			}
 		}
@@ -101,6 +99,7 @@ void LevelEditor::LoopEditor()
 		//engine update functionality
 		Update();
 		UpdateInput();
+		inputMan.buttonManager.UpdateButtonCalls();
 		//renderer functionality
 		Render();
 	}
@@ -110,6 +109,9 @@ void LevelEditor::Update()
 {
 	for (auto& obj : objects) {
 		obj->Update();
+	}
+	for (auto& ui : uiElements) {
+		ui->Update();
 	}
 }
 
@@ -122,7 +124,10 @@ void LevelEditor::Render()
 	for (auto& obj : objects) {
 		obj->Render(window);
 	}
-	if (selObj) {
+	for (auto& ui : uiElements) {
+		ui->Render(window);
+	}
+	if (selObj) { 
 		moveWidgetSprite.setPosition(selObj->GetPos());
 		window.draw(moveWidgetSprite);
 	}
@@ -140,27 +145,6 @@ void LevelEditor::UpdateInput()
 	}
 	else {
 		inputMan.oldMousePos = inputMan.mousePos;
-	}
-	int increment = 50;
-	if (inputMan.GetKeyDown(ARROW_UP) && selObj) {
-		sf::Vector2f newPos = selObj->GetPos();
-		newPos.y -= increment;
-		selObj->SetPos(newPos);
-	}
-	if (inputMan.GetKeyDown(ARROW_DOWN) && selObj) {
-		sf::Vector2f newPos = selObj->GetPos();
-		newPos.y += increment;
-		selObj->SetPos(newPos);
-	}
-	if (inputMan.GetKeyDown(ARROW_LEFT) && selObj) {
-		sf::Vector2f newPos = selObj->GetPos();
-		newPos.x -= increment;
-		selObj->SetPos(newPos);
-	}
-	if (inputMan.GetKeyDown(ARROW_RIGHT) && selObj) {
-		sf::Vector2f newPos = selObj->GetPos();
-		newPos.x += increment;
-		selObj->SetPos(newPos);
 	}
 }
 
@@ -197,6 +181,18 @@ void LevelEditor::CheckInput()
 	}
 	std::cout << "'" << input << "' Is not a valid command \n";
 }
+void LevelEditor::AddObject(Object* o)
+{
+	markedForAddition.push_back(o);
+}
+void LevelEditor::DeleteObject(Object* o)
+{
+	markedForDeletion.push_back(o);
+}
+void LevelEditor::AddUI(UIElement* ui)
+{
+	uiElements.push_back(ui);
+}
 void LevelEditor::UpdateObjectsVector()
 {
 	if (!markedForAddition.empty()) {
@@ -223,6 +219,11 @@ void LevelEditor::SetSelectedObj(Object* obj)
 	}
 	selObj = obj; //sets new selected object
 	((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(true);
+}
+
+Object* LevelEditor::GetSelectedObj()
+{
+	return selObj;
 }
 
 void LevelEditor::ClearSelectedObj()

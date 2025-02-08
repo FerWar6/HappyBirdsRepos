@@ -2,11 +2,13 @@
 #include "Objects/Components/Component.h"
 #include "Objects/Object.h";
 #include <functional>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include "box2d/box2d.h"
 class InputManager;
 
-struct Launcher : public Component
+class Launcher : public Component
 {
+public:
 	Launcher(std::string txrName);
 	void Update() override;
 	void FixedUpdate() override;

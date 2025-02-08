@@ -1,7 +1,7 @@
 #include "ButtonFunctions.h"
 #include "Engine/Engine.h"
 #include "Level/LevelEditor.h"
-void ButtonFunctions::LinkButtonFunctions(Engine* engine, LevelEditor* editor)
+void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 {
 	int numOfFunc = static_cast<int>(ButtFuncId::BUTTON_FUNCTIONS_COUNT);
 	for (int i = 0; i < numOfFunc; i++) {

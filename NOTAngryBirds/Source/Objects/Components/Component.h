@@ -4,8 +4,9 @@
 #include "DataTypes/Enums/ComponentTypes.h"
 class Object;
 
-struct Component
+class Component
 {
+public:
 	Component(ComponentType t);
 	virtual void Update() {}
 	virtual void FixedUpdate() {}

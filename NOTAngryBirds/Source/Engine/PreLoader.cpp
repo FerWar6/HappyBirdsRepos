@@ -2,17 +2,17 @@
 #include <filesystem>
 #include <iostream>
 #include "Managers/ServiceLocator.h"
-#include "Managers/GameManager.h"
 namespace fs = std::filesystem;
 
 PreLoader::PreLoader()
 	: buttonFunctions()
 {
 	sl::SetPreLoader(this);
-	sl::GetGameManager()->preLoaderPtr = this;
+	std::string assetsPath = "Assets";
 	std::string uiPath = "Assets/UI";
 	LoadTextures(uiPath);
 	LoadSpriteSheets();
+	LoadFonts(assetsPath);
 }
 
 sf::Texture& PreLoader::GetTexture(std::string name)
@@ -44,6 +44,17 @@ SpriteSheet& PreLoader::GetSpriteSheet(std::string name)
 	std::cout << "unsuccessful return of sprite sheet: " << name << std::endl;
 }
 
+sf::Font& PreLoader::GetFont(std::string name)
+{
+	for (FontItem& font : GetFontItems()) {
+		std::string fontName = font.GetName();
+		if (name.compare(fontName) == 0) {
+			return font.GetFont();
+		}
+	}
+	std::cout << "unsuccessful return of font: " << name << std::endl;
+}
+
 std::vector<TextureItem>& PreLoader::GetTextureItems()
 {
 	return textureItems;
@@ -52,6 +63,11 @@ std::vector<TextureItem>& PreLoader::GetTextureItems()
 std::vector<SpriteSheet>& PreLoader::GetSpriteSheets()
 {
 	return spriteSheets;
+}
+
+std::vector<FontItem>& PreLoader::GetFontItems()
+{
+	return fontItems;
 }
 
 void PreLoader::LoadTextures(std::string path)
@@ -77,6 +93,19 @@ void PreLoader::LoadSpriteSheets()
 	}
 }
 
+void PreLoader::LoadFonts(std::string path)
+{
+	for (const auto& entry : fs::directory_iterator(path)) {
+		std::string filePath = entry.path().string();
+
+		if (filePath.size() >= 4 &&
+			(filePath.compare(filePath.size() - 4, 4, ".ttf") == 0)) 
+		{
+			AddFont(filePath);
+		}
+	}
+}
+
 void PreLoader::AddTexture(std::string p)
 {
 	textureItems.emplace_back(p);
@@ -84,4 +113,9 @@ void PreLoader::AddTexture(std::string p)
 void PreLoader::AddSpriteSheet(TextureItem& t)
 {
 	spriteSheets.emplace_back(t);
+}
+
+void PreLoader::AddFont(std::string p)
+{
+	fontItems.emplace_back(p);
 }

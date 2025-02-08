@@ -1,6 +1,4 @@
 #pragma once
-
-#include "Managers/GameManager.h"
 #include "Level/LevelManager.h"
 #include "Managers/InputManager.h"
 #include "Engine/PreLoader.h"
@@ -17,9 +15,6 @@ public:
 	void FixedUpdate();
 	void UpdateObjectsVector();
 
-	GameManager* GetManager();
-
-
 	void AddObject(Object* obj);
 	void DeleteObject(Object* obj);
 
@@ -27,18 +22,20 @@ public:
 	std::vector<Object*> markedForAddition;
 	std::vector<Object*> markedForDeletion;
 
-	GameManager& GetGameManager();
 	PreLoader& GetPreLoader();
 	LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
 
 	void LoadScene(std::string name);
+
+	bool inEditMode = false;
+	const int worldScale = 50;
 private:
-	GameManager gameManager;
 	PreLoader preLoader;
 	LevelManager levelManager;
 	InputManager inputManager;
-	
+	sf::RenderWindow* window;
+
 	Scene* currentScene;
 	std::vector<Scene> allScenes;
 	std::string scenePath = "Assets/Scenes/";

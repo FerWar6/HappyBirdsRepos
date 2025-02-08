@@ -5,28 +5,36 @@
 #include "DataTypes/Camera.h"
 
 class Object;
+class UIElement;
 class InputManager;
 class LevelEditor
 {
 public:
-	// the editor needs no update for the components, 
-	// just an ability to render the objects
-	LevelEditor(InputManager& inputMan, LevelEditor* selfPtr);
+	LevelEditor();
 
 	sf::Sprite moveWidgetSprite;
 	sf::Sprite gridSprite;
 	void OpenEditorConsole();
 	void OpenEditorWindow();
 	void CheckInput();
+
 	std::vector<Object*> objects;
 	std::vector<Object*> markedForAddition;
 	std::vector<Object*> markedForDeletion;
+	void AddObject(Object* obj);
+	void DeleteObject(Object* obj);
+
+	std::vector<UIElement*> uiElements;
+	void AddUI(UIElement* ui);
+
 	void UpdateObjectsVector();
 	void SetSelectedObj(Object* obj);
+	Object* GetSelectedObj();
 	void ClearSelectedObj();
+
 private:
 	void Update();
-	void FixedUpdate();
+	//void FixedUpdate();
 	void UpdateInput();
 
 	void Render();

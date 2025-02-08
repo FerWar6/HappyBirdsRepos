@@ -1,14 +1,15 @@
 #include "InputManager.h"
 #include "Engine/Engine.h"
 #include "Managers/ServiceLocator.h"
-#include "Managers/GameManager.h"
 #include "DataTypes/Camera.h"
 #include <windows.h>
 #include <iostream>
 #include <conio.h>
 
 InputManager::InputManager()
+	: buttonManager()
 {
+	sl::SetInputManager(this);
 	InstantiateInputKeys();
 }
 
@@ -34,14 +35,18 @@ void InputManager::UpdateInputs()
 	//	TranslateMessage(&msg);
 	//	DispatchMessage(&msg);
 	//}
-	
+	float repeatTime = 0.15f;
 	for (auto& input : inputKeys) {
 		if (GetKey(input.keyCode)) {
 			if (input.state == UP_IDLE) {
 				input.state = DOWN;
 			}
-			else {
+			else if (input.state == DOWN || input.state == DOWN_REPEAT) {
 				input.state = DOWN_IDLE;
+			}
+			else if (input.state == DOWN_IDLE && input.clock.GetTimeInSeconds() > repeatTime) {
+				input.state = DOWN_REPEAT;
+				input.clock.Reset();
 			}
 		}
 		else {
@@ -69,6 +74,14 @@ bool InputManager::GetKeyDown(KeyCode key)
 {
 	for (auto& input : inputKeys) {
 		if (input.keyCode == key && input.state == DOWN) return true;
+	}
+	return false;
+}
+
+bool InputManager::GetKeyDownRepeat(KeyCode key)
+{
+	for (auto& input : inputKeys) {
+		if (input.keyCode == key && input.state == DOWN_REPEAT) return true;
 	}
 	return false;
 }
@@ -176,6 +189,7 @@ bool InputManager::GetKey(KeyCode key)
 	case ARROW_RIGHT:
 		return (GetAsyncKeyState(VK_RIGHT) & 0x8000) != 0;
 		break;
+
 	case MOUSE_L:
 		return (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
 		break;
@@ -185,6 +199,7 @@ bool InputManager::GetKey(KeyCode key)
 	case MOUSE_R:
 		return (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
 		break;
+
 	case MOUSE_SCRL_UP:
 		return (GetAsyncKeyState(WM_MOUSEWHEEL) & 0x8000) != 0;
 		break;

@@ -11,7 +11,7 @@ SpriteRenderer::SpriteRenderer(std::string txrNm)
 	useOwnSize(false),
 	lockRotation(false)
 {
-	sf::Texture& txrRef = sl::GetPreLoader()->GetTexture(txrNm);
+	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	//the scale is the object size devided by the size of the texture on both x and y
 	sf::Vector2f scale;
 	scale.x = object->GetSize().x / txrRef.getSize().x;
@@ -26,7 +26,7 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, bool useSize)
 	useOwnSize(useSize),
 	lockRotation(false)
 {
-	sf::Texture& txrRef = sl::GetPreLoader()->GetTexture(txrNm);
+	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	//the scale is the object size devided by the size of the texture on both x and y
 	sf::Vector2f scale(1, 1);
 	Start(txrRef, scale, GetOriginFromTxr(txrRef.getSize()));
@@ -39,7 +39,7 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, sf::Vector2f scale, sf::Vector
 	useOwnSize(true),
 	lockRotation(false)
 {
-	sf::Texture& txrRef = sl::GetPreLoader()->GetTexture(txrNm);
+	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	if(origin.x == 0 && origin.y == 0) origin = GetOriginFromTxr(txrRef.getSize());
 	Start(txrRef, scale, origin);
 }

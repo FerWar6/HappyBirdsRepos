@@ -5,8 +5,9 @@
 class InputManager;
 class LevelEditor;
 
-struct EditorItem : Component
+class EditorItem : Component
 {
+public:
 	EditorItem();
 	void Update() override;
 	std::function<void()> OnClick;
@@ -14,7 +15,9 @@ struct EditorItem : Component
 private:
 	LevelEditor& levelEdtr;
 	InputManager& inputMan;
+	void HandleClick();
 	bool HoveringOver();
+	void Select();
 	bool selected;
 };
 

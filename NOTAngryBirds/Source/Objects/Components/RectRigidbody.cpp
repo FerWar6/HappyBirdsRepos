@@ -1,6 +1,5 @@
 #include "RectRigidbody.h"
 #include "Objects/Object.h"
-#include "Managers/GameManager.h"
 
 RectRigidbody::RectRigidbody(b2Vec2 posInM, b2Vec2 sizeInM,
     b2BodyType type, float dens, b2WorldId& id)

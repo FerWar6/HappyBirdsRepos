@@ -7,9 +7,8 @@ TextureItem::TextureItem(std::string p)
         name = p.substr(p.find_last_of("/\\") + 1);
         size_t dotPos = name.find_last_of('.');
         if (dotPos != std::string::npos) {
-            name = name.substr(0, dotPos);
+            name = name.substr(0, dotPos); // Gets the name from file name
         }
-
 
         std::string filename = std::filesystem::path(p).filename().string();
         size_t pos = filename.find('_'); // Find the underscore separating name and resolution
@@ -30,12 +29,12 @@ TextureItem::TextureItem(std::string p)
                 }
             }
         }
-        std::cout << "Successfully loaded texture: " << p << std::endl;
+        std::cout << "Successfully loaded texture: " << p << "\n";
 
         frameSize = GetFrameSize(p);
     }
     else {
-        std::cout << "Failed to load texture: " << p << std::endl;
+        std::cout << "Failed to load texture: " << p << "\n";
     }
     isSheet = texture.getSize().y > frameSize.y && frameSize != sf::Vector2i(0,0);
 }

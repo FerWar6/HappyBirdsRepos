@@ -1,8 +1,9 @@
 #pragma once
 #include "Objects/Components/Component.h"
 #include "box2d/box2d.h"
-struct CircleRigidbody : public Component
+class CircleRigidbody : public Component
 {
+public:
 	CircleRigidbody(b2Vec2 posInMeters, float radiusInMeters,
 		b2BodyType type, b2WorldId& id, float density = 1);
 

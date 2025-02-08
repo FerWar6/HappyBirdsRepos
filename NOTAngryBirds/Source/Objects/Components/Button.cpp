@@ -8,8 +8,8 @@
 Button::Button(ButtFuncId function)
     : Component(BUTTON),
     funcId(function),
-    OnClick(sl::GetPreLoader()->buttonFunctions.GetButtonFunction(function)),
-    inputMan(sl::GetGameManager()->GetInputManager())
+    OnClick(sl::GetPreLoader().buttonFunctions.GetButtonFunction(function)),
+    inputMan(sl::GetInputManager())
 {}
 void Button::Update()
 {
@@ -30,11 +30,10 @@ void Button::Update()
     }
 }
 
-
 void Button::HandleClick()
 {
     if (OnClick && HoveringOver()) {
-        OnClick();
+        inputMan.buttonManager.AddButtonCall(UI, this);
     }
 }
 

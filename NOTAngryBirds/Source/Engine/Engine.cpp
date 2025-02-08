@@ -6,7 +6,6 @@
 #include "Objects/Components/Button.h"
 #include "Objects/Components/Launcher.h"
 #include "Managers/ServiceLocator.h"
-#include "Level/LevelEditor.h"
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -15,24 +14,19 @@ namespace fs = std::filesystem;
 
 Engine::Engine()
 	: preLoader(),
-	gameManager(),
 	levelManager(),
 	inputManager(),
-	currentScene(nullptr)
+	currentScene(nullptr),
+	window(nullptr)
 {
-	gameManager.enginePtr = this;
-	LevelEditor* editorPtr = nullptr;
-	preLoader.buttonFunctions.LinkButtonFunctions(this, editorPtr);
+	sl::SetEngine(this);
+	preLoader.buttonFunctions.LinkButtonFunctions(this);
 
-	bool editorMode = true;
-	if (editorMode) {
-		LevelEditor editor(inputManager, editorPtr);
-	}
-	//inputManager.SetWindow(window);
 }
 
 void Engine::Start()
 {
+	window = &sl::GetWindow();
 	LoadScenes();
 	LoadScene("MainMenu");
 	//std::string path = "Assets/Levels/level1.txt";
@@ -57,7 +51,7 @@ void Engine::Start()
 
 void Engine::Update()
 {
-	inputManager.SetMousePos(gameManager.GetWindow());
+	inputManager.SetMousePos(*window);
 	inputManager.UpdateInputs();
 	for (auto obj : objects) {
 		obj->Update();
@@ -90,24 +84,14 @@ void Engine::UpdateObjectsVector()
 	}
 }
 
-GameManager* Engine::GetManager()
+void Engine::AddObject(Object* o)
 {
-	return &gameManager;
-}
-
-void Engine::AddObject(Object* p)
-{
-	markedForAddition.push_back(p);
+	markedForAddition.push_back(o);
 }
 
 void Engine::DeleteObject(Object* o)
 {
 	markedForDeletion.push_back(o);
-}
-
-GameManager& Engine::GetGameManager()
-{
-	return gameManager;
 }
 
 PreLoader& Engine::GetPreLoader()

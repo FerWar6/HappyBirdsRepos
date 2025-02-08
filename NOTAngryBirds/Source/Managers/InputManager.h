@@ -1,5 +1,5 @@
 #pragma once
-#include "Events/Event.h"
+#include "Managers/ButtonManager.h"
 #include "DataTypes/InputKey.h"
 #include "SFML/Graphics.hpp"
 class Engine;
@@ -13,10 +13,12 @@ public:
 	sf::Vector2i mousePos;
 	sf::Vector2i oldMousePos;
 	bool GetKeyDown(KeyCode key);
+	bool GetKeyDownRepeat(KeyCode key);
 	bool GetKeyUp(KeyCode key);
 	bool GetKey(KeyCode key);
 	
 	void SetWindow(sf::RenderWindow& win);
+	ButtonManager buttonManager;
 private:
 	sf::RenderWindow* window;
 	

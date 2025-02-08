@@ -1,22 +1,19 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include "Components/Component.h"
 #include "DataTypes/Transform.h"
-#include "Managers/GameManager.h"
-
+#include "box2d/box2d.h"
 class Object
 {
 public:
-	Object(bool setAsSelected = true);
-	Object(Transform trans, bool setAsSelected = true);
-	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1), bool setAsSelected = true);
-	Object(Transform trans, std::vector<Object*>& objects); // used for editor mode
+	Object();
+	Object(Transform trans);
+	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1));
 	~Object();
 
 	virtual void Update();
 	virtual void FixedUpdate();
 	virtual void Render(sf::RenderWindow& window);
-
 
 	Component* GetComponent(ComponentType type);
 	bool GetComponent(Component* ptr, ComponentType type);
@@ -24,8 +21,6 @@ public:
 	std::vector<Component*>& GetComponents();
 	void AddComponent(Component* component);
 	bool HasComponent(ComponentType type);
-
-	GameManager* manager;
 
 	const sf::Vector2f GetPos();
 	const b2Vec2 GetPosInM();
@@ -45,7 +40,7 @@ public:
 
 	std::string GetSaveData();
 private:
-	void Start(bool setAsSelected);
+	void Start();
 	Transform transform;
 	std::vector<Component*> components;
 };

@@ -24,7 +24,7 @@ class LevelEditor;
 struct ButtonFunctions
 {
 	ButtonFunctions() {};
-	void LinkButtonFunctions(Engine* engine, LevelEditor* editor);
+	void LinkButtonFunctions(Engine* engine);
 	//TODO - figure out if there is a way to pass the function by referance instead of using the copy constructor
 	std::function<void()> GetButtonFunction(ButtFuncId functionId) {
 		for (auto func : buttonFunctions) {

@@ -1,29 +1,44 @@
 #pragma once
-#include <stdexcept>
-struct GameManager;
-class PreLoader;
+class Engine;
 class LevelEditor;
+class PreLoader;
+class InputManager;
+namespace sf { class RenderWindow; }
+class b2WorldId;
 class Object;
 
 namespace ServiceLocator {
-    inline PreLoader* preLdr = nullptr;
-    inline PreLoader* GetPreLoader() { return preLdr; }
-    inline void SetPreLoader(PreLoader* pl) { preLdr = pl; }
 
-    inline GameManager* gameManager = nullptr;
-    inline GameManager* GetGameManager() { return gameManager; }
-    inline void SetGameManager(GameManager* gm) { gameManager = gm; }
+	inline Engine* engine = nullptr;
+	inline Engine& GetEngine() { return *engine; }
+	inline void SetEngine(Engine* eng) { engine = eng; }
 
-    inline LevelEditor* levelEditor = nullptr;
-    inline LevelEditor* GetLevelEditor() { return levelEditor; }
-    inline void SetLevelEditor(LevelEditor* le) { levelEditor = le; }
+	inline LevelEditor* levelEditor = nullptr;
+	inline LevelEditor& GetLevelEditor() { return *levelEditor; }
+	inline void SetLevelEditor(LevelEditor* le) { levelEditor = le; }
 
-    // If you select an object and create a component, the component will add itself to the selected object
-    // The object will automatically set itself as the selected object unless you set the paramater in its consturctor as false
+	inline PreLoader* preLdr = nullptr;
+	inline PreLoader& GetPreLoader() { return *preLdr; }
+	inline void SetPreLoader(PreLoader* pl) { preLdr = pl; }
 
-    inline Object* selectedObj = nullptr;
-    inline Object* GetSelectedObj() { return selectedObj; }
-    inline void SetSelectedObj(Object* obj) { selectedObj = obj; }
+	inline InputManager* inputMan = nullptr;
+	inline InputManager& GetInputManager() { return *inputMan; }
+	inline void SetInputManager(InputManager* inp) { inputMan = inp; }
+
+	inline sf::RenderWindow* window = nullptr;
+	inline sf::RenderWindow& GetWindow() { return *window; }
+	inline void SetWindow(sf::RenderWindow* win) { window = win; }
+
+	inline b2WorldId* worldId = nullptr;
+	inline b2WorldId& GetWorldId() { return *worldId; }
+	inline void SetWorldId(b2WorldId* id) { worldId = id; }
+
+	// If you select an object and create a component, the component will add itself to the selected object
+	// The object will automatically set itself as the selected object unless you set the parameter in its constructor as false
+
+	inline Object* selectedObj = nullptr;
+	inline Object& GetSelectedObj() { return *selectedObj; }
+	inline void SetSelectedObj(Object* obj) { selectedObj = obj; }
 }
 
 namespace sl = ServiceLocator;
