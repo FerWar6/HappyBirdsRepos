@@ -12,12 +12,12 @@ public:
 	void Update() override;
 	std::function<void()> OnClick;
 	void SetSelected(bool sel);
+	void Select();
+	bool HoveringOver();
+
 private:
 	LevelEditor& levelEdtr;
 	InputManager& inputMan;
-	void HandleClick();
-	bool HoveringOver();
-	void Select();
 	bool selected;
 };
 

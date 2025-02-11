@@ -31,7 +31,7 @@ public:
 	void SetSelectedObj(Object* obj);
 	Object* GetSelectedObj();
 	void ClearSelectedObj();
-
+	Camera& GetCamera();
 private:
 	void Update();
 	//void FixedUpdate();

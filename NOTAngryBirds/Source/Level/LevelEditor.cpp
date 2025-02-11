@@ -143,6 +143,15 @@ void LevelEditor::UpdateInput()
 	if (inputMan.GetKey(MOUSE_R)) {
 		cam.SetPos(cam.GetPos() + (sf::Vector2f)(inputMan.oldMousePos - inputMan.mousePos));
 	}
+	if (inputMan.GetKeyDown(MOUSE_L)) {
+
+		for (auto& obj : objects) {
+			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver()) {
+				((EditorItem*)obj->GetComponent(EDITOR_ITEM))->Select();
+			}
+		}
+	}
+
 	else {
 		inputMan.oldMousePos = inputMan.mousePos;
 	}
@@ -232,6 +241,11 @@ void LevelEditor::ClearSelectedObj()
 		((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(false);
 	}
 	selObj = nullptr;
+}
+
+Camera& LevelEditor::GetCamera()
+{
+	return cam;
 }
 
 

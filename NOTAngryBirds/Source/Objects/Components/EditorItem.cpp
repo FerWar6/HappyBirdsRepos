@@ -16,7 +16,6 @@ EditorItem::EditorItem()
 
 void EditorItem::Update()
 {
-    if (inputMan.GetKeyDown(MOUSE_L)) HandleClick();
     bool hasRen = object->HasComponent(SPRITE_RENDERER);
     if (selected) {
         ((SpriteRenderer*)object->GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(200, 200, 200));
@@ -29,14 +28,6 @@ void EditorItem::Update()
 void EditorItem::SetSelected(bool sel)
 {
     selected = sel;
-}
-
-
-void EditorItem::HandleClick()
-{
-    if (OnClick && HoveringOver()) {
-        inputMan.buttonManager.AddButtonCall(UI, (Button*)this); // this is pretty stupid, but for now itll work
-    }
 }
 
 bool EditorItem::HoveringOver()
