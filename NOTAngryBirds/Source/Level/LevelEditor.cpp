@@ -137,11 +137,23 @@ void LevelEditor::Render()
 
 void LevelEditor::UpdateInput()
 {
-	inputMan.SetMousePos(window);
+	inputMan.UpdateMousePos();
 	inputMan.UpdateInputs();
 
 	if (inputMan.GetKey(MOUSE_R)) {
-		cam.SetPos(cam.GetPos() + (sf::Vector2f)(inputMan.oldMousePos - inputMan.mousePos));
+		window.setTitle(currentLevel->levelName + "*");
+		sf::Vector2f newCamPos = (sf::Vector2f)(inputMan.GetOldMousePos() - inputMan.GetMousePos());
+		cam.SetPos(cam.GetPos() + newCamPos);
+	}
+	else {
+		//std::cout << "cam pos:  x: " << cam.GetPos().x << " y: " << cam.GetPos().y << "\n";
+		//std::cout << "current mouse pos:  x: " << inputMan.GetMousePos().x << " y: " << inputMan.GetMousePos().y << "\n";
+		//std::cout << "old mouse pos:  x: " << inputMan.GetOldMousePos().x << " y: " << inputMan.GetOldMousePos().y << "\n\n";
+		inputMan.UpdateOldMousePos();
+	}
+	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(S)) {
+		//TODO - actually save the game
+		window.setTitle(currentLevel->levelName);
 	}
 	if (inputMan.GetKeyDown(MOUSE_L)) {
 
@@ -150,10 +162,6 @@ void LevelEditor::UpdateInput()
 				((EditorItem*)obj->GetComponent(EDITOR_ITEM))->Select();
 			}
 		}
-	}
-
-	else {
-		inputMan.oldMousePos = inputMan.mousePos;
 	}
 }
 

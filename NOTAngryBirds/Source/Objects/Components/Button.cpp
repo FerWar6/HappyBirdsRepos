@@ -41,7 +41,7 @@ bool Button::HoveringOver()
 {
     sf::Vector2i s = (sf::Vector2i)object->GetSize();
     sf::Vector2i p = (sf::Vector2i)object->GetPos();
-    sf::Vector2i mP = inputMan.mousePos;
+    sf::Vector2i mP = inputMan.GetMousePos();
     return mP.x > p.x - s.x / 2 && mP.x < p.x + s.x / 2 && mP.y > p.y - s.y / 2 && mP.y < p.y + s.y / 2;
 }
 

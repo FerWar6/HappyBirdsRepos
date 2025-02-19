@@ -85,7 +85,7 @@ void Hierarchy::UpdateObjTxtVec()
 
 bool Hierarchy::HoveringOver(sf::Vector2i s, sf::Vector2i p)
 {
-	sf::Vector2i mP = inputMan.mousePos;
+	sf::Vector2i mP = inputMan.GetMousePos();
 	return mP.x > p.x && mP.x < p.x + s.x && mP.y > p.y && mP.y < p.y + s.y;
 }
 
@@ -94,7 +94,7 @@ int Hierarchy::GetHoverPos()
 	sf::Rect textBounds = titleTxt.getGlobalBounds();
 	sf::Vector2i s = (sf::Vector2i)textBounds.getSize();
 	sf::Vector2i p = (sf::Vector2i)textBounds.getPosition();
-	sf::Vector2i mP = inputMan.mousePos;
+	sf::Vector2i mP = inputMan.GetMousePos();
 
 	return ceil(mP.y / (s.y / objects.size()));
 }

@@ -131,7 +131,7 @@ bool Launcher::HoveringOver(float min, float max)
 float Launcher::CalcAngle()
 {
     //calculates the angle from object to mouse
-    sf::Vector2i mousePos = inputMan.mousePos;
+    sf::Vector2i mousePos = inputMan.GetMousePos();
     sf::Vector2 launcherPos(object->GetPos());
     float angle = atan2(mousePos.y - launcherPos.y, mousePos.x - launcherPos.x);
     //float angle = atan2(launcherPos.y - mousePos.y, launcherPos.x - mousePos.x);
@@ -148,16 +148,16 @@ bool Launcher::IsAngleValid()
 float Launcher::CalcDistanceToMouse()
 {
     //calculates distance from object to mouse
-    sf::Vector2i mousePos = inputMan.mousePos;
+    sf::Vector2i mousePos = inputMan.GetMousePos();
     sf::Vector2f launchPoint(object->GetPos());
     return sqrt(pow(launchPoint.x - mousePos.x, 2) + pow(launchPoint.y - mousePos.y, 2) * 1.0);
 }
 
 float Launcher::CalcInvalidAngleDistance()
 {
-    bool useWidth = inputMan.mousePos.y < object->GetPos().y;
-    if (useWidth) return inputMan.mousePos.x - object->GetPos().x;
-    return object->GetPos().y - inputMan.mousePos.y;
+    bool useWidth = inputMan.GetMousePos().y < object->GetPos().y;
+    if (useWidth) return inputMan.GetMousePos().x - object->GetPos().x;
+    return object->GetPos().y - inputMan.GetMousePos().y;
 }
 
 float Launcher::CalcVelocity()

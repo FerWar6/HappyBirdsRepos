@@ -15,26 +15,6 @@ InputManager::InputManager()
 
 void InputManager::UpdateInputs()
 {
-	//MSG msg = {};
-	//std::cout << GetKey(MOUSE_SCRL_UP) << "\n";
-	//std::cout << GetKeyState(WM_MOUSEHWHEEL) << "\n";
-	//while (GetMessage(&msg, nullptr, 0, 0)) {
-	//	if (msg.message == WM_MOUSEWHEEL) {
-	//		// Extract wheel delta
-	//		int wheelDelta = GET_WHEEL_DELTA_WPARAM(msg.wParam);
-
-	//		// Output scroll direction
-	//		if (wheelDelta > 0) {
-	//			std::cout << "Mouse wheel scrolled up\n";
-	//		}
-	//		else {
-	//			std::cout << "Mouse wheel scrolled down\n";
-	//		}
-	//	}
-
-	//	TranslateMessage(&msg);
-	//	DispatchMessage(&msg);
-	//}
 	float repeatTime = 0.15f;
 	for (auto& input : inputKeys) {
 		if (GetKey(input.keyCode)) {
@@ -60,15 +40,42 @@ void InputManager::UpdateInputs()
 	}
 }
 
+const sf::Vector2i& InputManager::GetMousePos()
+{
+	return mousePos;
+}
+
 void InputManager::SetMousePos(sf::RenderWindow& win)
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
 	mousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
-	//std::cout << "set mousepos as " << "x: " << mousePos.x << " y:" << mousePos.y << "\n";
-
-	//mousePos = sf::Mouse::getPosition(win);
-
 }
+
+void InputManager::UpdateMousePos()
+{
+	sf::RenderWindow& win = *window;
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
+	mousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
+}
+
+const sf::Vector2i& InputManager::GetOldMousePos()
+{
+	return oldMousePos;
+}
+
+void InputManager::SetOldMousePos(sf::RenderWindow& win)
+{
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
+	oldMousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
+}
+
+void InputManager::UpdateOldMousePos()
+{
+	sf::RenderWindow& win = *window;
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
+	oldMousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
+}
+
 
 bool InputManager::GetKeyDown(KeyCode key)
 {
