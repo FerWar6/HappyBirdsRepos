@@ -1,6 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+>>>>>>> Stashed changes
+=======
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+>>>>>>> Stashed changes
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NOTAngryBirds", "NOTAngryBirds.vcxproj", "{6BACAE02-D76C-2A39-A0A7-73B60C276F15}"
 EndProject
 Global
