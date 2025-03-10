@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6BACAE02-D76C-2A39-A0A7-73B60C276F15}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>NOTAngryBirds</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <EnableASAN>false</EnableASAN>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>build\windows-x86_64\Debug\</OutDir>
+    <IntDir>build\Intermediates\windows-x86_64\Debug\</IntDir>
+    <TargetName>NOTAngryBirds</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>build\windows-x86_64\Release\</OutDir>
+    <IntDir>build\Intermediates\windows-x86_64\Release\</IntDir>
+    <TargetName>NOTAngryBirds</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>build\windows-x86_64\Dist\</OutDir>
+    <IntDir>build\Intermediates\windows-x86_64\Dist\</IntDir>
+    <TargetName>NOTAngryBirds</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>GAME_PLATFORM_WINDOWS;SFML_STATIC;DEBUG;ST_PLATFORM_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Dependencies\SFML-2.6.1\include;Dependencies\box2d-main\include;Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;box2d.lib;sfml-audio-s-d.lib;sfml-graphics-s-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Dependencies\SFML-2.6.1\lib;Dependencies\box2d-main\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>GAME_PLATFORM_WINDOWS;SFML_STATIC;RELEASE;ST_PLATFORM_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Dependencies\SFML-2.6.1\include;Dependencies\box2d-main\include;Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;box2d.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Dependencies\SFML-2.6.1\lib;Dependencies\box2d-main\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>GAME_PLATFORM_WINDOWS;SFML_STATIC;DIST;ST_PLATFORM_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Dependencies\SFML-2.6.1\include;Dependencies\box2d-main\include;Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;box2d.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Dependencies\SFML-2.6.1\lib;Dependencies\box2d-main\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DataTypes\Camera.h" />
+    <ClInclude Include="Source\DataTypes\Clock.h" />
+    <ClInclude Include="Source\DataTypes\InputKey.h" />
+    <ClInclude Include="Source\DataTypes\Size.h" />
+    <ClInclude Include="Source\DataTypes\Vector2.h" />
+    <ClInclude Include="Source\DataTypes\Enums\ComponentTypes.h" />
+    <ClInclude Include="Source\DataTypes\Enums\KeyCode.h" />
+    <ClInclude Include="Source\Engine\Scenes\Scene.h" />
+    <ClInclude Include="Source\Level\LevelEditor.h" />
+    <ClInclude Include="Source\Events\Event.h" />
+    <ClInclude Include="Source\Managers\ButtonFunctions.h" />
+    <ClInclude Include="Source\Managers\ButtonManager.h" />
+    <ClInclude Include="Source\Objects\Components\Button.h" />
+    <ClInclude Include="Source\Objects\Components\CircleRigidbody.h" />
+    <ClInclude Include="Source\Objects\Components\Component.h" />
+    <ClInclude Include="Source\Objects\Components\EditorItem.h" />
+    <ClInclude Include="Source\UI\EditorMoveTool.h" />
+    <ClInclude Include="Source\Objects\Components\Launcher.h" />
+    <ClInclude Include="Source\Objects\Components\RectRigidbody.h" />
+    <ClInclude Include="Source\Objects\Components\SpriteRenderer.h" />
+    <ClInclude Include="Source\DataTypes\Transform.h" />
+    <ClInclude Include="Source\Level\Grid.h" />
+    <ClInclude Include="Source\Level\Level.h" />
+    <ClInclude Include="Source\Managers\InputManager.h" />
+    <ClInclude Include="Source\Level\LevelManager.h" />
+    <ClInclude Include="source\Engine\Engine.h" />
+    <ClInclude Include="source\Engine\EngineCore.h" />
+    <ClInclude Include="source\Engine\PreLoader.h" />
+    <ClInclude Include="source\Engine\Renderer.h" />
+    <ClInclude Include="oldCode\GameManager.h" />
+    <ClInclude Include="source\Managers\ServiceLocator.h" />
+    <ClInclude Include="source\Objects\Object.h" />
+    <ClInclude Include="Source\Textures\FontItem.h" />
+    <ClInclude Include="source\Textures\SpriteSheet.h" />
+    <ClInclude Include="source\Textures\TextureItem.h" />
+    <ClInclude Include="Source\UI\Hierarchy.h" />
+    <ClInclude Include="Source\UI\UIElement.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\DataTypes\Size.cpp" />
+    <ClCompile Include="Source\DataTypes\Transform.cpp" />
+    <ClCompile Include="Source\DataTypes\Vector2.cpp" />
+    <ClCompile Include="Source\Engine\Scenes\Scene.cpp" />
+    <ClCompile Include="Source\Level\Level.cpp" />
+    <ClCompile Include="Source\Level\LevelEditor.cpp" />
+    <ClCompile Include="Source\Managers\ButtonFunctions.cpp" />
+    <ClCompile Include="Source\Managers\ButtonManager.cpp" />
+    <ClCompile Include="Source\Objects\Components\Button.cpp" />
+    <ClCompile Include="Source\Objects\Components\CircleRigidbody.cpp" />
+    <ClCompile Include="Source\Objects\Components\Component.cpp" />
+    <ClCompile Include="Source\Objects\Components\EditorItem.cpp" />
+    <ClCompile Include="Source\UI\EditorMoveTool.cpp" />
+    <ClCompile Include="Source\Objects\Components\Launcher.cpp" />
+    <ClCompile Include="Source\Objects\Components\RectRigidbody.cpp" />
+    <ClCompile Include="Source\Objects\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Level\Grid.cpp" />
+    <ClCompile Include="Source\Managers\InputManager.cpp" />
+    <ClCompile Include="Source\Level\LevelManager.cpp" />
+    <ClCompile Include="source\Engine\Engine.cpp" />
+    <ClCompile Include="source\Engine\EngineCore.cpp" />
+    <ClCompile Include="source\Engine\PreLoader.cpp" />
+    <ClCompile Include="source\Engine\Renderer.cpp" />
+    <ClCompile Include="source\Engine\main.cpp" />
+    <ClCompile Include="oldCode\GameManager.cpp" />
+    <ClCompile Include="source\Objects\Object.cpp" />
+    <ClCompile Include="Source\Textures\FontItem.cpp" />
+    <ClCompile Include="source\Textures\SpriteSheet.cpp" />
+    <ClCompile Include="source\Textures\TextureItem.cpp" />
+    <ClCompile Include="Source\UI\Hierarchy.cpp" />
+    <ClCompile Include="Source\UI\UIElement.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

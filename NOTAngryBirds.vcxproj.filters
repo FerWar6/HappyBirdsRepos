@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{B34CFEBD-9F19-59C9-C832-4771B45E8E57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{CF2649B1-3B06-C84C-441E-5323B07C2EAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{A95C6780-9529-C28B-BE42-B033AA6EF719}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Engine\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Engine\EngineCore.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Engine\PreLoader.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Engine\Renderer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="oldCode\GameManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Managers\ServiceLocator.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Objects\Object.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Textures\SpriteSheet.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Textures\TextureItem.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Level\LevelManager.h" />
+    <ClInclude Include="Source\Managers\InputManager.h" />
+    <ClInclude Include="Source\Level\Grid.h" />
+    <ClInclude Include="Source\Objects\Components\Component.h" />
+    <ClInclude Include="Source\DataTypes\Transform.h" />
+    <ClInclude Include="Source\Objects\Components\SpriteRenderer.h" />
+    <ClInclude Include="Source\Level\Level.h" />
+    <ClInclude Include="Source\Objects\Components\RectRigidbody.h" />
+    <ClInclude Include="Source\DataTypes\Size.h" />
+    <ClInclude Include="Source\DataTypes\Vector2.h" />
+    <ClInclude Include="Source\Objects\Components\CircleRigidbody.h" />
+    <ClInclude Include="Source\Objects\Components\Button.h" />
+    <ClInclude Include="Source\Events\Event.h" />
+    <ClInclude Include="Source\DataTypes\Enums\KeyCode.h" />
+    <ClInclude Include="Source\DataTypes\Enums\ComponentTypes.h" />
+    <ClInclude Include="Source\Objects\Components\Launcher.h" />
+    <ClInclude Include="Source\Engine\Scenes\Scene.h" />
+    <ClInclude Include="Source\Managers\ButtonFunctions.h" />
+    <ClInclude Include="Source\Level\LevelEditor.h" />
+    <ClInclude Include="Source\DataTypes\Camera.h" />
+    <ClInclude Include="Source\DataTypes\InputKey.h" />
+    <ClInclude Include="Source\Objects\Components\EditorItem.h" />
+    <ClInclude Include="Source\Managers\ButtonManager.h" />
+    <ClInclude Include="Source\UI\EditorMoveTool.h" />
+    <ClInclude Include="Source\UI\UIElement.h" />
+    <ClInclude Include="Source\UI\Hierarchy.h" />
+    <ClInclude Include="Source\Textures\FontItem.h" />
+    <ClInclude Include="Source\DataTypes\Clock.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Engine\Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Engine\EngineCore.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Engine\PreLoader.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Engine\Renderer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Engine\main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="oldCode\GameManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Objects\Object.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Textures\SpriteSheet.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Textures\TextureItem.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Level\LevelManager.cpp" />
+    <ClCompile Include="Source\Managers\InputManager.cpp" />
+    <ClCompile Include="Source\Level\Grid.cpp" />
+    <ClCompile Include="Source\Objects\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Objects\Components\RectRigidbody.cpp" />
+    <ClCompile Include="Source\Objects\Components\Component.cpp" />
+    <ClCompile Include="Source\DataTypes\Size.cpp" />
+    <ClCompile Include="Source\DataTypes\Vector2.cpp" />
+    <ClCompile Include="Source\DataTypes\Transform.cpp" />
+    <ClCompile Include="Source\Objects\Components\CircleRigidbody.cpp" />
+    <ClCompile Include="Source\Objects\Components\Button.cpp" />
+    <ClCompile Include="Source\Objects\Components\Launcher.cpp" />
+    <ClCompile Include="Source\Engine\Scenes\Scene.cpp" />
+    <ClCompile Include="Source\Managers\ButtonFunctions.cpp" />
+    <ClCompile Include="Source\Level\LevelEditor.cpp" />
+    <ClCompile Include="Source\Level\Level.cpp" />
+    <ClCompile Include="Source\Objects\Components\EditorItem.cpp" />
+    <ClCompile Include="Source\Managers\ButtonManager.cpp" />
+    <ClCompile Include="Source\UI\EditorMoveTool.cpp" />
+    <ClCompile Include="Source\UI\UIElement.cpp" />
+    <ClCompile Include="Source\UI\Hierarchy.cpp" />
+    <ClCompile Include="Source\Textures\FontItem.cpp" />
+  </ItemGroup>
+</Project>
