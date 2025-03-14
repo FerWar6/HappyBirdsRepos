@@ -7,10 +7,11 @@
 #include "Engine/PreLoader.h"
 #include <cmath>
 #include <iostream>
-Launcher::Launcher(std::string txrNm)
+Launcher::Launcher(std::string txrNm, int numOfAmmo)
     : Component(ComponentType::LAUNCHER),
     inputMan(sl::GetInputManager()),
-    primed(false)
+    primed(false),
+    ammoCount(numOfAmmo)
 {
     sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
     dotSprite.setTexture(txrRef);
@@ -36,16 +37,17 @@ void Launcher::Update()
     //if (inputMan.GetKeyUp(MOUSE_L)) SpawnProjectile();
 
 
-    if (inputMan.GetKeyDown(MOUSE_L)) {
-        primed = true;
+    if (ammoCount > 0) {
+        if (inputMan.GetKeyDown(MOUSE_L)) {
+            primed = true;
+        }
+        if (inputMan.GetKeyDown(MOUSE_R)) {
+            primed = false;
+        }
+        if (inputMan.GetKeyUp(MOUSE_L)) {
+            SpawnProjectile();
+        }
     }
-    if (inputMan.GetKeyDown(MOUSE_R)) {
-        primed = false;
-    }
-    if (inputMan.GetKeyUp(MOUSE_L)) {
-        SpawnProjectile();
-    }
-
 }
 
 void Launcher::FixedUpdate()
@@ -106,6 +108,7 @@ std::string Launcher::GetSaveData()
 }
 void Launcher::SpawnProjectile()
 {
+    ammoCount--;
     if (primed && (HoveringOver(buttonMinRadius))) {
         int scale = sl::GetEngine().worldScale;
         b2Vec2 spawnPos = b2Vec2{ CalcLaunchPoint().x / scale, CalcLaunchPoint().y / scale };

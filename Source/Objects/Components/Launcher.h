@@ -9,7 +9,7 @@ class InputManager;
 class Launcher : public Component
 {
 public:
-	Launcher(std::string txrName);
+	Launcher(std::string txrName, int numOfAmmo);
 	void Update() override;
 	void FixedUpdate() override;
 	void Render(sf::RenderWindow& window) override;
@@ -18,6 +18,8 @@ public:
 	std::string GetSaveData() override;
 private:
 	InputManager& inputMan;
+
+	int ammoCount;
 
 	float buttonMinRadius;
 	float buttonMaxRadius;

@@ -6,7 +6,7 @@
 Renderer::Renderer(std::vector<Object*>& objRef)
     : gameObjectsRef(objRef)
 {
-    int winWidth = 1000;
+    int winWidth = 1500;
     int winHeight = 900;
     std::string windowName = "Happy Birds";
     window.create(sf::VideoMode(winWidth, winHeight), windowName);
@@ -15,6 +15,7 @@ Renderer::Renderer(std::vector<Object*>& objRef)
 
 void Renderer::Start()
 {
+    //window.setSize({ 100, 100 });
 }
 void Renderer::Render()
 {

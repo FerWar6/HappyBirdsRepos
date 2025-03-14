@@ -34,7 +34,7 @@ void Engine::Start()
 		SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
 		ren->lockRotation = true;
 		new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
-		new Launcher("PreviewDot");
+		new Launcher("PreviewDot", 2);
 	}
 	//{
 	//	Object* obj = new Object(sf::Vector2f(200, 200));
