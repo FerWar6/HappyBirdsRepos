@@ -1,8 +1,6 @@
 #pragma once
-#include "Level/LevelManager.h"
 #include "Managers/InputManager.h"
 #include "Engine/PreLoader.h"
-#include "Level/Grid.h"
 #include "Engine/Scenes/Scene.h"
 
 class Object;
@@ -23,7 +21,7 @@ public:
 	std::vector<Object*> markedForDeletion;
 
 	PreLoader& GetPreLoader();
-	LevelManager& GetLevelManager();
+	//LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
 
 	void LoadScene(std::string name);
@@ -32,7 +30,7 @@ public:
 	const int worldScale = 50;
 private:
 	PreLoader preLoader;
-	LevelManager levelManager;
+	//LevelManager levelManager;
 	InputManager inputManager;
 	sf::RenderWindow* window;
 

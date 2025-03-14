@@ -42,13 +42,13 @@
     <ClInclude Include="source\Textures\TextureItem.h">
       <Filter>Textures</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Level\LevelManager.h" />
+    <ClInclude Include="oldCode\Level\LevelManager.h" />
     <ClInclude Include="Source\Managers\InputManager.h" />
-    <ClInclude Include="Source\Level\Grid.h" />
+    <ClInclude Include="oldCode\Level\Grid.h" />
     <ClInclude Include="Source\Objects\Components\Component.h" />
     <ClInclude Include="Source\DataTypes\Transform.h" />
     <ClInclude Include="Source\Objects\Components\SpriteRenderer.h" />
-    <ClInclude Include="Source\Level\Level.h" />
+    <ClInclude Include="oldCode\Level\Level.h" />
     <ClInclude Include="Source\Objects\Components\RectRigidbody.h" />
     <ClInclude Include="Source\DataTypes\Size.h" />
     <ClInclude Include="Source\DataTypes\Vector2.h" />
@@ -60,7 +60,7 @@
     <ClInclude Include="Source\Objects\Components\Launcher.h" />
     <ClInclude Include="Source\Engine\Scenes\Scene.h" />
     <ClInclude Include="Source\Managers\ButtonFunctions.h" />
-    <ClInclude Include="Source\Level\LevelEditor.h" />
+    <ClInclude Include="Source\Engine\Scenes\SceneEditor.h" />
     <ClInclude Include="Source\DataTypes\Camera.h" />
     <ClInclude Include="Source\DataTypes\InputKey.h" />
     <ClInclude Include="Source\Objects\Components\EditorItem.h" />
@@ -99,9 +99,9 @@
     <ClCompile Include="source\Textures\TextureItem.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Level\LevelManager.cpp" />
+    <ClCompile Include="oldCode\Level\LevelManager.cpp" />
     <ClCompile Include="Source\Managers\InputManager.cpp" />
-    <ClCompile Include="Source\Level\Grid.cpp" />
+    <ClCompile Include="oldCode\Level\Grid.cpp" />
     <ClCompile Include="Source\Objects\Components\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Objects\Components\RectRigidbody.cpp" />
     <ClCompile Include="Source\Objects\Components\Component.cpp" />
@@ -113,8 +113,8 @@
     <ClCompile Include="Source\Objects\Components\Launcher.cpp" />
     <ClCompile Include="Source\Engine\Scenes\Scene.cpp" />
     <ClCompile Include="Source\Managers\ButtonFunctions.cpp" />
-    <ClCompile Include="Source\Level\LevelEditor.cpp" />
-    <ClCompile Include="Source\Level\Level.cpp" />
+    <ClCompile Include="Source\Engine\Scenes\SceneEditor.cpp" />
+    <ClCompile Include="oldCode\Level\Level.cpp" />
     <ClCompile Include="Source\Objects\Components\EditorItem.cpp" />
     <ClCompile Include="Source\Managers\ButtonManager.cpp" />
     <ClCompile Include="Source\UI\EditorMoveTool.cpp" />

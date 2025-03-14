@@ -19,7 +19,7 @@ struct ButtonFunction {
 private:
 	std::function<void()> function;
 };
-class LevelEditor;
+class SceneEditor;
 
 struct ButtonFunctions
 {

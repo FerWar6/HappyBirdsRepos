@@ -1,7 +1,7 @@
 #include "Object.h"
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 #include <iostream>
 
 Object::Object()
@@ -30,7 +30,7 @@ void Object::Start()
 		eng.AddObject(this);
 	}
 	else {
-		sl::GetLevelEditor().AddObject(this);
+		sl::GetSceneEditor().AddObject(this);
 	}
 }
 
@@ -167,18 +167,16 @@ const Transform Object::GetTransform()
 	return transform;
 }
 
-std::string Object::GetSaveData()
+std::string Object::GetSaveData() // saves the transform, number of components and component data
 {
 	std::string data;
 	Transform& t = transform;
-	data += "obj ";
 	data += std::to_string(t.position.x) + " ";
 	data += std::to_string(t.position.y) + " ";
 	data += std::to_string(t.rotation) + " ";
 	data += std::to_string(t.size.w) + " ";
 	data += std::to_string(t.size.h) + " ";
 
-	data += "cps ";
 	int numOfComps = components.size();
 	data += std::to_string(numOfComps) + " ";
 

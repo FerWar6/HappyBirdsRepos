@@ -5,18 +5,27 @@
 
 Renderer::Renderer(std::vector<Object*>& objRef)
     : gameObjectsRef(objRef)
-{}
-
+{
+    int winWidth = 1000;
+    int winHeight = 900;
+    std::string windowName = "Happy Birds";
+    window.create(sf::VideoMode(winWidth, winHeight), windowName);
+    sl::SetWindow(&window);
+}
 
 void Renderer::Start()
 {
-    window = &sl::GetWindow();
 }
 void Renderer::Render()
 {
-    window->clear();
+    window.clear();
     for (auto& obj : gameObjectsRef) {
-        obj->Render(*window);
+        obj->Render(window);
     }
-    window->display();
+    window.display();
+}
+
+sf::RenderWindow& Renderer::GetWindow()
+{
+    return window;
 }

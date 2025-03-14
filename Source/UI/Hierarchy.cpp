@@ -1,5 +1,5 @@
 #include "Hierarchy.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 #include "Objects/Object.h"
 #include "Managers/ServiceLocator.h"
 #include "Managers/InputManager.h"
@@ -7,7 +7,7 @@
 Hierarchy::Hierarchy()
 	: UIElement(),
 	inputMan(sl::GetInputManager()),
-	objects(sl::GetLevelEditor().objects)
+	objects(sl::GetSceneEditor().objects)
 {
 	titleTxt.setFont(sl::GetPreLoader().GetFont("goofy"));
 	titleTxt.setPosition(sf::Vector2f(100, 100));
@@ -21,7 +21,7 @@ void Hierarchy::Update()
 	for (int i = 0; i < objectsTxts.size(); i++) {
 		sf::Rect rect = objectsTxts[i].getGlobalBounds();
 		if (inputMan.GetKeyDown(MOUSE_L) && HoveringOver((sf::Vector2i)rect.getSize(), (sf::Vector2i)rect.getPosition())) {
-			sl::GetLevelEditor().SetSelectedObj(objects[i]);
+			sl::GetSceneEditor().SetSelectedObj(objects[i]);
 		}
 	}
 }

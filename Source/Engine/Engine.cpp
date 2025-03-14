@@ -14,25 +14,20 @@ namespace fs = std::filesystem;
 
 Engine::Engine()
 	: preLoader(),
-	levelManager(),
 	inputManager(),
 	currentScene(nullptr),
 	window(nullptr)
 {
 	sl::SetEngine(this);
 	preLoader.buttonFunctions.LinkButtonFunctions(this);
-
+	LoadScenes();
 }
 
 void Engine::Start()
 {
 	window = &sl::GetWindow();
-	LoadScenes();
-	LoadScene("MainMenu");
-	//std::string path = "Assets/Levels/level1.txt";
-	//levelManager.LoadLevel(path);
-	//levelManager.SaveExistingLevel(path, objects);
-	//Grid* grid = new Grid(gameManager.GetWindow(), inputManager);
+	LoadScene("level1");
+	//LoadScene("MainMenu");
 	{
 		new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
 		sf::Vector2f scale(1.5, 1.5);
@@ -42,7 +37,7 @@ void Engine::Start()
 		new Launcher("PreviewDot");
 	}
 	//{
-	//	Object* obj = new Object(sf::Vector2f(150, 150));
+	//	Object* obj = new Object(sf::Vector2f(200, 200));
 	//	new SpriteRenderer("LevelSelectButton", true);
 	//	new Button(ButtFuncId::MOVE_TO_SCENE);
 	//	std::cout << obj->GetSaveData() << "\n";
@@ -99,10 +94,10 @@ PreLoader& Engine::GetPreLoader()
 	return preLoader;
 }
 
-LevelManager& Engine::GetLevelManager()
-{
-	return levelManager;
-}
+//LevelManager& Engine::GetLevelManager()
+//{
+//	return levelManager;
+//}
 
 InputManager& Engine::GetInputManager()
 {

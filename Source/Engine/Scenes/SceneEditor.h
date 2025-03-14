@@ -1,16 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Level/Level.h"
 #include "DataTypes/Camera.h"
-
+#include "Engine/Scenes/Scene.h"
 class Object;
 class UIElement;
 class InputManager;
-class LevelEditor
+class SceneEditor
 {
 public:
-	LevelEditor();
+	SceneEditor();
 
 	sf::Sprite moveWidgetSprite;
 	sf::Sprite gridSprite;
@@ -40,13 +39,13 @@ private:
 	void Render();
 	InputManager& inputMan;
 	Object* selObj; // the selected object in the editor
-	Level* currentLevel;
+	Scene* currentScene;
 	void LoopEditor();
-	void LoadLevels();
-	void DebugLevels();
+	void LoadScenes();
+	void DebugScenes();
 	std::string input;
-	std::vector<Level> allLevels;
-	std::string levelPath = "Assets/Levels/";
+	std::vector<Scene> allScenes;
+	std::string scenePath = "Assets/Scenes/";
 
 	Camera cam;
 	sf::RenderWindow window;

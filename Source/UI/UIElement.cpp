@@ -1,8 +1,8 @@
 #include "UIElement.h"
 #include "Managers/ServiceLocator.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 UIElement::UIElement()
-	: cam(sl::GetLevelEditor().GetCamera())
+	: cam(sl::GetSceneEditor().GetCamera())
 {
-	sl::GetLevelEditor().AddUI(this);
+	sl::GetSceneEditor().AddUI(this);
 }

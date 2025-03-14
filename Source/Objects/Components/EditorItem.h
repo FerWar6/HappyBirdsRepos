@@ -3,7 +3,7 @@
 #include <functional>
 #include "Managers/ButtonFunctions.h"
 class InputManager;
-class LevelEditor;
+class SceneEditor;
 
 class EditorItem : Component
 {
@@ -16,7 +16,7 @@ public:
 	bool HoveringOver();
 
 private:
-	LevelEditor& levelEdtr;
+	SceneEditor& sceneEditor;
 	InputManager& inputMan;
 	bool selected;
 };

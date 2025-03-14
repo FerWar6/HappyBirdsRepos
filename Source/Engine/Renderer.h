@@ -11,16 +11,12 @@ class EngineCore;
 class Renderer
 {
 public:
-	//render request
 	Renderer(std::vector<Object*>& objRef);
 	void Start();
 	void Render();
+	sf::RenderWindow& GetWindow();
 
-	sf::Sprite grid;
 private:
-
-	int scale = 50;
+	sf::RenderWindow window;
 	std::vector<Object*>& gameObjectsRef;
-	sf::RenderWindow* window;
-	std::vector<Object*> objectsToRender;
 };

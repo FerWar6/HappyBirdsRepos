@@ -1,7 +1,7 @@
 #include "EditorMoveTool.h"
 #include "Managers/ServiceLocator.h"
 #include "Managers/InputManager.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 #include "Engine/PreLoader.h"
 #include "Objects/Object.h"
 EditorMoveTool::EditorMoveTool()
@@ -17,7 +17,7 @@ EditorMoveTool::EditorMoveTool()
 
 void EditorMoveTool::Update()
 {
-	Object* selObj = sl::GetLevelEditor().GetSelectedObj();
+	Object* selObj = sl::GetSceneEditor().GetSelectedObj();
 	int increment = 50;
 	if (inputMan.GetKeyDownRepeat(ARROW_UP) && selObj) {
 		sf::Vector2f newPos = selObj->GetPos();

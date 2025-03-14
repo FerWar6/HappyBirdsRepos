@@ -1,6 +1,6 @@
 #include "ButtonFunctions.h"
 #include "Engine/Engine.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 {
 	int numOfFunc = static_cast<int>(ButtFuncId::BUTTON_FUNCTIONS_COUNT);

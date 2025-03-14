@@ -1,6 +1,6 @@
 #pragma once
 class Engine;
-class LevelEditor;
+class SceneEditor;
 class PreLoader;
 class InputManager;
 namespace sf { class RenderWindow; }
@@ -13,9 +13,9 @@ namespace ServiceLocator {
 	inline Engine& GetEngine() { return *engine; }
 	inline void SetEngine(Engine* eng) { engine = eng; }
 
-	inline LevelEditor* levelEditor = nullptr;
-	inline LevelEditor& GetLevelEditor() { return *levelEditor; }
-	inline void SetLevelEditor(LevelEditor* le) { levelEditor = le; }
+	inline SceneEditor* sceneEditor = nullptr;
+	inline SceneEditor& GetSceneEditor() { return *sceneEditor; }
+	inline void SetSceneEditor(SceneEditor* se) { sceneEditor = se; }
 
 	inline PreLoader* preLdr = nullptr;
 	inline PreLoader& GetPreLoader() { return *preLdr; }

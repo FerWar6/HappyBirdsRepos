@@ -12,15 +12,12 @@ private:
 	void LoopEngine();
 	Engine engine;
 	Renderer renderer;
-	sf::RenderWindow window;
 
 	b2WorldId worldId;
 	sf::Clock gameClock;
-
+	sf::RenderWindow* window;
 	int fixedUpdateFrames = 60;
 	const float timeStep = 1.0f / fixedUpdateFrames;
 	float deltTime = 0.0f;
 	float accumulator = 0.0f;
 };
-
-

@@ -4,12 +4,12 @@
 #include "Managers/InputManager.h"
 #include "Managers/ServiceLocator.h"
 #include "Engine/PreLoader.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 
 EditorItem::EditorItem()
     : Component(EDITOR_ITEM),
     inputMan(sl::GetInputManager()),
-    levelEdtr(sl::GetLevelEditor()),
+    sceneEditor(sl::GetSceneEditor()),
     OnClick(std::bind(&EditorItem::Select, this)),
     selected(false)
 {}
@@ -41,9 +41,9 @@ bool EditorItem::HoveringOver()
 void EditorItem::Select()
 {
     if (!selected) {
-        levelEdtr.SetSelectedObj(object);
+        sceneEditor.SetSelectedObj(object);
     }
     else {
-        levelEdtr.ClearSelectedObj();
+        sceneEditor.ClearSelectedObj();
     }
 }

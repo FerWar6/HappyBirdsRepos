@@ -1,6 +1,6 @@
 #include "EngineCore.h"
 #include "Managers/ServiceLocator.h"
-#include "Level/LevelEditor.h"
+#include "Engine/Scenes/SceneEditor.h"
 #include <wtypes.h>
 #include <iostream>
 #include <stdio.h>
@@ -13,7 +13,6 @@ EngineCore::EngineCore()
     worldDef.gravity = { 0.0f, 9.8f };
     worldId = b2CreateWorld(&worldDef);
 	sl::SetWorldId(&worldId);
-	sl::SetWindow(&window);
 	
 	engine.Start();
 	renderer.Start();
@@ -22,31 +21,27 @@ EngineCore::EngineCore()
 
 void EngineCore::Start()
 {
+	window = &sl::GetWindow();
 	LoopEngine();
 }
 
 void EngineCore::LoopEngine()
 {
 	//TODO - maybe open a window to check if the player want to open edit mode or play the game
-	bool editorMode = true;
-	if (editorMode) {
-		engine.inEditMode = true;
-		LevelEditor editor;
-		engine.inEditMode = false;
-	}
-
-	int winWidth = 1500;
-	int winHeight = 900;
-	std::string windowName = "Happy Birds";
-	window.create(sf::VideoMode(winWidth, winHeight), windowName);
-
-	while (window.isOpen())
+	//bool editorMode = true;
+	//if (editorMode) {
+	//	engine.inEditMode = true;
+	//	SceneEditor editor;
+	//	engine.inEditMode = false;
+	//}
+	sf::RenderWindow& win = *window;
+	while (win.isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event)) {
+		while (win.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				std::cout << "Closed engine" << std::endl;
-				window.close();
+				win.close();
 			}
 		}
 		engine.UpdateObjectsVector();

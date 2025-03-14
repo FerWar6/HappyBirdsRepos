@@ -6,6 +6,7 @@
 #include "Objects/Components/RectRigidbody.h"
 #include "Objects/Components/CircleRigidbody.h"
 #include "Objects/Components/Button.h"
+#include "Objects/Components//EditorItem.h"
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -19,7 +20,8 @@ Scene::Scene(std::string& pathToScne)
 
 void Scene::SaveScene()
 {
-
+	//scene the objects in the current objects vector of the editor or engine
+	std::cout << "Saved Scene! ( " << sceneName << " )\n";
 }
 
 void Scene::LoadScene()
@@ -38,79 +40,73 @@ void Scene::LoadScene()
 		file.seekg(0, std::ios::beg);
 
 		for (int i = 0; i < amountOfObj; i++) {
-			std::string dataType;
-			file >> dataType; //checks if obj
-			if (dataType == "obj") {
-				Transform transform;
-				file >> transform.position.x;
-				file >> transform.position.y;
-				file >> transform.rotation;
-				file >> transform.size.w;
-				file >> transform.size.h;
-				//create object from data
-				Object* obj = new Object(transform);
 
-				//add components
-				file >> dataType; //checks if components
-				int numOfComps;
-				file >> numOfComps;
+			Transform transform;
+			file >> transform.position.x;
+			file >> transform.position.y;
+			file >> transform.rotation;
+			file >> transform.size.w;
+			file >> transform.size.h;
+			//create object from data
+			Object* obj = new Object(transform);
 
-				if (numOfComps > 0) for (int i = 0; i < numOfComps; i++) {
-					//create component based on data in file
+			//add components
+			int numOfComps;
+			file >> numOfComps;
+
+			for (int i = 0; i < numOfComps; i++) {
+				//create component based on data in file
+				int enumIndex;
+				file >> enumIndex;
+				ComponentType compType = (ComponentType)enumIndex;
+
+				switch (compType) {
+				case ComponentType::SPRITE_RENDERER:
+				{
+					std::string txrName;
+					file >> txrName;
+					new SpriteRenderer(txrName);
+					break;
+				}
+				case ComponentType::RECT_RIGIDBODY:
+				{
+					b2WorldId& id = sl::GetWorldId();
+					float density;
 					int enumIndex;
+					b2BodyType bodyType;
+					file >> density;
 					file >> enumIndex;
-					ComponentType compType = (ComponentType)enumIndex;
-
-					switch (compType) {
-					case ComponentType::SPRITE_RENDERER:
-					{
-						std::string txrName;
-						file >> txrName;
-						new SpriteRenderer(txrName);
-						break;
-					}
-					case ComponentType::RECT_RIGIDBODY:
-					{
-						b2WorldId& id = sl::GetWorldId();
-						float density;
-						int enumIndex;
-						b2BodyType bodyType;
-						file >> density;
-						file >> enumIndex;
-						bodyType = (b2BodyType)enumIndex;
-						new RectRigidbody(bodyType, density, id);
-						break;
-					}
-					case ComponentType::CIRCLE_RIGIDBODY:
-					{
-						b2WorldId& id = sl::GetWorldId();
-						float density;
-						int enumIndex;
-						b2BodyType bodyType;
-						file >> density;
-						file >> enumIndex;
-						bodyType = (b2BodyType)enumIndex;
-						new CircleRigidbody(bodyType, density, id);
-						break;
-					}
-					case ComponentType::BUTTON:
-					{
-						int funcIdIndex;
-						ButtFuncId funcId;
-						file >> funcIdIndex;
-						funcId = (ButtFuncId)funcIdIndex;
-						new Button(funcId);
-						break;
-					}
-					default:
-						std::cout << "Invalid Component Type: " << compType << "\n";
-						break;
-					}
+					bodyType = (b2BodyType)enumIndex;
+					new RectRigidbody(bodyType, density, id);
+					break;
+				}
+				case ComponentType::CIRCLE_RIGIDBODY:
+				{
+					b2WorldId& id = sl::GetWorldId();
+					float density;
+					int enumIndex;
+					b2BodyType bodyType;
+					file >> density;
+					file >> enumIndex;
+					bodyType = (b2BodyType)enumIndex;
+					new CircleRigidbody(bodyType, density, id);
+					break;
+				}
+				case ComponentType::BUTTON:
+				{
+					int funcIdIndex;
+					ButtFuncId funcId;
+					file >> funcIdIndex;
+					funcId = (ButtFuncId)funcIdIndex;
+					new Button(funcId);
+					break;
+				}
+				default:
+					std::cout << "Invalid Component Type: " << compType << "\n";
+					break;
 				}
 			}
-			else {
-				std::cout << "Data in " << pathToScene << " not an object. \n";
-			}
+			if (sl::GetEngine().inEditMode) new EditorItem(); //adds editorItem if in edit mode
 		}
 		file.close();
 	}

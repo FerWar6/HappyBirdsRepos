@@ -1,4 +1,4 @@
-#include "LevelEditor.h"
+#include "SceneEditor.h"
 #include "Managers/ServiceLocator.h"
 #include "Objects/Object.h"
 #include "Managers/InputManager.h"
@@ -12,13 +12,13 @@
 
 namespace fs = std::filesystem;
 
-LevelEditor::LevelEditor()
-	: currentLevel(nullptr),
+SceneEditor::SceneEditor()
+	: currentScene(nullptr),
 	inputMan(sl::GetInputManager()),
 	cam(),
 	selObj(nullptr)
 {
-	sl::SetLevelEditor(this);
+	sl::SetSceneEditor(this);
 
 	new Hierarchy();
 	new EditorMoveTool();
@@ -32,14 +32,14 @@ LevelEditor::LevelEditor()
 }
 
 
-void LevelEditor::OpenEditorConsole()
+void SceneEditor::OpenEditorConsole()
 {
-	LoadLevels();
-	DebugLevels();
+	LoadScenes();
+	DebugScenes();
 
 	bool loadFirstLevel = true;
 	if (loadFirstLevel) {
-		currentLevel = &allLevels[0];
+		currentScene = &allScenes[0];
 		OpenEditorWindow();
 	}
 	else {
@@ -50,14 +50,14 @@ void LevelEditor::OpenEditorConsole()
 	}
 }
 
-void LevelEditor::OpenEditorWindow()
+void SceneEditor::OpenEditorWindow()
 {
 	int winWidth = 1500;
 	int winHeight = 900;
-	std::string name = currentLevel->levelName;
+	std::string name = currentScene->sceneName;
 	window.create(sf::VideoMode(winWidth, winHeight), name);
 	cam.SetView(window);
-	currentLevel->LoadLevel();
+	currentScene->LoadScene();
 
 	sf::Texture& gridTxr = sl::GetPreLoader().GetTexture("GridSquare");
 	gridTxr.setRepeated(true);
@@ -69,7 +69,7 @@ void LevelEditor::OpenEditorWindow()
 	LoopEditor();
 }
 
-void LevelEditor::LoopEditor()
+void SceneEditor::LoopEditor()
 {
 	while (window.isOpen() && !inputMan.GetKey(ESCAPE))
 	{
@@ -103,9 +103,12 @@ void LevelEditor::LoopEditor()
 		//renderer functionality
 		Render();
 	}
+	//shut down level editor
+	currentScene->SaveScene();
+
 }
 
-void LevelEditor::Update()
+void SceneEditor::Update()
 {
 	for (auto& obj : objects) {
 		obj->Update();
@@ -115,7 +118,7 @@ void LevelEditor::Update()
 	}
 }
 
-void LevelEditor::Render()
+void SceneEditor::Render()
 {
 	window.clear();
 	window.setView(cam.GetView());
@@ -135,13 +138,13 @@ void LevelEditor::Render()
 	window.display();
 }
 
-void LevelEditor::UpdateInput()
+void SceneEditor::UpdateInput()
 {
 	inputMan.UpdateMousePos();
 	inputMan.UpdateInputs();
 
 	if (inputMan.GetKey(MOUSE_R)) {
-		window.setTitle(currentLevel->levelName + "*");
+		window.setTitle(currentScene->sceneName + "*");
 		sf::Vector2f newCamPos = (sf::Vector2f)(inputMan.GetOldMousePos() - inputMan.GetMousePos());
 		cam.SetPos(cam.GetPos() + newCamPos);
 	}
@@ -153,7 +156,7 @@ void LevelEditor::UpdateInput()
 	}
 	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(S)) {
 		//TODO - actually save the game
-		window.setTitle(currentLevel->levelName);
+		window.setTitle(currentScene->sceneName);
 	}
 	if (inputMan.GetKeyDown(MOUSE_L)) {
 
@@ -166,17 +169,17 @@ void LevelEditor::UpdateInput()
 }
 
 
-void LevelEditor::CheckInput()
+void SceneEditor::CheckInput()
 {
 	//make the input lower case
 	for (char& c : input) {
 		c = std::tolower(static_cast<unsigned char>(c));
 	}
 	//check if input is name or index of level
-	for (int i = 0; i < allLevels.size(); i++) {
-		Level& level = allLevels[i];
-		if (input == std::to_string(i) || input == level.levelName) {
-			currentLevel = &level;
+	for (int i = 0; i < allScenes.size(); i++) {
+		Scene& scene = allScenes[i];
+		if (input == std::to_string(i) || input == scene.sceneName) {
+			currentScene = &scene;
 			OpenEditorWindow();
 			return;
 		}
@@ -189,7 +192,7 @@ void LevelEditor::CheckInput()
 		return;
 	}
 	if (input == "levels") {
-		DebugLevels();
+		DebugScenes();
 		return;
 	}
 	if (input == "exit"){
@@ -198,19 +201,19 @@ void LevelEditor::CheckInput()
 	}
 	std::cout << "'" << input << "' Is not a valid command \n";
 }
-void LevelEditor::AddObject(Object* o)
+void SceneEditor::AddObject(Object* o)
 {
 	markedForAddition.push_back(o);
 }
-void LevelEditor::DeleteObject(Object* o)
+void SceneEditor::DeleteObject(Object* o)
 {
 	markedForDeletion.push_back(o);
 }
-void LevelEditor::AddUI(UIElement* ui)
+void SceneEditor::AddUI(UIElement* ui)
 {
 	uiElements.push_back(ui);
 }
-void LevelEditor::UpdateObjectsVector()
+void SceneEditor::UpdateObjectsVector()
 {
 	if (!markedForAddition.empty()) {
 		objects.insert(objects.end(), markedForAddition.begin(), markedForAddition.end());
@@ -229,7 +232,7 @@ void LevelEditor::UpdateObjectsVector()
 		markedForDeletion.clear();
 	}
 }
-void LevelEditor::SetSelectedObj(Object* obj)
+void SceneEditor::SetSelectedObj(Object* obj)
 {
 	if (selObj) {
 		((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(false);
@@ -238,12 +241,12 @@ void LevelEditor::SetSelectedObj(Object* obj)
 	((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(true);
 }
 
-Object* LevelEditor::GetSelectedObj()
+Object* SceneEditor::GetSelectedObj()
 {
 	return selObj;
 }
 
-void LevelEditor::ClearSelectedObj()
+void SceneEditor::ClearSelectedObj()
 {
 	if (selObj) {
 		((EditorItem*)selObj->GetComponent(EDITOR_ITEM))->SetSelected(false);
@@ -251,37 +254,36 @@ void LevelEditor::ClearSelectedObj()
 	selObj = nullptr;
 }
 
-Camera& LevelEditor::GetCamera()
+Camera& SceneEditor::GetCamera()
 {
 	return cam;
 }
 
-
-void LevelEditor::LoadLevels()
+void SceneEditor::LoadScenes()
 {
-	for (const auto& entry : fs::directory_iterator(levelPath)) {
+	for (const auto& entry : fs::directory_iterator(scenePath)) {
 		std::string filepath = entry.path().string();
 
 		if (filepath.size() >= 4 && (filepath.compare(filepath.size() - 4, 4, ".txt") == 0))
 		{
-			Level level(filepath);
-			allLevels.push_back(level);
+			allScenes.emplace_back(filepath);
+			std::cout << "file found!: " << filepath << "\n";
 		}
 	}
 }
 
-void LevelEditor::DebugLevels()
+void SceneEditor::DebugScenes()
 {
-	int numOfLev = allLevels.size();
-	if (numOfLev == 0) {
-		std::cout << "No levels found in: " << levelPath << "\n";
+	int numOfScenes = allScenes.size();
+	if (numOfScenes == 0) {
+		std::cout << "No levels found in: " << scenePath << "\n";
 		return;
 	}
-	numOfLev == 1 ? std::cout << numOfLev << " Level found at: " << levelPath << "\n" : std::cout << numOfLev << " Levels found at: " << levelPath << "\n";
+	numOfScenes == 1 ? std::cout << numOfScenes << " Level found at: " << scenePath << "\n" : std::cout << numOfScenes << " Levels found at: " << scenePath << "\n";
 	std::cout << "\n[-----------------------------------------------]\n";
-	for (int i = 0; i < allLevels.size(); i++) {
-		Level& level = allLevels[i];
-		std::cout << "Level [" << i << "]  " << level.levelName << "\n";
+	for (int i = 0; i < allScenes.size(); i++) {
+		Scene& scene = allScenes[i];
+		std::cout << "Level [" << i << "]  " << scene.sceneName << "\n";
 	}
 	std::cout << "[-----------------------------------------------]\n";
 }

@@ -153,7 +153,7 @@
     <ClInclude Include="Source\DataTypes\Enums\ComponentTypes.h" />
     <ClInclude Include="Source\DataTypes\Enums\KeyCode.h" />
     <ClInclude Include="Source\Engine\Scenes\Scene.h" />
-    <ClInclude Include="Source\Level\LevelEditor.h" />
+    <ClInclude Include="Source\Engine\Scenes\SceneEditor.h" />
     <ClInclude Include="Source\Events\Event.h" />
     <ClInclude Include="Source\Managers\ButtonFunctions.h" />
     <ClInclude Include="Source\Managers\ButtonManager.h" />
@@ -166,10 +166,10 @@
     <ClInclude Include="Source\Objects\Components\RectRigidbody.h" />
     <ClInclude Include="Source\Objects\Components\SpriteRenderer.h" />
     <ClInclude Include="Source\DataTypes\Transform.h" />
-    <ClInclude Include="Source\Level\Grid.h" />
-    <ClInclude Include="Source\Level\Level.h" />
+    <ClInclude Include="oldCode\Level\Grid.h" />
+    <ClInclude Include="oldCode\Level\Level.h" />
     <ClInclude Include="Source\Managers\InputManager.h" />
-    <ClInclude Include="Source\Level\LevelManager.h" />
+    <ClInclude Include="oldCode\Level\LevelManager.h" />
     <ClInclude Include="source\Engine\Engine.h" />
     <ClInclude Include="source\Engine\EngineCore.h" />
     <ClInclude Include="source\Engine\PreLoader.h" />
@@ -188,8 +188,8 @@
     <ClCompile Include="Source\DataTypes\Transform.cpp" />
     <ClCompile Include="Source\DataTypes\Vector2.cpp" />
     <ClCompile Include="Source\Engine\Scenes\Scene.cpp" />
-    <ClCompile Include="Source\Level\Level.cpp" />
-    <ClCompile Include="Source\Level\LevelEditor.cpp" />
+    <ClCompile Include="oldCode\Level\Level.cpp" />
+    <ClCompile Include="Source\Engine\Scenes\SceneEditor.cpp" />
     <ClCompile Include="Source\Managers\ButtonFunctions.cpp" />
     <ClCompile Include="Source\Managers\ButtonManager.cpp" />
     <ClCompile Include="Source\Objects\Components\Button.cpp" />
@@ -200,9 +200,9 @@
     <ClCompile Include="Source\Objects\Components\Launcher.cpp" />
     <ClCompile Include="Source\Objects\Components\RectRigidbody.cpp" />
     <ClCompile Include="Source\Objects\Components\SpriteRenderer.cpp" />
-    <ClCompile Include="Source\Level\Grid.cpp" />
+    <ClCompile Include="oldCode\Level\Grid.cpp" />
     <ClCompile Include="Source\Managers\InputManager.cpp" />
-    <ClCompile Include="Source\Level\LevelManager.cpp" />
+    <ClCompile Include="oldCode\Level\LevelManager.cpp" />
     <ClCompile Include="source\Engine\Engine.cpp" />
     <ClCompile Include="source\Engine\EngineCore.cpp" />
     <ClCompile Include="source\Engine\PreLoader.cpp" />
