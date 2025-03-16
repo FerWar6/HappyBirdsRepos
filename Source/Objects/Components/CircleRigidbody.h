@@ -12,6 +12,7 @@ public:
 
 	CircleRigidbody(b2BodyType type, float density, b2WorldId& id);
 
+	~CircleRigidbody();
 	void FixedUpdate() override;
 	b2BodyId bodyId;
 

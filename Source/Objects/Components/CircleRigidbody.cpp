@@ -58,6 +58,11 @@ CircleRigidbody::CircleRigidbody(b2BodyType type, float dens, b2WorldId& id)
     b2CreateCircleShape(bodyId, &shapeDef, &circleData);
 }
 
+CircleRigidbody::~CircleRigidbody()
+{
+    b2DestroyBody(bodyId);
+}
+
 void CircleRigidbody::FixedUpdate()
 {
     b2Vec2 pos = b2Body_GetPosition(bodyId);
@@ -73,7 +78,11 @@ b2BodyType CircleRigidbody::GetBodyType()
 
 std::string CircleRigidbody::GetSaveData()
 {
-    return std::string();
+    std::string data;
+    data += std::to_string(type) + " ";
+    data += std::to_string(density) + " ";
+    data += std::to_string(b2Body_GetType(bodyId)) + " ";
+    return data;
 }
 
 //void CircleRigidbody::Render(sf::RenderWindow& window)

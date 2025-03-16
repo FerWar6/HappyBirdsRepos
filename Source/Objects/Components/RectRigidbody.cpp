@@ -38,6 +38,11 @@ RectRigidbody::RectRigidbody(b2BodyType type, float dens, b2WorldId& id)
     object->SetSizeInM(sizeInM);
 }
 
+RectRigidbody::~RectRigidbody()
+{
+    b2DestroyBody(bodyId);
+}
+
 void RectRigidbody::FixedUpdate()
 {
     b2Vec2 pos = b2Body_GetPosition(bodyId);
@@ -55,5 +60,9 @@ b2BodyType RectRigidbody::GetBodyType()
 
 std::string RectRigidbody::GetSaveData()
 {
-    return std::string();
+    std::string data;
+    data += std::to_string(type) + " ";
+    data += std::to_string(density) + " ";
+    data += std::to_string(b2Body_GetType(bodyId)) + " ";
+    return data;
 }

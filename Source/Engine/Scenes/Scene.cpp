@@ -18,9 +18,16 @@ Scene::Scene(std::string& pathToScne)
 {
 }
 
-void Scene::SaveScene()
+void Scene::SaveScene(std::vector<Object*>& objects)
 {
-	//scene the objects in the current objects vector of the editor or engine
+	std::ofstream file;
+	file.open(pathToScene, std::ios::out); //write to text file
+	if (file.is_open()) {
+		for (auto obj : objects) {
+			file << obj->GetSaveData() << "\n";
+		}
+		file.close();
+	}
 	std::cout << "Saved Scene! ( " << sceneName << " )\n";
 }
 
@@ -72,11 +79,11 @@ void Scene::LoadScene()
 				{
 					b2WorldId& id = sl::GetWorldId();
 					float density;
-					int enumIndex;
+					int bodyTypeIndex;
 					b2BodyType bodyType;
 					file >> density;
-					file >> enumIndex;
-					bodyType = (b2BodyType)enumIndex;
+					file >> bodyTypeIndex;
+					bodyType = (b2BodyType)bodyTypeIndex;
 					new RectRigidbody(bodyType, density, id);
 					break;
 				}
@@ -84,11 +91,11 @@ void Scene::LoadScene()
 				{
 					b2WorldId& id = sl::GetWorldId();
 					float density;
-					int enumIndex;
+					int bodyTypeIndex;
 					b2BodyType bodyType;
 					file >> density;
-					file >> enumIndex;
-					bodyType = (b2BodyType)enumIndex;
+					file >> bodyTypeIndex;
+					bodyType = (b2BodyType)bodyTypeIndex;
 					new CircleRigidbody(bodyType, density, id);
 					break;
 				}

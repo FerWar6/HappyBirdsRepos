@@ -5,6 +5,9 @@
 #include "Objects/Components/CircleRigidbody.h"
 #include "Objects/Components/Button.h"
 #include "Objects/Components/Launcher.h"
+#include "Objects/Components/SceneSelectButton.h"
+#include "Objects/Components/TextRenderer.h"
+#include "Engine/Scenes/SceneEditor.h"
 #include "Managers/ServiceLocator.h"
 #include <iostream>
 #include <filesystem>
@@ -26,16 +29,17 @@ Engine::Engine()
 void Engine::Start()
 {
 	window = &sl::GetWindow();
-	LoadScene("level1");
+	LoadScene("StartMenu");
+	//LoadScene("level1");
 	//LoadScene("MainMenu");
-	{
-		new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
-		sf::Vector2f scale(1.5, 1.5);
-		SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
-		ren->lockRotation = true;
-		new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
-		new Launcher("PreviewDot", 2);
-	}
+	//{
+	//	new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
+	//	sf::Vector2f scale(1.5, 1.5);
+	//	SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
+	//	ren->lockRotation = true;
+	//	new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
+	//	new Launcher("PreviewDot", 2);
+	//}
 	//{
 	//	Object* obj = new Object(sf::Vector2f(200, 200));
 	//	new SpriteRenderer("LevelSelectButton", true);
@@ -112,7 +116,7 @@ void Engine::LoadScenes()
 		if (filepath.size() >= 4 && (filepath.compare(filepath.size() - 4, 4, ".txt") == 0))
 		{
 			allScenes.emplace_back(filepath);
-			std::cout << "file found!: " << filepath << "\n";
+			std::cout << "Scene found: " << filepath << "\n"; //allScenes[allScenes.size() - 1].sceneName << 
 		}
 	}
 }
@@ -133,7 +137,42 @@ void Engine::LoadScene(std::string name)
 		ClearCurrentScene();
 		newScene->LoadScene();
 		currentScene = newScene;
+		std::cout << "entered scene: " << newScene->sceneName << "\n";
 	}
+}
+
+void Engine::OpenSceneSelection()
+{
+	LoadScene("SceneSelect");
+
+	sf::Vector2f basePos(750, 150);
+	int margin = 50 + 10;
+	for (auto& scene : allScenes) {
+		new Object(basePos);
+		new SpriteRenderer("SceneSelectionButton", true);
+		new TextRenderer("goofy", scene.sceneName);
+		new SceneSelectButton(scene);
+		basePos.y += margin;
+	}
+}
+
+void Engine::OpenSceneEditor(Scene scene)
+{
+	window->setVisible(false);
+	inEditMode = true;
+	SceneEditor editor(scene);
+	inEditMode = false;
+	window->setVisible(true);
+	LoadScene("level2");
+	{
+		new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
+		sf::Vector2f scale(1.5, 1.5);
+		SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
+		ren->lockRotation = true;
+		new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
+		new Launcher("PreviewDot", 2);
+	}
+	std::cout << "Silly Goofy Mood" << "\n";
 }
 
 Scene* Engine::GetScene(std::string name)

@@ -11,6 +11,7 @@ private:
 	void Start();
 	void LoopEngine();
 	Engine engine;
+	InputManager& inputManRef;
 	Renderer renderer;
 
 	b2WorldId worldId;

@@ -7,6 +7,7 @@
 
 EngineCore::EngineCore()
 	: engine(),
+	inputManRef(engine.GetInputManager()),
 	renderer(engine.objects)
 {
     b2WorldDef worldDef = b2DefaultWorldDef();
@@ -27,18 +28,13 @@ void EngineCore::Start()
 
 void EngineCore::LoopEngine()
 {
-	//TODO - maybe open a window to check if the player want to open edit mode or play the game
-	//bool editorMode = true;
-	//if (editorMode) {
-	//	engine.inEditMode = true;
-	//	SceneEditor editor;
-	//	engine.inEditMode = false;
-	//}
 	sf::RenderWindow& win = *window;
 	while (win.isOpen())
 	{
 		sf::Event event;
 		while (win.pollEvent(event)) {
+			inputManRef.HandleEvent(event);
+
 			if (event.type == sf::Event::Closed) {
 				std::cout << "Closed engine" << std::endl;
 				win.close();

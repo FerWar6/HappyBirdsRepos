@@ -9,7 +9,7 @@ class InputManager;
 class SceneEditor
 {
 public:
-	SceneEditor();
+	SceneEditor(Scene& scene);
 
 	sf::Sprite moveWidgetSprite;
 	sf::Sprite gridSprite;

@@ -38,6 +38,7 @@ void InputManager::UpdateInputs()
 			}
 		}
 	}
+	std::cout << scrollDelta << "\n";
 }
 
 const sf::Vector2i& InputManager::GetMousePos()
@@ -74,6 +75,16 @@ void InputManager::UpdateOldMousePos()
 	sf::RenderWindow& win = *window;
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
 	oldMousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
+}
+
+bool InputManager::GetScrollUp()
+{
+	return scrollDelta > 0;
+}
+
+bool InputManager::GetScrollDown()
+{
+	return scrollDelta < 0;
 }
 
 
@@ -229,6 +240,13 @@ bool InputManager::GetKey(KeyCode key)
 void InputManager::SetWindow(sf::RenderWindow& win)
 {
 	window = &win;
+}
+
+void InputManager::HandleEvent(const sf::Event& event)
+{
+	if (event.type == sf::Event::MouseWheelScrolled) {
+		scrollDelta = event.mouseWheelScroll.delta;
+	}
 }
 
 void InputManager::InstantiateInputKeys()

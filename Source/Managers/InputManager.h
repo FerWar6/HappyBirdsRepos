@@ -18,14 +18,20 @@ public:
 	void SetOldMousePos(sf::RenderWindow& win);
 	void UpdateOldMousePos();
 	
+	bool GetScrollUp();
+	bool GetScrollDown();
+	
 	bool GetKeyDown(KeyCode key);
 	bool GetKeyDownRepeat(KeyCode key);
 	bool GetKeyUp(KeyCode key);
 	bool GetKey(KeyCode key);
 	
+	void HandleEvent(const sf::Event& event);
 	void SetWindow(sf::RenderWindow& win);
 	ButtonManager buttonManager;
 private:
+	float scrollDelta = 0.0f;
+
 	sf::RenderWindow* window;
 	
 	sf::Vector2i mousePos;

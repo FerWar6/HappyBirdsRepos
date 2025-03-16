@@ -5,6 +5,8 @@ class Engine;
 
 enum ButtFuncId {
 	MOVE_TO_SCENE,
+	MOVE_TO_SCENE_SELECTION,
+	OPEN_SCENE_EDITOR,
 	BUTTON_FUNCTIONS_COUNT
 };
 struct ButtonFunction {
@@ -21,8 +23,9 @@ private:
 };
 class SceneEditor;
 
-struct ButtonFunctions
+class ButtonFunctions
 {
+public:
 	ButtonFunctions() {};
 	void LinkButtonFunctions(Engine* engine);
 	//TODO - figure out if there is a way to pass the function by referance instead of using the copy constructor

@@ -12,8 +12,8 @@
 
 namespace fs = std::filesystem;
 
-SceneEditor::SceneEditor()
-	: currentScene(nullptr),
+SceneEditor::SceneEditor(Scene& scene)
+	: currentScene(&scene),
 	inputMan(sl::GetInputManager()),
 	cam(),
 	selObj(nullptr)
@@ -27,8 +27,9 @@ SceneEditor::SceneEditor()
 	sf::Texture& txrRef = sl::GetPreLoader().GetTexture("EditorMove");
 	moveWidgetSprite.setTexture(txrRef);
 	moveWidgetSprite.setOrigin(sf::Vector2f(8, 92));
+	OpenEditorWindow();
 	std::cout << "\n";
-	OpenEditorConsole();
+	//OpenEditorConsole();
 }
 
 
@@ -104,7 +105,7 @@ void SceneEditor::LoopEditor()
 		Render();
 	}
 	//shut down level editor
-	currentScene->SaveScene();
+	currentScene->SaveScene(objects);
 
 }
 

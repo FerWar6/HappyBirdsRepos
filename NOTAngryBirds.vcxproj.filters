@@ -70,6 +70,8 @@
     <ClInclude Include="Source\UI\Hierarchy.h" />
     <ClInclude Include="Source\Textures\FontItem.h" />
     <ClInclude Include="Source\DataTypes\Clock.h" />
+    <ClInclude Include="Source\Objects\Components\SceneSelectButton.h" />
+    <ClInclude Include="Source\Objects\Components\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Engine\Engine.cpp">
@@ -121,5 +123,7 @@
     <ClCompile Include="Source\UI\UIElement.cpp" />
     <ClCompile Include="Source\UI\Hierarchy.cpp" />
     <ClCompile Include="Source\Textures\FontItem.cpp" />
+    <ClCompile Include="Source\Objects\Components\SceneSelectButton.cpp" />
+    <ClCompile Include="Source\Objects\Components\TextRenderer.cpp" />
   </ItemGroup>
 </Project>

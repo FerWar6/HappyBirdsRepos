@@ -36,6 +36,10 @@ void Object::Start()
 
 Object::~Object()
 {
+	for (auto& com : components) {
+		delete com;
+	}
+	components.clear();
 }
 
 void Object::Update() {
@@ -178,6 +182,7 @@ std::string Object::GetSaveData() // saves the transform, number of components a
 	data += std::to_string(t.size.h) + " ";
 
 	int numOfComps = components.size();
+	if (HasComponent(EDITOR_ITEM)) numOfComps--; // if in editer mode the editor item component needs to be removed
 	data += std::to_string(numOfComps) + " ";
 
 	for (int i = 0; i < numOfComps; i++) {

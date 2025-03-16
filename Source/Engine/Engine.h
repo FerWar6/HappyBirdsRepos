@@ -26,6 +26,8 @@ public:
 
 	void LoadScene(std::string name);
 
+	void OpenSceneSelection();
+	void OpenSceneEditor(Scene scene);
 	bool inEditMode = false;
 	const int worldScale = 50;
 private:

@@ -1,11 +1,14 @@
 #pragma once
 #include <string>
-struct Scene
+#include <vector>
+class Object;
+class Scene
 {
+public:
 	Scene(std::string& pathToScne);
 	std::string pathToScene;
 	std::string sceneName;
-	void SaveScene();
+	void SaveScene(std::vector<Object*>& objects);
 	void LoadScene();
 	std::string GetNameFromPath();
 };
