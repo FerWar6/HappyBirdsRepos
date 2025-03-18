@@ -10,7 +10,6 @@ public:
 	Object();
 	Object(Transform trans);
 	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1));
-	~Object();
 	virtual void Update();
 	virtual void FixedUpdate();
 	virtual void Render(sf::RenderWindow& window);

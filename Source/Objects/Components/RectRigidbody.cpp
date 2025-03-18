@@ -40,8 +40,7 @@ RectRigidbody::RectRigidbody(b2BodyType type, float dens, b2WorldId& id)
 
 RectRigidbody::~RectRigidbody()
 {
-    std::cout << "deconstructed rigidbody \n";
-    //b2DestroyBody(bodyId);
+    b2DestroyBody(bodyId);
 }
 
 void RectRigidbody::FixedUpdate()

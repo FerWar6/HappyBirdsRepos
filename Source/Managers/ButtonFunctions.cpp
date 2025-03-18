@@ -13,9 +13,6 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 		case MOVE_TO_SCENE_SELECTION:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::OpenSceneSelection, engine));
 			break;
-		case OPEN_SCENE_EDITOR:
-			std::cout << "Missing implementation for open scene editor\n";
-			break;
 		default:
 			std::cout << "Button function is missing id";
 		}

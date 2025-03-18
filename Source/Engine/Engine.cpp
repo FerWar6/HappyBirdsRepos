@@ -1,12 +1,6 @@
 #include "Engine.h"
 #include "Objects/Object.h"
-#include "Objects/Components/SpriteRenderer.h"
-#include "Objects/Components/RectRigidbody.h"
-#include "Objects/Components/CircleRigidbody.h"
-#include "Objects/Components/Button.h"
-#include "Objects/Components/Launcher.h"
-#include "Objects/Components/SceneSelectButton.h"
-#include "Objects/Components/TextRenderer.h"
+#include "Objects/Components/Components.h"
 #include "Engine/Scenes/SceneEditor.h"
 #include "Managers/ServiceLocator.h"
 #include <iostream>
@@ -137,7 +131,7 @@ void Engine::LoadScene(std::string name)
 		ClearCurrentScene();
 		newScene->LoadScene();
 		currentScene = newScene;
-		std::cout << "entered scene: " << newScene->sceneName << "\n";
+		std::cout << "Scene loaded: " << newScene->sceneName << "\n";
 	}
 }
 
@@ -158,11 +152,13 @@ void Engine::OpenSceneSelection()
 
 void Engine::OpenSceneEditor(Scene scene)
 {
-	window->setVisible(false);
-	inEditMode = true;
-	SceneEditor editor(scene);
-	inEditMode = false;
-	window->setVisible(true);
+	{
+		window->setVisible(false);
+		inEditMode = true;
+		SceneEditor editor(scene);
+		inEditMode = false;
+		window->setVisible(true);
+	}
 	LoadScene("level2");
 	{
 		Object* obj = new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));

@@ -14,11 +14,6 @@ EditorItem::EditorItem()
     selected(false)
 {}
 
-EditorItem::~EditorItem()
-{
-    std::cout << "deconstructed editoritem \n";
-}
-
 void EditorItem::Update()
 {
     bool hasRen = object.HasComponent(SPRITE_RENDERER);

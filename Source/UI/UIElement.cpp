@@ -4,5 +4,4 @@
 UIElement::UIElement()
 	: cam(sl::GetSceneEditor().GetCamera())
 {
-	sl::GetSceneEditor().AddUI(this);
 }

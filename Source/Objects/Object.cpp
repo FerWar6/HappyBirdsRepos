@@ -23,15 +23,6 @@ Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size)
 	Start();
 }
 
-Object::~Object()
-{
-	std::cout << "deconstructing object \n";
-	//this is a work around for the destructor of rect rigidbody not being called
-	if (HasComponent(RECT_RIGIDBODY)) b2DestroyBody(((RectRigidbody*)GetComponent(RECT_RIGIDBODY))->bodyId);
-}
-
-
-
 void Object::Start()
 {
 	sl::SetSelectedObj(this);

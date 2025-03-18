@@ -160,6 +160,7 @@
     <ClInclude Include="Source\Objects\Components\Button.h" />
     <ClInclude Include="Source\Objects\Components\CircleRigidbody.h" />
     <ClInclude Include="Source\Objects\Components\Component.h" />
+    <ClInclude Include="Source\Objects\Components\Components.h" />
     <ClInclude Include="Source\Objects\Components\EditorItem.h" />
     <ClInclude Include="Source\Objects\Components\SceneSelectButton.h" />
     <ClInclude Include="Source\Objects\Components\TextRenderer.h" />

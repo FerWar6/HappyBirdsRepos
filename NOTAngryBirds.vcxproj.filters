@@ -72,6 +72,7 @@
     <ClInclude Include="Source\DataTypes\Clock.h" />
     <ClInclude Include="Source\Objects\Components\SceneSelectButton.h" />
     <ClInclude Include="Source\Objects\Components\TextRenderer.h" />
+    <ClInclude Include="Source\Objects\Components\Components.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Engine\Engine.cpp">

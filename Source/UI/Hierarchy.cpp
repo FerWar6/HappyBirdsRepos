@@ -4,10 +4,10 @@
 #include "Managers/ServiceLocator.h"
 #include "Managers/InputManager.h"
 #include "Engine/PreLoader.h"
-Hierarchy::Hierarchy()
+Hierarchy::Hierarchy(std::vector<Object*>& objs)
 	: UIElement(),
 	inputMan(sl::GetInputManager()),
-	objects(sl::GetSceneEditor().objects)
+	objects(objs)
 {
 	titleTxt.setFont(sl::GetPreLoader().GetFont("goofy"));
 	titleTxt.setPosition(sf::Vector2f(100, 100));

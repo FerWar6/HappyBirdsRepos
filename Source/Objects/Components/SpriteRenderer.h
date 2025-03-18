@@ -7,7 +7,6 @@ public:
 	SpriteRenderer(std::string txrName);
 	SpriteRenderer(std::string txrName, bool useOwnSize);
 	SpriteRenderer(std::string txrName, sf::Vector2f scale, sf::Vector2f origin = sf::Vector2f(0,0));
-	~SpriteRenderer() override;
 	sf::Sprite sprite;
 
 	void Start(sf::Texture& txrRef, sf::Vector2f scale, sf::Vector2f origin);

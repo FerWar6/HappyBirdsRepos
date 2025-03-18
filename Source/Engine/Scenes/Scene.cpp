@@ -2,11 +2,7 @@
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
 #include "Objects/Object.h"
-#include "Objects/Components/SpriteRenderer.h"
-#include "Objects/Components/RectRigidbody.h"
-#include "Objects/Components/CircleRigidbody.h"
-#include "Objects/Components/Button.h"
-#include "Objects/Components//EditorItem.h"
+#include "Objects/Components/Components.h"
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -29,7 +25,7 @@ void Scene::SaveScene(std::vector<Object*>& objects)
 		}
 		file.close();
 	}
-	std::cout << "Saved Scene! ( " << sceneName << " )\n";
+	std::cout << "Scene saved: " << sceneName << "\n";
 }
 
 void Scene::LoadScene()

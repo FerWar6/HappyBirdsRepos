@@ -9,7 +9,7 @@ class Object;
 class Hierarchy : UIElement
 {
 public:
-	Hierarchy();
+	Hierarchy(std::vector<Object*>& objs);
 	void Update() override;
 	void Render(sf::RenderWindow& window) override;
 	std::function<void()> OnClick;

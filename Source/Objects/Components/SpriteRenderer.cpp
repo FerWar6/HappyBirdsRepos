@@ -44,11 +44,6 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, sf::Vector2f scale, sf::Vector
 	Start(txrRef, scale, origin);
 }
 
-SpriteRenderer::~SpriteRenderer()
-{
-	std::cout << "deconstructed spriterenderer \n";
-}
-
 void SpriteRenderer::Start(sf::Texture& txrRef, sf::Vector2f scale, sf::Vector2f origin)
 {
 	sprite.setTexture(txrRef);
