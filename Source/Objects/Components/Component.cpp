@@ -3,10 +3,8 @@
 #include "Objects/Object.h"
 Component::Component(ComponentType t)
 	: type(t),
-	object(nullptr)
-{
-	sl::GetSelectedObj().AddComponent(this);
-}
+	object(sl::GetSelectedObj())
+{}
 
 Component* Component::GetComponentPtr()
 {

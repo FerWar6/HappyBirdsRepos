@@ -38,7 +38,7 @@ void InputManager::UpdateInputs()
 			}
 		}
 	}
-	std::cout << scrollDelta << "\n";
+	//std::cout << scrollDelta << "\n";
 }
 
 const sf::Vector2i& InputManager::GetMousePos()

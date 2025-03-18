@@ -54,7 +54,7 @@ void Launcher::FixedUpdate()
 {
     //dont update unless the angle is valid
     if (primed) {
-        object->SetRot(CalcAngle() + spriteRotationalOffset);
+        object.SetRot(CalcAngle() + spriteRotationalOffset);
         UpdatePreview();
     }
     else {
@@ -72,7 +72,7 @@ void Launcher::Render(sf::RenderWindow& window)
             float radius = buttonMaxRadius;
             circle.setRadius(radius);
             circle.setOrigin(radius, radius);
-            circle.setPosition(object->GetPos());
+            circle.setPosition(object.GetPos());
             sf::Color col(255, 255, 255, 25);
             circle.setFillColor(col);
             window.draw(circle);
@@ -92,7 +92,7 @@ void Launcher::Render(sf::RenderWindow& window)
             float radius = buttonMinRadius;
             circle.setRadius(radius);
             circle.setOrigin(radius, radius);
-            circle.setPosition(object->GetPos());
+            circle.setPosition(object.GetPos());
             sf::Color col(255, 0, 0, 100);
             circle.setFillColor(col);
             window.draw(circle);
@@ -112,10 +112,10 @@ void Launcher::SpawnProjectile()
     if (primed && (HoveringOver(buttonMinRadius))) {
         int scale = sl::GetEngine().worldScale;
         b2Vec2 spawnPos = b2Vec2{ CalcLaunchPoint().x / scale, CalcLaunchPoint().y / scale };
-        new Object();
+        Object* obj = new Object();
         float ballSize = 0.5f;
-        new CircleRigidbody(spawnPos, ballSize, CalcLinearVelocity(), sl::GetWorldId());
-        new SpriteRenderer("CannonBall");
+        obj->AddComponent<CircleRigidbody>(spawnPos, ballSize, CalcLinearVelocity(), sl::GetWorldId());
+        obj->AddComponent<SpriteRenderer>("CannonBall");
         primed = false;
         //std::cout << "created projectile \n";
     }
@@ -135,7 +135,7 @@ float Launcher::CalcAngle()
 {
     //calculates the angle from object to mouse
     sf::Vector2i mousePos = inputMan.GetMousePos();
-    sf::Vector2 launcherPos(object->GetPos());
+    sf::Vector2 launcherPos(object.GetPos());
     float angle = atan2(mousePos.y - launcherPos.y, mousePos.x - launcherPos.x);
     //float angle = atan2(launcherPos.y - mousePos.y, launcherPos.x - mousePos.x);
     angle = angle * 180 / 3.14159f;
@@ -152,15 +152,15 @@ float Launcher::CalcDistanceToMouse()
 {
     //calculates distance from object to mouse
     sf::Vector2i mousePos = inputMan.GetMousePos();
-    sf::Vector2f launchPoint(object->GetPos());
+    sf::Vector2f launchPoint(object.GetPos());
     return sqrt(pow(launchPoint.x - mousePos.x, 2) + pow(launchPoint.y - mousePos.y, 2) * 1.0);
 }
 
 float Launcher::CalcInvalidAngleDistance()
 {
-    bool useWidth = inputMan.GetMousePos().y < object->GetPos().y;
-    if (useWidth) return inputMan.GetMousePos().x - object->GetPos().x;
-    return object->GetPos().y - inputMan.GetMousePos().y;
+    bool useWidth = inputMan.GetMousePos().y < object.GetPos().y;
+    if (useWidth) return inputMan.GetMousePos().x - object.GetPos().x;
+    return object.GetPos().y - inputMan.GetMousePos().y;
 }
 
 float Launcher::CalcVelocity()
@@ -190,7 +190,7 @@ b2Vec2 Launcher::CalcLinearVelocity()
 sf::Vector2f Launcher::CalcLaunchPoint()
 {
     //calculates the tip of the cannon where the cannon ball is shot from and preview is drawn from
-    sf::Vector2 launcherPos(object->GetPos());
+    sf::Vector2 launcherPos(object.GetPos());
     float angle = CalcAngle() / 180 * 3.14159f;
     sf::Vector2f pos;
     float distance = 130;
@@ -202,14 +202,14 @@ sf::Vector2f Launcher::CalcLaunchPoint()
 void Launcher::MoveBackToBasePos()
 {
     float targetRot = spriteRotationalOffset;
-    float angle = object->GetRot();
+    float angle = object.GetRot();
     if (angle > targetRot) {
         angle -= moveSpeed;
-        object->SetRot(angle < targetRot ? targetRot : angle);
+        object.SetRot(angle < targetRot ? targetRot : angle);
     }
     else {
         angle += moveSpeed;
-        object->SetRot(angle > targetRot ? targetRot : angle);
+        object.SetRot(angle > targetRot ? targetRot : angle);
     }
 }
 

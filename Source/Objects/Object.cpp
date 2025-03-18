@@ -2,6 +2,7 @@
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
 #include "Engine/Scenes/SceneEditor.h"
+#include "Objects/Components/RectRigidbody.h" // needed to fix bug with rect rigidbody destructor not being called
 #include <iostream>
 
 Object::Object()
@@ -22,6 +23,15 @@ Object::Object(sf::Vector2f pos, float rot, sf::Vector2f size)
 	Start();
 }
 
+Object::~Object()
+{
+	std::cout << "deconstructing object \n";
+	//this is a work around for the destructor of rect rigidbody not being called
+	if (HasComponent(RECT_RIGIDBODY)) b2DestroyBody(((RectRigidbody*)GetComponent(RECT_RIGIDBODY))->bodyId);
+}
+
+
+
 void Object::Start()
 {
 	sl::SetSelectedObj(this);
@@ -32,14 +42,6 @@ void Object::Start()
 	else {
 		sl::GetSceneEditor().AddObject(this);
 	}
-}
-
-Object::~Object()
-{
-	for (auto& com : components) {
-		delete com;
-	}
-	components.clear();
 }
 
 void Object::Update() {
@@ -63,18 +65,23 @@ void Object::Render(sf::RenderWindow& w) {
 Component* Object::GetComponent(ComponentType type)
 {
 	for (auto& comp : components) {
-		if (comp->type == type) return comp;
+		if (comp->type == type) return comp.get();
 	}
 	std::cout << "returned nullptr from GetComponent\n";
 	return nullptr;
 }
 
-bool Object::GetComponent(Component* ptr, ComponentType type)
+bool Object::GetComponent(Component*& ptr, ComponentType type)
 {
-	for (auto* comp : components) {
-		if (comp->type == type) ptr = comp;
+	for (auto& comp : components) {
+		if (comp.get()->type == type) 
+		{
+			ptr = comp.get();
+			return true;
+		}
 	}
-	return ptr;
+	ptr = nullptr;
+	return false;
 }
 
 Component* Object::GetComponent(int indexInVector)
@@ -82,15 +89,14 @@ Component* Object::GetComponent(int indexInVector)
 	return components[indexInVector]->GetComponentPtr();
 }
 
-std::vector<Component*>& Object::GetComponents()
+std::vector<std::unique_ptr<Component>>& Object::GetComponents()
 {
 	return components;
 }
 
-void Object::AddComponent(Component* c)
+void Object::AddComponent(std::unique_ptr<Component> c)
 {
-	c->object = this;
-	components.push_back(c);
+	components.push_back(std::move(c));
 }
 
 bool Object::HasComponent(ComponentType type)

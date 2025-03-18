@@ -5,11 +5,10 @@
 class RectRigidbody : public Component
 {
 public:
-
 	RectRigidbody(b2Vec2 posInMeters, b2Vec2 sizeInMeters,
 		b2BodyType type, float density, b2WorldId& id);
 	RectRigidbody(b2BodyType type, float density, b2WorldId& id);
-	~RectRigidbody();
+	~RectRigidbody() override;
 	void FixedUpdate() override;
 	b2BodyId bodyId;
 

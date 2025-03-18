@@ -5,10 +5,11 @@
 class InputManager;
 class SceneEditor;
 
-class EditorItem : Component
+class EditorItem : public Component
 {
 public:
 	EditorItem();
+	~EditorItem();
 	void Update() override;
 	std::function<void()> OnClick;
 	void SetSelected(bool sel);

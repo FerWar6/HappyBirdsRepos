@@ -2,7 +2,7 @@
 #include "Objects/Components/Component.h"
 #include "SFML/Graphics.hpp"
 
-class TextRenderer : Component
+class TextRenderer : public Component
 {
 public:
 	TextRenderer(std::string fontName, std::string textContent);

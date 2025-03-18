@@ -148,10 +148,10 @@ void Engine::OpenSceneSelection()
 	sf::Vector2f basePos(750, 150);
 	int margin = 50 + 10;
 	for (auto& scene : allScenes) {
-		new Object(basePos);
-		new SpriteRenderer("SceneSelectionButton", true);
-		new TextRenderer("goofy", scene.sceneName);
-		new SceneSelectButton(scene);
+		Object* obj = new Object(basePos);
+		obj->AddComponent<SpriteRenderer>("SceneSelectionButton", true);
+		obj->AddComponent<TextRenderer>("goofy", scene.sceneName);
+		obj->AddComponent<SceneSelectButton>(scene);
 		basePos.y += margin;
 	}
 }
@@ -165,14 +165,13 @@ void Engine::OpenSceneEditor(Scene scene)
 	window->setVisible(true);
 	LoadScene("level2");
 	{
-		new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
+		Object* obj = new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
 		sf::Vector2f scale(1.5, 1.5);
-		SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
+		SpriteRenderer* ren = obj->AddComponent<SpriteRenderer>("LauncherStand", scale, sf::Vector2f(25, 6));
 		ren->lockRotation = true;
-		new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
-		new Launcher("PreviewDot", 2);
+		obj->AddComponent<SpriteRenderer>("Launcher", scale, sf::Vector2f(13, 87));
+		obj->AddComponent<Launcher>("PreviewDot", 2);
 	}
-	std::cout << "Silly Goofy Mood" << "\n";
 }
 
 Scene* Engine::GetScene(std::string name)

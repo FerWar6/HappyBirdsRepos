@@ -106,7 +106,19 @@ void SceneEditor::LoopEditor()
 	}
 	//shut down level editor
 	currentScene->SaveScene(objects);
-
+	//delete all objects
+	if (objects.size() > 0) {
+		markedForDeletion.insert(markedForDeletion.end(), objects.begin(), objects.end());
+		for (Object* obj : markedForDeletion) {
+			auto it = std::find(objects.begin(), objects.end(), obj);
+			if (it != objects.end()) {
+				objects.erase(it);
+			}
+			delete obj;
+			obj = nullptr;
+		}
+		objects.clear();
+	}
 }
 
 void SceneEditor::Update()

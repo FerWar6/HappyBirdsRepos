@@ -14,14 +14,19 @@ EditorItem::EditorItem()
     selected(false)
 {}
 
+EditorItem::~EditorItem()
+{
+    std::cout << "deconstructed editoritem \n";
+}
+
 void EditorItem::Update()
 {
-    bool hasRen = object->HasComponent(SPRITE_RENDERER);
+    bool hasRen = object.HasComponent(SPRITE_RENDERER);
     if (selected) {
-        ((SpriteRenderer*)object->GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(200, 200, 200));
+        ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(200, 200, 200));
     }
     else {
-        ((SpriteRenderer*)object->GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(255, 255, 255));
+        ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(255, 255, 255));
     }
 }
 
@@ -32,8 +37,8 @@ void EditorItem::SetSelected(bool sel)
 
 bool EditorItem::HoveringOver()
 {
-    sf::Vector2i s = (sf::Vector2i)object->GetSize();
-    sf::Vector2i p = (sf::Vector2i)object->GetPos();
+    sf::Vector2i s = (sf::Vector2i)object.GetSize();
+    sf::Vector2i p = (sf::Vector2i)object.GetPos();
     sf::Vector2i mP = inputMan.GetMousePos();
     return mP.x > p.x - s.x / 2 && mP.x < p.x + s.x / 2 && mP.y > p.y - s.y / 2 && mP.y < p.y + s.y / 2;
 }
@@ -41,7 +46,7 @@ bool EditorItem::HoveringOver()
 void EditorItem::Select()
 {
     if (!selected) {
-        sceneEditor.SetSelectedObj(object);
+        sceneEditor.SetSelectedObj(&object);
     }
     else {
         sceneEditor.ClearSelectedObj();

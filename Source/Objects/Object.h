@@ -1,8 +1,9 @@
 #pragma once
-#include <SFML/Graphics/RenderWindow.hpp>
 #include "Components/Component.h"
 #include "DataTypes/Transform.h"
 #include "box2d/box2d.h"
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <memory>
 class Object
 {
 public:
@@ -10,16 +11,18 @@ public:
 	Object(Transform trans);
 	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1));
 	~Object();
-
 	virtual void Update();
 	virtual void FixedUpdate();
 	virtual void Render(sf::RenderWindow& window);
 
 	Component* GetComponent(ComponentType type);
-	bool GetComponent(Component* ptr, ComponentType type);
+	bool GetComponent(Component*& ptr, ComponentType type);
 	Component* GetComponent(int indexInVector);
-	std::vector<Component*>& GetComponents();
-	void AddComponent(Component* component);
+	std::vector<std::unique_ptr<Component>>& GetComponents();
+
+	template <typename T, typename... Args>
+	T* AddComponent(Args&&... args);
+	void AddComponent(std::unique_ptr<Component> component);
 	bool HasComponent(ComponentType type);
 
 	const sf::Vector2f GetPos();
@@ -42,5 +45,15 @@ public:
 private:
 	void Start();
 	Transform transform;
-	std::vector<Component*> components;
+	std::vector<std::unique_ptr<Component>> components;
 };
+
+template<typename T, typename ...Args>
+inline T* Object::AddComponent(Args && ...args)
+{
+	static_assert(std::is_base_of_v<Component, T>, "T must derive from Component");
+	auto component = std::make_unique<T>(std::forward<Args>(args)...);
+	T* rawPtr = component.get();
+	components.push_back(std::move(component));
+	return rawPtr;
+}

@@ -9,8 +9,8 @@ TextRenderer::TextRenderer(std::string fName, std::string textContent)
 {
 	text.setFont(sl::GetPreLoader().GetFont(fName));
 	text.setCharacterSize(30); // TODO - add size to this component
-	text.setPosition(object->GetPos());
-	text.setOrigin(object->GetSize() / 2.f); // TODO - improved centering of text
+	text.setPosition(object.GetPos());
+	text.setOrigin(object.GetSize() / 2.f); // TODO - improved centering of text
 	text.setString(textContent);
 }
 

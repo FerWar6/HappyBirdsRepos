@@ -10,6 +10,7 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <memory>
 #include <box2d/box2d.h>
 
 Scene::Scene(std::string& pathToScne)
@@ -72,7 +73,7 @@ void Scene::LoadScene()
 				{
 					std::string txrName;
 					file >> txrName;
-					new SpriteRenderer(txrName);
+					obj->AddComponent<SpriteRenderer>(txrName);
 					break;
 				}
 				case ComponentType::RECT_RIGIDBODY:
@@ -84,7 +85,7 @@ void Scene::LoadScene()
 					file >> density;
 					file >> bodyTypeIndex;
 					bodyType = (b2BodyType)bodyTypeIndex;
-					new RectRigidbody(bodyType, density, id);
+					obj->AddComponent<RectRigidbody>(bodyType, density, id);
 					break;
 				}
 				case ComponentType::CIRCLE_RIGIDBODY:
@@ -96,7 +97,7 @@ void Scene::LoadScene()
 					file >> density;
 					file >> bodyTypeIndex;
 					bodyType = (b2BodyType)bodyTypeIndex;
-					new CircleRigidbody(bodyType, density, id);
+					obj->AddComponent<CircleRigidbody>(bodyType, density, id);
 					break;
 				}
 				case ComponentType::BUTTON:
@@ -105,7 +106,7 @@ void Scene::LoadScene()
 					ButtFuncId funcId;
 					file >> funcIdIndex;
 					funcId = (ButtFuncId)funcIdIndex;
-					new Button(funcId);
+					obj->AddComponent<Button>(funcId);
 					break;
 				}
 				default:
@@ -113,7 +114,7 @@ void Scene::LoadScene()
 					break;
 				}
 			}
-			if (sl::GetEngine().inEditMode) new EditorItem(); //adds editorItem if in edit mode
+			if (sl::GetEngine().inEditMode) obj->AddComponent<EditorItem>(); //adds editorItem if in edit mode
 		}
 		file.close();
 	}
