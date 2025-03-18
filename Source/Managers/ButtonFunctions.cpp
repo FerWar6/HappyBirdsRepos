@@ -13,6 +13,9 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 		case MOVE_TO_SCENE_SELECTION:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::OpenSceneSelection, engine));
 			break;
+		case LOADSCENE_MAINMENU:
+			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "MainMenu"));
+			break;
 		default:
 			std::cout << "Button function is missing id";
 		}

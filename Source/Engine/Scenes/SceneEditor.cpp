@@ -131,10 +131,10 @@ void SceneEditor::UpdateInput()
 		//TODO - actually save the game
 		window.setTitle(currentScene->sceneName);
 	}
-	if (inputMan.GetKeyDown(MOUSE_L)) {
+	if (inputMan.GetKeyDown(MOUSE_L)) { // needs to be after updating move tool
 
 		for (auto& obj : objects) {
-			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver()) {
+			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver() && moveTool.currentMode == MOVEMODE_IDLE) {
 				((EditorItem*)obj->GetComponent(EDITOR_ITEM))->Select();
 			}
 		}

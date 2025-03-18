@@ -14,7 +14,7 @@ EngineCore::EngineCore()
     worldDef.gravity = { 0.0f, 9.8f };
     worldId = b2CreateWorld(&worldDef);
 	sl::SetWorldId(&worldId);
-	
+	contactEvents = b2World_GetContactEvents(worldId);
 	engine.Start();
 	renderer.Start();
 	Start();
@@ -50,6 +50,16 @@ void EngineCore::LoopEngine()
 			//std::cout << accumulator << "\n";
 			engine.FixedUpdate();
             b2World_Step(worldId, timeStep, 4);
+
+			for (int i = 0; i < contactEvents.beginCount; ++i)
+			{
+				b2ContactBeginTouchEvent* beginEvent = contactEvents.beginEvents + i;
+				std::cout << "Collision detected between two objects!" << std::endl;
+			}
+
+
+
+
             accumulator -= timeStep;
 		}
 		engine.Update();

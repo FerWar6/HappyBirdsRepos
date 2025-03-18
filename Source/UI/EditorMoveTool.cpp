@@ -7,11 +7,20 @@
 EditorMoveTool::EditorMoveTool(Object*& selObj)
 	: UIElement(),
 	selectedObj(selObj),
-	inputMan(sl::GetInputManager())
+	inputMan(sl::GetInputManager()),
+	currentMode(MOVEMODE_IDLE)
 {
-	sf::Texture& txrRef = sl::GetPreLoader().GetTexture("EditorMove");
-	moveSprite.setTexture(txrRef);
-	moveSprite.setOrigin(sf::Vector2f(8, 92));
+	moveSpriteX.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolX"));
+	moveSpriteY.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolY"));
+	moveSpriteXY.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolXY"));
+	moveSpriteX.setOrigin(sf::Vector2f(-26, 10));
+	moveSpriteY.setOrigin(sf::Vector2f(5, 95));
+	moveSpriteXY.setOrigin(sf::Vector2f(5, 26));
+	moveSprites.push_back(&moveSpriteX);
+	moveSprites.push_back(&moveSpriteY);
+	moveSprites.push_back(&moveSpriteXY);
+	
+
 	//	this needs a sprite and three very specific buttons, 
 	//	if any of the buttons are pressed itll give controll to move the object in spefific ways
 }
@@ -39,18 +48,30 @@ void EditorMoveTool::Update()
 		newPos.x += increment;
 		selectedObj->SetPos(newPos);
 	}
-	if (inputMan.GetKeyDown(MOUSE_L) && HoveringOver()) {
-		std::cout << "clicked on movetool \n";
+	if (inputMan.GetKeyDown(MOUSE_L) && selectedObj) {
+		for (auto moveSprite : moveSprites) {
+			if (HoveringOver(moveSprite->getGlobalBounds())) {
+				if (moveSprite == &moveSpriteX) currentMode = MOVEMODE_X;
+				if (moveSprite == &moveSpriteY) currentMode = MOVEMODE_Y;
+				if (moveSprite == &moveSpriteXY) currentMode = MOVEMODE_XY;
+			}
+		}
 	}
+	if (inputMan.GetKeyUp(MOUSE_L) && selectedObj) {
+		currentMode = MOVEMODE_IDLE;
+	}
+	std::cout << currentMode << "\n";
 }
 
 void EditorMoveTool::Render(sf::RenderWindow& window)
 {
 	if (selectedObj) {
-		moveSprite.setPosition(selectedObj->GetPos());
-		if (HoveringOver()) moveSprite.setColor(sf::Color(200, 200, 200));
-		else moveSprite.setColor(sf::Color(255, 255, 255));
-		window.draw(moveSprite);
+		for (auto& moveSprite : moveSprites) {
+			moveSprite->setPosition(selectedObj->GetPos());
+			if (HoveringOver(moveSprite->getGlobalBounds())) moveSprite->setColor(sf::Color(155, 155, 155));
+			else moveSprite->setColor(sf::Color(255, 255, 255));
+			window.draw(*moveSprite);
+		}
 	}
 }
 
@@ -59,10 +80,10 @@ void EditorMoveTool::HandleClick()
 
 }
 
-bool EditorMoveTool::HoveringOver()
+bool EditorMoveTool::HoveringOver(sf::FloatRect rect)
 {
 	sf::Vector2i mP = inputMan.GetMousePos();
-	sf::Vector2i p = (sf::Vector2i)moveSprite.getGlobalBounds().getPosition();
-	sf::Vector2i s = (sf::Vector2i)moveSprite.getGlobalBounds().getSize();
+	sf::Vector2i p = (sf::Vector2i)rect.getPosition();
+	sf::Vector2i s = (sf::Vector2i)rect.getSize();
 	return mP.x > p.x && mP.x < p.x + s.x && mP.y > p.y && mP.y < p.y + s.y;
 }

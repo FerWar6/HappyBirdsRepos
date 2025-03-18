@@ -23,7 +23,21 @@ Engine::Engine()
 void Engine::Start()
 {
 	window = &sl::GetWindow();
-	LoadScene("StartMenu");
+	LoadScene("MainMenu");
+
+
+
+	/*{
+		Object* obj = new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
+		sf::Vector2f scale(1.5, 1.5);
+		SpriteRenderer* ren = obj->AddComponent<SpriteRenderer>("LauncherStand", scale, sf::Vector2f(25, 6));
+		ren->lockRotation = true;
+		obj->AddComponent<SpriteRenderer>("Launcher", scale, sf::Vector2f(13, 87));
+		obj->AddComponent<Launcher>("PreviewDot", 2);
+	}*/
+
+
+
 	//LoadScene("level1");
 	//LoadScene("MainMenu");
 	//{
@@ -158,15 +172,6 @@ void Engine::OpenSceneEditor(Scene scene)
 		SceneEditor editor(scene);
 		inEditMode = false;
 		window->setVisible(true);
-	}
-	LoadScene("level2");
-	{
-		Object* obj = new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
-		sf::Vector2f scale(1.5, 1.5);
-		SpriteRenderer* ren = obj->AddComponent<SpriteRenderer>("LauncherStand", scale, sf::Vector2f(25, 6));
-		ren->lockRotation = true;
-		obj->AddComponent<SpriteRenderer>("Launcher", scale, sf::Vector2f(13, 87));
-		obj->AddComponent<Launcher>("PreviewDot", 2);
 	}
 }
 

@@ -6,6 +6,7 @@ class Engine;
 enum ButtFuncId {
 	MOVE_TO_SCENE,
 	MOVE_TO_SCENE_SELECTION,
+	LOADSCENE_MAINMENU,
 	BUTTON_FUNCTIONS_COUNT
 };
 struct ButtonFunction {
