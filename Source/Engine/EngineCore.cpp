@@ -36,7 +36,7 @@ void EngineCore::LoopEngine()
 			inputManRef.HandleEvent(event);
 
 			if (event.type == sf::Event::Closed) {
-				std::cout << "Closed engine" << std::endl;
+				std::cout << "Closed engine \n";
 				win.close();
 			}
 		}
@@ -50,15 +50,6 @@ void EngineCore::LoopEngine()
 			//std::cout << accumulator << "\n";
 			engine.FixedUpdate();
             b2World_Step(worldId, timeStep, 4);
-
-			for (int i = 0; i < contactEvents.beginCount; ++i)
-			{
-				b2ContactBeginTouchEvent* beginEvent = contactEvents.beginEvents + i;
-				std::cout << "Collision detected between two objects!" << std::endl;
-			}
-
-
-
 
             accumulator -= timeStep;
 		}

@@ -33,7 +33,8 @@ void Button::Update()
 void Button::HandleClick()
 {
     if (OnClick && HoveringOver()) {
-        OnClick();
+        inputMan.buttonMan.AddButtonCall(UI, OnClick);
+        //OnClick();
     }
 }
 

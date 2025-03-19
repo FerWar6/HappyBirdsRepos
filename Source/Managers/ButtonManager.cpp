@@ -3,26 +3,26 @@
 void ButtonManager::UpdateButtonCalls()
 {
 	for (ButtonCall& call : calls) {
+		//std::cout << "button call made: " << call.layer << "\n";
 		if (call.layer == EDITOR) {
-			call.button->OnClick();
+			call.func();
 			EraseAllCalls();
 			return;
 		}
-		call.button->OnClick();
+	}
+	for (ButtonCall& call : calls) {
+		call.func();
 		calls.erase(std::find(calls.begin(), calls.end(), call));
 	}
 }
 
-void ButtonManager::AddButtonCall(ButtonLayer layer, Button* button)
+void ButtonManager::AddButtonCall(ButtonLayer layer, std::function<void()>& onClick)
 {
-	ButtonCall call(layer, button);
+	ButtonCall call(layer, onClick);
 	calls.push_back(call);
 }
 
 void ButtonManager::EraseAllCalls()
 {
 	calls.clear();
-	//for (auto& call : calls) {
-	//	calls.erase(call);
-	//}
 }

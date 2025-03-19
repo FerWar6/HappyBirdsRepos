@@ -13,7 +13,7 @@ SpriteSheet::SpriteSheet(TextureItem& txrItem)
 		int numOfFrames = GetFrameAmount(i);
 		numOfFramesForEachAnim.emplace_back(numOfFrames);
 	}
-    std::cout << "Successfully created spritesheet from: " << name << std::endl;
+    std::cout << "Successfully created spritesheet from: " << name << "\n";
 
 }
 
@@ -23,7 +23,7 @@ int SpriteSheet::GetNumOfFramesInAnim(int animId)
 		return numOfFramesForEachAnim[animId - 1];
 	}
 	else {
-        std::cout << "not enough animations in this spritesheet" << std::endl;
+        std::cout << "not enough animations in this spritesheet" << "\n";
 	}
 }
 int SpriteSheet::GetAmountOfAnimations()

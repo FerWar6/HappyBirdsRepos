@@ -19,10 +19,6 @@ EditorMoveTool::EditorMoveTool(Object*& selObj)
 	moveSprites.push_back(&moveSpriteX);
 	moveSprites.push_back(&moveSpriteY);
 	moveSprites.push_back(&moveSpriteXY);
-	
-
-	//	this needs a sprite and three very specific buttons, 
-	//	if any of the buttons are pressed itll give controll to move the object in spefific ways
 }
 
 void EditorMoveTool::Update()
@@ -51,16 +47,51 @@ void EditorMoveTool::Update()
 	if (inputMan.GetKeyDown(MOUSE_L) && selectedObj) {
 		for (auto moveSprite : moveSprites) {
 			if (HoveringOver(moveSprite->getGlobalBounds())) {
-				if (moveSprite == &moveSpriteX) currentMode = MOVEMODE_X;
-				if (moveSprite == &moveSpriteY) currentMode = MOVEMODE_Y;
-				if (moveSprite == &moveSpriteXY) currentMode = MOVEMODE_XY;
+				if (moveSprite == &moveSpriteX)
+				{
+					std::function<void()> func = std::bind(&EditorMoveTool::SetCurrentMode, this, MOVEMODE_X);
+					inputMan.buttonMan.AddButtonCall(EDITOR, func);
+				}
+				if (moveSprite == &moveSpriteY)
+				{
+					std::function<void()> func = std::bind(&EditorMoveTool::SetCurrentMode, this, MOVEMODE_Y);
+					inputMan.buttonMan.AddButtonCall(EDITOR, func);
+				}
+				if (moveSprite == &moveSpriteXY)
+				{
+					std::function<void()> func = std::bind(&EditorMoveTool::SetCurrentMode, this, MOVEMODE_XY);
+					inputMan.buttonMan.AddButtonCall(EDITOR, func);
+				}
 			}
 		}
 	}
 	if (inputMan.GetKeyUp(MOUSE_L) && selectedObj) {
 		currentMode = MOVEMODE_IDLE;
 	}
-	std::cout << currentMode << "\n";
+	switch (currentMode) {
+		case MOVEMODE_X: 
+		{
+			sf::Vector2f newPos(inputMan.GetMousePos().x + mouseOffset.x, selectedObj->GetPos().y);
+			selectedObj->SetPos(newPos);
+			break;
+		}
+		case MOVEMODE_Y:
+		{
+			sf::Vector2f newPos(selectedObj->GetPos().x, inputMan.GetMousePos().y + mouseOffset.y);
+			selectedObj->SetPos(newPos);
+			break;
+		}
+		case MOVEMODE_XY:
+		{
+			sf::Vector2f newPos((sf::Vector2f)(inputMan.GetMousePos()) + mouseOffset);
+			selectedObj->SetPos(newPos);
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	}
 }
 
 void EditorMoveTool::Render(sf::RenderWindow& window)
@@ -73,6 +104,17 @@ void EditorMoveTool::Render(sf::RenderWindow& window)
 			window.draw(*moveSprite);
 		}
 	}
+}
+
+EditorMoveToolMode& EditorMoveTool::GetCurrentMode()
+{
+	return currentMode;
+}
+
+void EditorMoveTool::SetCurrentMode(EditorMoveToolMode newMode)
+{
+	mouseOffset = selectedObj->GetPos() - (sf::Vector2f)inputMan.GetMousePos();
+	currentMode = newMode;
 }
 
 void EditorMoveTool::HandleClick()

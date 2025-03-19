@@ -25,13 +25,11 @@ public:
 
 	void UpdateObjectsVector();
 	void SetSelectedObj(Object* obj);
-	Object* GetSelectedObj();
+	Object*& GetSelectedObj();
 	void ClearSelectedObj();
 	Camera& GetCamera();
 private:
 	void Update();
-	//void FixedUpdate();
-	void UpdateInput();
 
 	void Render();
 	InputManager& inputMan;

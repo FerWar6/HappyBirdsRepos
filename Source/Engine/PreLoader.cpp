@@ -26,11 +26,10 @@ sf::Texture& PreLoader::GetTexture(std::string name)
 			textureName.erase(pos);
 		}
 		if (name.compare(textureName) == 0) {
-			//std::cout << "successful return of texture: " << name << std::endl;
 			return texture.GetTexture();
 		}
 	}
-	std::cout << "unsuccessful return of texture: " << name << std::endl;
+	std::cout << "unsuccessful return of texture: " << name << "\n";
 }
 
 SpriteSheet& PreLoader::GetSpriteSheet(std::string name)
@@ -41,7 +40,7 @@ SpriteSheet& PreLoader::GetSpriteSheet(std::string name)
 			return sheet;
 		}
 	}
-	std::cout << "unsuccessful return of sprite sheet: " << name << std::endl;
+	std::cout << "unsuccessful return of sprite sheet: " << name << "\n";
 }
 
 sf::Font& PreLoader::GetFont(std::string name)
@@ -52,7 +51,7 @@ sf::Font& PreLoader::GetFont(std::string name)
 			return font.GetFont();
 		}
 	}
-	std::cout << "unsuccessful return of font: " << name << std::endl;
+	std::cout << "unsuccessful return of font: " << name << "\n";
 }
 
 std::vector<TextureItem>& PreLoader::GetTextureItems()

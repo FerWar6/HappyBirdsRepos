@@ -78,8 +78,7 @@ void SceneEditor::LoopEditor()
 		}
 		//engine update functionality
 		Update();
-		UpdateInput();
-		inputMan.buttonManager.UpdateButtonCalls();
+		inputMan.buttonMan.UpdateButtonCalls();
 		//renderer functionality
 		Render();
 	}
@@ -93,32 +92,14 @@ void SceneEditor::LoopEditor()
 
 void SceneEditor::Update()
 {
-	for (auto& obj : objects) {
-		obj->Update();
-	}
-	hierarchy.Update();
-	moveTool.Update();
-}
-
-void SceneEditor::Render()
-{
-	window.clear();
-	window.setView(cam.GetView());
-
-	for (auto& obj : objects) {
-		obj->Render(window);
-	}
-	window.draw(gridSprite); // replace this with grid component
-	hierarchy.Render(window);
-	moveTool.Render(window);
-	window.display();
-}
-
-void SceneEditor::UpdateInput()
-{
 	inputMan.UpdateMousePos();
 	inputMan.UpdateInputs();
 
+	hierarchy.Update();
+	moveTool.Update();
+	for (auto& obj : objects) {
+		obj->Update();
+	}
 	if (inputMan.GetKey(MOUSE_R)) {
 		window.setTitle(currentScene->sceneName + "*");
 		sf::Vector2f newCamPos = (sf::Vector2f)(inputMan.GetOldMousePos() - inputMan.GetMousePos());
@@ -133,12 +114,33 @@ void SceneEditor::UpdateInput()
 	}
 	if (inputMan.GetKeyDown(MOUSE_L)) { // needs to be after updating move tool
 
+		bool ableToDeselectObj = true; // set this to false when selecting an object to prevent a nullrefex
 		for (auto& obj : objects) {
-			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver() && moveTool.currentMode == MOVEMODE_IDLE) {
-				((EditorItem*)obj->GetComponent(EDITOR_ITEM))->Select();
+			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver() && moveTool.GetCurrentMode() == MOVEMODE_IDLE) {
+				inputMan.buttonMan.AddButtonCall(UI, ((EditorItem*)obj->GetComponent(EDITOR_ITEM))->OnClick);
+				ableToDeselectObj = false;
 			}
 		}
+		if (selectedObj && ableToDeselectObj) {
+			std::function<void()> func = std::bind(&SceneEditor::ClearSelectedObj, this);
+			inputMan.buttonMan.AddButtonCall(UI, func);
+		}
 	}
+	inputMan.buttonMan.UpdateButtonCalls();
+}
+
+void SceneEditor::Render()
+{
+	window.clear();
+	window.setView(cam.GetView());
+
+	for (auto& obj : objects) {
+		obj->Render(window);
+	}
+	window.draw(gridSprite); // replace this with grid component
+	hierarchy.Render(window);
+	moveTool.Render(window);
+	window.display();
 }
 
 
@@ -179,7 +181,7 @@ void SceneEditor::SetSelectedObj(Object* obj)
 	((EditorItem*)selectedObj->GetComponent(EDITOR_ITEM))->SetSelected(true);
 }
 
-Object* SceneEditor::GetSelectedObj()
+Object*& SceneEditor::GetSelectedObj()
 {
 	return selectedObj;
 }

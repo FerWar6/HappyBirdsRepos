@@ -7,7 +7,8 @@
 #include <conio.h>
 
 InputManager::InputManager()
-	: buttonManager()
+	: buttonMan(),
+	wheelState(SCROLL_IDLE)
 {
 	sl::SetInputManager(this);
 	InstantiateInputKeys();
@@ -38,7 +39,24 @@ void InputManager::UpdateInputs()
 			}
 		}
 	}
-	//std::cout << scrollDelta << "\n";
+	if (wheelState == SCROLL_UP) {
+		wheelState = SCROLL_IDLE_AFTER_UP;
+	}
+	if (wheelState == SCROLL_DOWN) {
+		wheelState = SCROLL_IDLE_AFTER_DOWN;
+	}
+	if (wheelState == SCROLL_IDLE || wheelState == SCROLL_IDLE_AFTER_DOWN && scrollDelta == 1) {
+		wheelState = SCROLL_UP;
+	}
+	if (wheelState == SCROLL_IDLE || wheelState == SCROLL_IDLE_AFTER_UP && scrollDelta == -1) {
+		wheelState = SCROLL_DOWN;
+	}
+	//if (GetScrollWheel(SCROLL_UP)) {
+	//	std::cout << "scrolled up\n";
+	//}
+	//if (GetScrollWheel(SCROLL_DOWN)) {
+	//	std::cout << "scrolled down\n";
+	//}
 }
 
 const sf::Vector2i& InputManager::GetMousePos()
@@ -76,18 +94,10 @@ void InputManager::UpdateOldMousePos()
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
 	oldMousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
 }
-
-bool InputManager::GetScrollUp()
+bool InputManager::GetScrollWheel(ScrollWheelState state)
 {
-	return scrollDelta > 0;
+	return wheelState == state;
 }
-
-bool InputManager::GetScrollDown()
-{
-	return scrollDelta < 0;
-}
-
-
 bool InputManager::GetKeyDown(KeyCode key)
 {
 	for (auto& input : inputKeys) {

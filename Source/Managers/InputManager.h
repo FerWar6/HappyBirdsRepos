@@ -18,8 +18,7 @@ public:
 	void SetOldMousePos(sf::RenderWindow& win);
 	void UpdateOldMousePos();
 	
-	bool GetScrollUp();
-	bool GetScrollDown();
+	bool GetScrollWheel(ScrollWheelState state);
 	
 	bool GetKeyDown(KeyCode key);
 	bool GetKeyDownRepeat(KeyCode key);
@@ -28,8 +27,9 @@ public:
 	
 	void HandleEvent(const sf::Event& event);
 	void SetWindow(sf::RenderWindow& win);
-	ButtonManager buttonManager;
+	ButtonManager buttonMan;
 private:
+	ScrollWheelState wheelState; //the state of the mouse scroll wheel
 	float scrollDelta = 0.0f;
 
 	sf::RenderWindow* window;

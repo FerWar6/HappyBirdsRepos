@@ -20,9 +20,12 @@ public:
 	sf::Sprite moveSpriteY;
 	sf::Sprite moveSpriteXY;
 	std::vector<sf::Sprite*> moveSprites;
-	std::function<void()> OnClick;
-	EditorMoveToolMode currentMode;
+	sf::Vector2f mouseOffset; // the offset that needs to be applied to the obj position 
+	EditorMoveToolMode& GetCurrentMode();
+	void SetCurrentMode(EditorMoveToolMode newMode);
+
 private:
+	EditorMoveToolMode currentMode;
 	Object*& selectedObj;
 	InputManager& inputMan;
 	void HandleClick();

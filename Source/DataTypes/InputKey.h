@@ -8,6 +8,13 @@ enum KeyState {
 	UP,
 	UP_IDLE
 };
+enum ScrollWheelState {
+	SCROLL_IDLE,
+	SCROLL_IDLE_AFTER_UP,
+	SCROLL_IDLE_AFTER_DOWN,
+	SCROLL_UP,
+	SCROLL_DOWN
+};
 struct InputKey {
 	InputKey(KeyCode c) 
 		: keyCode(c),

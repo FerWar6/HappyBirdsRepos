@@ -80,7 +80,7 @@ sf::Vector2i TextureItem::GetFrameSize(std::string fileName)
     }
 
     // Debug message for when the texture cannot be loaded
-    std::cout << "Failed to load texture from file: " << fileName << std::endl;
+    std::cout << "Failed to load texture from file: " << fileName << "\n";
 
     return sf::Vector2i(0, 0); // Return (0, 0) if the texture cannot be loaded or no resolution found
 }

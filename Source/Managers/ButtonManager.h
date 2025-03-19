@@ -7,15 +7,15 @@ enum ButtonLayer {
 };
 class Button;
 struct ButtonCall {
-	ButtonCall(ButtonLayer l, Button* b)
+	ButtonCall(ButtonLayer l, std::function<void()>& onClick)
 	: layer(l),
-	button(b) {}
+	func(onClick) {}
 
 	ButtonLayer layer;
-	Button* button;
+	std::function<void()> func;
 
 	bool operator==(const ButtonCall& other) const {
-	return layer == other.layer && button == other.button;
+		return layer == other.layer;
 	}
 };
 
@@ -24,7 +24,7 @@ class ButtonManager
 public:
 	ButtonManager() = default;
 	void UpdateButtonCalls();
-	void AddButtonCall(ButtonLayer layer, Button* button);
+	void AddButtonCall(ButtonLayer layer, std::function<void()>& onClick);
 	void EraseAllCalls();
 private:
 	std::vector<ButtonCall> calls;
