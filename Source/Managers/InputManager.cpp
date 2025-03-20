@@ -39,24 +39,14 @@ void InputManager::UpdateInputs()
 			}
 		}
 	}
-	if (wheelState == SCROLL_UP) {
-		wheelState = SCROLL_IDLE_AFTER_UP;
+	if (scrollDelta == 1 || scrollDelta == -1) {
+		if (scrollDelta == 1) wheelState = SCROLL_UP;
+		if (scrollDelta == -1) wheelState = SCROLL_DOWN;
+		scrollDelta = 0;
 	}
-	if (wheelState == SCROLL_DOWN) {
-		wheelState = SCROLL_IDLE_AFTER_DOWN;
+	else if (scrollDelta == 0 && wheelState == SCROLL_UP || wheelState == SCROLL_DOWN) {
+		wheelState = SCROLL_IDLE;
 	}
-	if (wheelState == SCROLL_IDLE || wheelState == SCROLL_IDLE_AFTER_DOWN && scrollDelta == 1) {
-		wheelState = SCROLL_UP;
-	}
-	if (wheelState == SCROLL_IDLE || wheelState == SCROLL_IDLE_AFTER_UP && scrollDelta == -1) {
-		wheelState = SCROLL_DOWN;
-	}
-	//if (GetScrollWheel(SCROLL_UP)) {
-	//	std::cout << "scrolled up\n";
-	//}
-	//if (GetScrollWheel(SCROLL_DOWN)) {
-	//	std::cout << "scrolled down\n";
-	//}
 }
 
 const sf::Vector2i& InputManager::GetMousePos()

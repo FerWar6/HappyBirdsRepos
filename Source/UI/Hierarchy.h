@@ -1,4 +1,5 @@
 #pragma once
+#include "UI/InputField.h"
 #include "UI/UIElement.h"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -14,6 +15,7 @@ public:
 	void Render(sf::RenderWindow& window) override;
 	std::function<void()> OnClick;
 private:
+	InputField testField;
 	void UpdateObjTxt();
 	void UpdateObjTxtVec();
 	bool HoveringOver(sf::Vector2i s, sf::Vector2i p);

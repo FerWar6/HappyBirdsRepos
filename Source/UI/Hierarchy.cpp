@@ -7,7 +7,8 @@
 Hierarchy::Hierarchy(std::vector<Object*>& objs)
 	: UIElement(),
 	inputMan(sl::GetInputManager()),
-	objects(objs)
+	objects(objs),
+	testField("crazy")
 {
 	titleTxt.setFont(sl::GetPreLoader().GetFont("goofy"));
 	titleTxt.setPosition(sf::Vector2f(100, 100));
@@ -24,6 +25,7 @@ void Hierarchy::Update()
 			sl::GetSceneEditor().SetSelectedObj(objects[i]);
 		}
 	}
+	testField.Update();
 }
 
 void Hierarchy::Render(sf::RenderWindow& window)
@@ -40,6 +42,7 @@ void Hierarchy::Render(sf::RenderWindow& window)
 			window.draw(highlight);
 		}
 	}
+	testField.Render(window);
 	//sf::FloatRect textBounds = titleTxt.getGlobalBounds();
 	//int border = 7;
 	//int grayness = 50;

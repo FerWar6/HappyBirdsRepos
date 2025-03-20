@@ -184,6 +184,7 @@
     <ClInclude Include="source\Textures\SpriteSheet.h" />
     <ClInclude Include="source\Textures\TextureItem.h" />
     <ClInclude Include="Source\UI\Hierarchy.h" />
+    <ClInclude Include="Source\UI\InputField.h" />
     <ClInclude Include="Source\UI\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +220,7 @@
     <ClCompile Include="source\Textures\SpriteSheet.cpp" />
     <ClCompile Include="source\Textures\TextureItem.cpp" />
     <ClCompile Include="Source\UI\Hierarchy.cpp" />
+    <ClCompile Include="Source\UI\InputField.cpp" />
     <ClCompile Include="Source\UI\UIElement.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

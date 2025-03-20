@@ -10,6 +10,7 @@ class EditorItem : public Component
 public:
 	EditorItem();
 	void Update() override;
+	void Render(sf::RenderWindow& window) override;
 	std::function<void()> OnClick;
 	void SetSelected(bool sel);
 	void Select();

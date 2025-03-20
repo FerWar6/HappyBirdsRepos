@@ -20,6 +20,8 @@ public:
 	sf::Sprite moveSpriteY;
 	sf::Sprite moveSpriteXY;
 	std::vector<sf::Sprite*> moveSprites;
+	int interval = 25; // TODO - add the interval to the scene editor 
+	bool intervalMode();
 	sf::Vector2f mouseOffset; // the offset that needs to be applied to the obj position 
 	EditorMoveToolMode& GetCurrentMode();
 	void SetCurrentMode(EditorMoveToolMode newMode);

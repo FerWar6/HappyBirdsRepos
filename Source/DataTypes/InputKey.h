@@ -9,11 +9,9 @@ enum KeyState {
 	UP_IDLE
 };
 enum ScrollWheelState {
-	SCROLL_IDLE,
-	SCROLL_IDLE_AFTER_UP,
-	SCROLL_IDLE_AFTER_DOWN,
-	SCROLL_UP,
-	SCROLL_DOWN
+	SCROLL_IDLE = 0,
+	SCROLL_UP = 1,
+	SCROLL_DOWN = -1
 };
 struct InputKey {
 	InputKey(KeyCode c) 

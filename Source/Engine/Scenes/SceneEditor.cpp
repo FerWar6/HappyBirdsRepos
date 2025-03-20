@@ -56,6 +56,9 @@ void SceneEditor::LoopEditor()
 	{
 		sf::Event event;
 		while (window.pollEvent(event)) {
+			inputMan.HandleEvent(event);
+
+
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
@@ -78,7 +81,6 @@ void SceneEditor::LoopEditor()
 		}
 		//engine update functionality
 		Update();
-		inputMan.buttonMan.UpdateButtonCalls();
 		//renderer functionality
 		Render();
 	}
@@ -95,10 +97,17 @@ void SceneEditor::Update()
 	inputMan.UpdateMousePos();
 	inputMan.UpdateInputs();
 
+
 	hierarchy.Update();
 	moveTool.Update();
 	for (auto& obj : objects) {
 		obj->Update();
+	}
+	if(inputMan.GetScrollWheel(SCROLL_UP)) {
+		cam.IncreaseZoom();
+	}
+	if (inputMan.GetScrollWheel(SCROLL_DOWN)) {
+		cam.DecreaseZoom();
 	}
 	if (inputMan.GetKey(MOUSE_R)) {
 		window.setTitle(currentScene->sceneName + "*");
@@ -133,11 +142,11 @@ void SceneEditor::Render()
 {
 	window.clear();
 	window.setView(cam.GetView());
+	window.draw(gridSprite); // replace this with grid component
 
 	for (auto& obj : objects) {
 		obj->Render(window);
 	}
-	window.draw(gridSprite); // replace this with grid component
 	hierarchy.Render(window);
 	moveTool.Render(window);
 	window.display();

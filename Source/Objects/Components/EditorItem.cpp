@@ -16,12 +16,25 @@ EditorItem::EditorItem()
 
 void EditorItem::Update()
 {
-    bool hasRen = object.HasComponent(SPRITE_RENDERER);
+    //bool hasRen = object.HasComponent(SPRITE_RENDERER);
+    //if (selected) {
+    //    ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(200, 200, 200));
+    //}
+    //else {
+    //    ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(255, 255, 255));
+    //}
+}
+
+void EditorItem::Render(sf::RenderWindow& window)
+{
     if (selected) {
-        ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(200, 200, 200));
-    }
-    else {
-        ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(255, 255, 255));
+        sf::RectangleShape outline(object.GetSize());
+        outline.setPosition(object.GetPos());
+        outline.setOrigin(outline.getSize() / 2.f);
+        outline.setFillColor(sf::Color(0, 0, 0, 0));
+        outline.setOutlineThickness(-1); //size of the border
+        outline.setOutlineColor(sf::Color(255, 255, 255, 255));
+        window.draw(outline);
     }
 }
 

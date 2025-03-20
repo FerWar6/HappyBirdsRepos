@@ -4,6 +4,8 @@
 #include "Engine/Scenes/SceneEditor.h"
 #include "Engine/PreLoader.h"
 #include "Objects/Object.h"
+#include <math.h>
+
 EditorMoveTool::EditorMoveTool(Object*& selObj)
 	: UIElement(),
 	selectedObj(selObj),
@@ -69,29 +71,50 @@ void EditorMoveTool::Update()
 		currentMode = MOVEMODE_IDLE;
 	}
 	switch (currentMode) {
-		case MOVEMODE_X: 
-		{
-			sf::Vector2f newPos(inputMan.GetMousePos().x + mouseOffset.x, selectedObj->GetPos().y);
+		case MOVEMODE_X: {
+			sf::Vector2f newPos;
+			if (intervalMode()) {
+				float xpos = round((inputMan.GetMousePos().x + mouseOffset.x) / interval) * interval;
+				newPos = sf::Vector2f(xpos, selectedObj->GetPos().y);
+			}
+			else {
+				newPos = sf::Vector2f(inputMan.GetMousePos().x + mouseOffset.x, selectedObj->GetPos().y);
+			}
 			selectedObj->SetPos(newPos);
 			break;
 		}
-		case MOVEMODE_Y:
-		{
-			sf::Vector2f newPos(selectedObj->GetPos().x, inputMan.GetMousePos().y + mouseOffset.y);
+
+		case MOVEMODE_Y: {
+			sf::Vector2f newPos;
+			if (intervalMode()) {
+				float ypos = round((inputMan.GetMousePos().y + mouseOffset.y) / interval) * interval;
+				newPos = sf::Vector2f(selectedObj->GetPos().x, ypos);
+			}
+			else {
+				newPos = sf::Vector2f(selectedObj->GetPos().x, inputMan.GetMousePos().y + mouseOffset.y);
+			}
 			selectedObj->SetPos(newPos);
 			break;
 		}
-		case MOVEMODE_XY:
-		{
-			sf::Vector2f newPos((sf::Vector2f)(inputMan.GetMousePos()) + mouseOffset);
+
+		case MOVEMODE_XY: {
+			sf::Vector2f newPos;
+			if (intervalMode()) {
+				float xpos = round((inputMan.GetMousePos().x + mouseOffset.x) / interval) * interval;
+				float ypos = round((inputMan.GetMousePos().y + mouseOffset.y) / interval) * interval;
+				newPos = sf::Vector2f(xpos, ypos);
+			}
+			else {
+				newPos = sf::Vector2f((sf::Vector2f)(inputMan.GetMousePos()) + mouseOffset);
+			}
 			selectedObj->SetPos(newPos);
 			break;
 		}
+
 		default:
-		{
 			break;
-		}
 	}
+
 }
 
 void EditorMoveTool::Render(sf::RenderWindow& window)
@@ -104,6 +127,11 @@ void EditorMoveTool::Render(sf::RenderWindow& window)
 			window.draw(*moveSprite);
 		}
 	}
+}
+
+bool EditorMoveTool::intervalMode()
+{
+	return inputMan.GetKey(CONTROL);
 }
 
 EditorMoveToolMode& EditorMoveTool::GetCurrentMode()
