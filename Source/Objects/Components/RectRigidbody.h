@@ -16,4 +16,6 @@ public:
 	b2BodyType GetBodyType();
 
 	std::string GetSaveData() override;
+private:
+	void Start(b2BodyType type, b2WorldId& id);
 };

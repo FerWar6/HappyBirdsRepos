@@ -58,7 +58,6 @@ void SceneEditor::LoopEditor()
 		while (window.pollEvent(event)) {
 			inputMan.HandleEvent(event);
 
-
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}

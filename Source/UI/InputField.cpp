@@ -3,24 +3,30 @@
 #include "Engine/PreLoader.h"
 #include "Managers/InputManager.h"
 #include <iostream>;
-InputField::InputField(std::string newTxt)
-    :  inputMan(sl::GetInputManager())
+InputField::InputField(std::string newTxt, sf::Vector2f pos)
+    :  inputMan(sl::GetInputManager()),
+    selected(false)
 {
     text.setFont(sl::GetPreLoader().GetFont("goofy"));
-    text.setCharacterSize(50);
-    text.setPosition(sf::Vector2f(0, 0)); //dont forget to edit this when making UI move with camera
+    text.setCharacterSize(200);
+    text.setPosition(sf::Vector2f(-100, -100));
     text.setString(newTxt);
     text.setOrigin(text.getLocalBounds().getSize() / 2.f);
-    std::cout << "size x: " << text.getGlobalBounds().getSize().x << "\n";
-    std::cout << "size y: " << text.getGlobalBounds().getSize().y << "\n";
 }
 void InputField::Update()
 {
-    //std::cout << "hoveriing over: " << HoveringOver() << "\n";
+    if (inputMan.GetKeyDown(MOUSE_L) && HoveringOver()) {
+        selected = !selected;
+    }
+    if (selected) {
+        text.setString(inputMan.GetTextInput());
+    }
+    std::cout << "text size: " << inputMan.GetTextInput() << "\n";
+    //std::cout << "text: " << inputMan.GetTextInput() << "\n";
 }
 void InputField::Render(sf::RenderWindow& window)
 {
-
+    // TODO - make text blue when selected
     sf::RectangleShape outline(text.getGlobalBounds().getSize());
     outline.setPosition(text.getGlobalBounds().getPosition());
     outline.setOrigin(outline.getSize() / 2.f);
@@ -28,7 +34,26 @@ void InputField::Render(sf::RenderWindow& window)
     outline.setFillColor(fillCol);
     //outline.setOutlineThickness(3);
     //outline.setOutlineColor(fillCol);
-    window.draw(outline);
+    //window.draw(outline);
+    sf::FloatRect localBounds = text.getLocalBounds();
+    sf::FloatRect globalBounds = text.getGlobalBounds();
+
+
+    sf::RectangleShape localRect(sf::Vector2f(localBounds.width, localBounds.height));
+    localRect.setPosition(text.getPosition().x + localBounds.left, text.getPosition().y + localBounds.top);
+    localRect.setFillColor(sf::Color::Transparent);
+    localRect.setOutlineColor(sf::Color::Green);
+    localRect.setOutlineThickness(2);
+
+    // Create a rectangle for GLOBAL bounds (with transformations)
+    sf::RectangleShape globalRect(sf::Vector2f(globalBounds.width, globalBounds.height));
+    globalRect.setPosition(globalBounds.left, globalBounds.top);
+    globalRect.setFillColor(sf::Color::Transparent);
+    globalRect.setOutlineColor(sf::Color::Red);
+    globalRect.setOutlineThickness(2);
+
+    window.draw(localRect);  // Green: Local Bounds
+    window.draw(globalRect); // Red: Global Bounds
     window.draw(text);
 }
 
@@ -45,8 +70,7 @@ void InputField::SetText(std::string& newTxt)
 
 bool InputField::HoveringOver()
 {
-    sf::Vector2i s = (sf::Vector2i)text.getGlobalBounds().getSize();
-    sf::Vector2i p = (sf::Vector2i)text.getGlobalBounds().getPosition();
+    // TODO - implement this into the other button HoveringOver functions
     sf::Vector2i mP = inputMan.GetMousePos();
-    return mP.x > p.x - s.x / 2 && mP.x < p.x + s.x / 2 && mP.y > p.y - s.y / 2 && mP.y < p.y + s.y / 2;
+    return text.getGlobalBounds().contains(static_cast<sf::Vector2f>(mP));
 }

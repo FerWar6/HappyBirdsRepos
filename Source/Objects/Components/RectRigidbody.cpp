@@ -1,29 +1,27 @@
 #include "RectRigidbody.h"
 #include "Objects/Object.h"
 
+// This constructor is used to create a RectBody from a position and size
 RectRigidbody::RectRigidbody(b2Vec2 posInM, b2Vec2 sizeInM,
     b2BodyType type, float dens, b2WorldId& id)
-    : Component(ComponentType::RECT_RIGIDBODY),
+    : Component(RECT_RIGIDBODY),
     density(dens)
 {
-    b2BodyDef defaultBody = b2DefaultBodyDef();
-    defaultBody.type = type;
-    defaultBody.position = posInM;
-    bodyId = b2CreateBody(id, &defaultBody);
-
-    b2Polygon polygon = b2MakeBox(sizeInM.x / 2, sizeInM.y / 2);
-    b2ShapeDef shapeDef = b2DefaultShapeDef();
-    shapeDef.density = dens;
-    b2CreatePolygonShape(bodyId, &shapeDef, &polygon);
-
     object.SetPosInM(posInM);
     object.SetSizeInM(sizeInM);
+    Start(type, id);
 }
 
+// This constructor is used for creating a RectBody on top of an existing object. Used to construct from scene data
 RectRigidbody::RectRigidbody(b2BodyType type, float dens, b2WorldId& id)
-    : Component(ComponentType::RECT_RIGIDBODY),
+    : Component(RECT_RIGIDBODY),
     density(dens)
 {
+    Start(type, id);
+}
+void RectRigidbody::Start(b2BodyType type, b2WorldId& id)
+{
+    // Creates the RectBody
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = type;
     defaultBody.position = object.GetPosInM();
@@ -32,10 +30,9 @@ RectRigidbody::RectRigidbody(b2BodyType type, float dens, b2WorldId& id)
     b2Vec2 sizeInM = object.GetSizeInM();
     b2Polygon polygon = b2MakeBox(sizeInM.x / 2, sizeInM.y / 2);
     b2ShapeDef shapeDef = b2DefaultShapeDef();
-    shapeDef.density = dens;
+    shapeDef.density = density;
+    shapeDef.enableHitEvents = true;
     b2CreatePolygonShape(bodyId, &shapeDef, &polygon);
-
-    object.SetSizeInM(sizeInM);
 }
 
 RectRigidbody::~RectRigidbody()
@@ -66,3 +63,4 @@ std::string RectRigidbody::GetSaveData()
     data += std::to_string(b2Body_GetType(bodyId)) + " ";
     return data;
 }
+

@@ -6,7 +6,7 @@
 //this constructor is for adding a sprite to a rigidbody
 //it automatically sets the scale of the rigidbody and the orgin
 SpriteRenderer::SpriteRenderer(std::string txrNm)
-	: Component(ComponentType::SPRITE_RENDERER),
+	: Component(SPRITE_RENDERER),
 	txrName(txrNm),
 	useOwnSize(false),
 	lockRotation(false)
@@ -21,7 +21,7 @@ SpriteRenderer::SpriteRenderer(std::string txrNm)
 }
 //this constructor is for adding a sprite to a button
 SpriteRenderer::SpriteRenderer(std::string txrNm, bool useSize)
-	: Component(ComponentType::SPRITE_RENDERER),
+	: Component(SPRITE_RENDERER),
 	txrName(txrNm),
 	useOwnSize(useSize),
 	lockRotation(false)
@@ -34,7 +34,7 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, bool useSize)
 
 //this constructor is for adding a sprite to an object that needs more customizability
 SpriteRenderer::SpriteRenderer(std::string txrNm, sf::Vector2f scale, sf::Vector2f origin)
-	: Component(ComponentType::SPRITE_RENDERER),
+	: Component(SPRITE_RENDERER),
 	txrName(txrNm),
 	useOwnSize(true),
 	lockRotation(false)

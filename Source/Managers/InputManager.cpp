@@ -242,10 +242,19 @@ void InputManager::SetWindow(sf::RenderWindow& win)
 	window = &win;
 }
 
+std::string& InputManager::GetTextInput()
+{
+	return textInput;
+}
+
 void InputManager::HandleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::MouseWheelScrolled) {
 		scrollDelta = event.mouseWheelScroll.delta;
+	}
+	if (event.type == sf::Event::TextEntered)
+	{
+		textInput += event.text.unicode;
 	}
 }
 

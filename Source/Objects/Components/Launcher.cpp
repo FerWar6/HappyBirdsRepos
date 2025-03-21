@@ -8,7 +8,7 @@
 #include <cmath>
 #include <iostream>
 Launcher::Launcher(std::string txrNm, int numOfAmmo)
-    : Component(ComponentType::LAUNCHER),
+    : Component(LAUNCHER),
     inputMan(sl::GetInputManager()),
     primed(false),
     ammoCount(numOfAmmo)

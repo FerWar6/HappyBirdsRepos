@@ -1,9 +1,9 @@
 #include "CircleRigidbody.h"
 #include "Objects/Object.h"
 
-CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM,
+CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, // TODO - clear up what each constructor does and put construction of the CircleBody inside of a start function like in RectBody
     b2BodyType type, b2WorldId& id, float dens)
-    : Component(ComponentType::CIRCLE_RIGIDBODY),
+    : Component(CIRCLE_RIGIDBODY),
     density(dens)
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();
@@ -22,7 +22,7 @@ CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM,
 }
 
 CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, b2Vec2 startVel, b2WorldId& id, float dens)
-    : Component(ComponentType::CIRCLE_RIGIDBODY),
+    : Component(CIRCLE_RIGIDBODY),
     density(dens)
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();
@@ -42,7 +42,7 @@ CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, b2Vec2 startVel
 }
 
 CircleRigidbody::CircleRigidbody(b2BodyType type, float dens, b2WorldId& id)
-    : Component(ComponentType::CIRCLE_RIGIDBODY),
+    : Component(CIRCLE_RIGIDBODY),
     density(dens)
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();

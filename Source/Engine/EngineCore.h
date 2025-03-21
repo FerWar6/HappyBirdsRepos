@@ -15,7 +15,6 @@ private:
 	Renderer renderer;
 
 	b2WorldId worldId;
-	b2ContactEvents contactEvents; // Contactevents are still a WIP
 	sf::Clock gameClock;
 	sf::RenderWindow* window;
 	int fixedUpdateFrames = 60;

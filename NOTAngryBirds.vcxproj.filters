@@ -74,6 +74,8 @@
     <ClInclude Include="Source\Objects\Components\TextRenderer.h" />
     <ClInclude Include="Source\Objects\Components\Components.h" />
     <ClInclude Include="Source\UI\InputField.h" />
+    <ClInclude Include="Source\Objects\Components\DestructibleItem.h" />
+    <ClInclude Include="Source\Managers\CollisionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Engine\Engine.cpp">
@@ -128,5 +130,7 @@
     <ClCompile Include="Source\Objects\Components\SceneSelectButton.cpp" />
     <ClCompile Include="Source\Objects\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\UI\InputField.cpp" />
+    <ClCompile Include="Source\Objects\Components\DestructibleItem.cpp" />
+    <ClCompile Include="Source\Managers\CollisionManager.cpp" />
   </ItemGroup>
 </Project>

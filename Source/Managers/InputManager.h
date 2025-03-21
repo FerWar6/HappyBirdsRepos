@@ -28,7 +28,9 @@ public:
 	void HandleEvent(const sf::Event& event);
 	void SetWindow(sf::RenderWindow& win);
 	ButtonManager buttonMan;
+	std::string& GetTextInput();
 private:
+	std::string textInput;
 	ScrollWheelState wheelState; //the state of the mouse scroll wheel
 	float scrollDelta = 0.0f;
 

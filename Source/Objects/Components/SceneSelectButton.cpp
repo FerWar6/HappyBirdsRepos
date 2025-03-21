@@ -5,7 +5,7 @@
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
 SceneSelectButton::SceneSelectButton(Scene& scene)
-    : Component(BUTTON),
+    : Component(BASE), // add scene select button to enum if needed for getcomponent functionality
     sceneData(scene),
     OnClick([&]() { sl::GetEngine().OpenSceneEditor(sceneData); }),
     inputMan(sl::GetInputManager())

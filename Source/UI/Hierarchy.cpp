@@ -8,7 +8,7 @@ Hierarchy::Hierarchy(std::vector<Object*>& objs)
 	: UIElement(),
 	inputMan(sl::GetInputManager()),
 	objects(objs),
-	testField("crazy")
+	testField("900", sf::Vector2f(-100, -100))
 {
 	titleTxt.setFont(sl::GetPreLoader().GetFont("goofy"));
 	titleTxt.setPosition(sf::Vector2f(100, 100));
