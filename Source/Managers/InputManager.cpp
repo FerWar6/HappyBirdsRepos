@@ -231,6 +231,10 @@ bool InputManager::GetKey(KeyCode key)
 	case CONTROL:
 		return (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0;
 		break;
+		
+	case DELETEKEY:
+		return (GetAsyncKeyState(VK_DELETE) & 0x8000) != 0;
+		break;
 	default:
 		return false;
 		break;

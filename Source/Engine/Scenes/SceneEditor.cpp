@@ -119,6 +119,16 @@ void SceneEditor::Update()
 	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(S)) {
 		//TODO - actually save the game
 		window.setTitle(currentScene->sceneName);
+		std::cout << "saved\n";
+	}
+	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(D)) {
+		//TODO - duplicate the selected object
+		selectedObj->GetSaveData();
+		std::cout << "duplicated\n";
+	}
+	if (inputMan.GetKeyDown(DELETEKEY)) {
+		//TODO - delete selected object
+		std::cout << "deleted\n";
 	}
 	if (inputMan.GetKeyDown(MOUSE_L)) { // needs to be after updating move tool
 

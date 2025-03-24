@@ -39,5 +39,7 @@ enum KeyCode {
 	ESCAPE,
 
 	CONTROL,
+	DELETEKEY,
+
 	KEYCODE_COUNT
 };
