@@ -39,14 +39,14 @@ public:
 		if (currentZoomIndex - 1 > 0) {
 			view.zoom(zoomLevels[currentZoomIndex - 1] / zoomLevels[currentZoomIndex]);
 			currentZoomIndex--;
-			std::cout << "zoom in\n";
+			//std::cout << "zoom in\n";
 		}
 	}
 	void DecreaseZoom() {
 		if (currentZoomIndex + 1 < 5) {	// amount of elements in zoomlevels is 5
 			view.zoom(zoomLevels[currentZoomIndex + 1] / zoomLevels[currentZoomIndex]);
 			currentZoomIndex++;
-			std::cout << "zoom out\n";
+			//std::cout << "zoom out\n";
 		}
 	}
 private:

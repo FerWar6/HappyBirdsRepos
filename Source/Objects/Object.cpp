@@ -168,6 +168,17 @@ const Transform Object::GetTransform()
 	return transform;
 }
 
+void Object::Delete()
+{
+	Engine& eng = sl::GetEngine();
+	if (!eng.inEditMode) {
+		eng.DeleteObject(this);
+	}
+	else {
+		sl::GetSceneEditor().DeleteObject(this);
+	}
+}
+
 std::string Object::GetSaveData() // saves the transform, number of components and component data
 {
 	std::string data;

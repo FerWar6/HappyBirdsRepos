@@ -27,7 +27,7 @@
     <ClInclude Include="source\Engine\Renderer.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="oldCode\GameManager.h">
+    <ClInclude Include="Source\Managers\GameManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="source\Managers\ServiceLocator.h">
@@ -76,6 +76,7 @@
     <ClInclude Include="Source\UI\InputField.h" />
     <ClInclude Include="Source\Objects\Components\DestructibleItem.h" />
     <ClInclude Include="Source\Managers\CollisionManager.h" />
+    <ClInclude Include="Source\Objects\Components\WinConditionItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Engine\Engine.cpp">
@@ -92,9 +93,6 @@
     </ClCompile>
     <ClCompile Include="source\Engine\main.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="oldCode\GameManager.cpp">
-      <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="source\Objects\Object.cpp">
       <Filter>Objects</Filter>
@@ -132,5 +130,7 @@
     <ClCompile Include="Source\UI\InputField.cpp" />
     <ClCompile Include="Source\Objects\Components\DestructibleItem.cpp" />
     <ClCompile Include="Source\Managers\CollisionManager.cpp" />
+    <ClCompile Include="Source\Objects\Components\WinConditionItem.cpp" />
+    <ClCompile Include="Source\Managers\GameManager.cpp" />
   </ItemGroup>
 </Project>

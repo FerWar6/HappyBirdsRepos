@@ -21,7 +21,7 @@ void InputField::Update()
     if (selected) {
         text.setString(inputMan.GetTextInput());
     }
-    std::cout << "text size: " << inputMan.GetTextInput() << "\n";
+    //std::cout << "text size: " << inputMan.GetTextInput() << "\n";
     //std::cout << "text: " << inputMan.GetTextInput() << "\n";
 }
 void InputField::Render(sf::RenderWindow& window)

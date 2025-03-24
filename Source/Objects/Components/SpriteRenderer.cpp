@@ -32,16 +32,17 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, bool useSize)
 	Start(txrRef, scale, GetOriginFromTxr(txrRef.getSize()));
 }
 
+
 //this constructor is for adding a sprite to an object that needs more customizability
-SpriteRenderer::SpriteRenderer(std::string txrNm, sf::Vector2f scale, sf::Vector2f origin)
+SpriteRenderer::SpriteRenderer(std::string txrNm, bool useOwnSize, bool lockRotation, sf::Vector2f origin)
 	: Component(SPRITE_RENDERER),
 	txrName(txrNm),
-	useOwnSize(true),
-	lockRotation(false)
+	useOwnSize(useOwnSize),
+	lockRotation(lockRotation)
 {
 	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	if(origin.x == 0 && origin.y == 0) origin = GetOriginFromTxr(txrRef.getSize());
-	Start(txrRef, scale, origin);
+	Start(txrRef, sf::Vector2f(1,1), origin);
 }
 
 void SpriteRenderer::Start(sf::Texture& txrRef, sf::Vector2f scale, sf::Vector2f origin)
@@ -78,6 +79,16 @@ sf::Vector2f SpriteRenderer::GetOrigin()
 	return sprite.getOrigin();
 }
 
+void SpriteRenderer::SetOrigin(sf::Vector2f origin)
+{
+	sprite.setOrigin(origin);
+}
+
+void SpriteRenderer::SetOrigin(float x, float y)
+{
+	sprite.setOrigin(sf::Vector2f(x, y));
+}
+
 sf::Vector2f SpriteRenderer::GetOriginFromTxr(sf::Vector2u txrSize)
 {
 	return sf::Vector2f((float)(txrSize.x / 2), (float)(txrSize.y / 2));
@@ -95,6 +106,11 @@ std::string SpriteRenderer::GetSaveData()
 {
 	std::string data;
 	data += std::to_string(type) + " ";
-	data += txrName + " ";
+	data += txrName + " "; //name of the texture
+	data += std::to_string(useOwnSize) + " ";
+	data += std::to_string(lockRotation) + " ";
+	sf::Vector2f origin = sprite.getOrigin();
+	data += std::to_string(origin.x) + " ";
+	data += std::to_string(origin.y) + " ";
 	return data;
 }

@@ -39,7 +39,7 @@ public:
 	void SetSize(sf::Vector2f size);
 
 	const Transform GetTransform();
-
+	void Delete();
 	std::string GetSaveData();
 private:
 	void Start();

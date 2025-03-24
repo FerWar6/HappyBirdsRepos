@@ -8,3 +8,5 @@
 #include "Objects/Components/Launcher.h"
 #include "Objects/Components/SceneSelectButton.h"
 #include "Objects/Components/EditorItem.h"
+#include "Objects/Components/DestructibleItem.h"
+#include "Objects/Components/WinConditionItem.h"

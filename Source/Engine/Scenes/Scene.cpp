@@ -65,14 +65,21 @@ void Scene::LoadScene()
 				ComponentType compType = (ComponentType)enumIndex;
 
 				switch (compType) {
-				case ComponentType::SPRITE_RENDERER:
+				case SPRITE_RENDERER:
 				{
 					std::string txrName;
+					bool useOwnSize;
+					bool lockRotation;
+					sf::Vector2f origin;
 					file >> txrName;
-					obj->AddComponent<SpriteRenderer>(txrName);
+					file >> useOwnSize;
+					file >> lockRotation;
+					file >> origin.x;
+					file >> origin.y;
+					obj->AddComponent<SpriteRenderer>(txrName, useOwnSize, lockRotation, origin);
 					break;
 				}
-				case ComponentType::RECT_RIGIDBODY:
+				case RECT_RIGIDBODY:
 				{
 					b2WorldId& id = sl::GetWorldId();
 					float density;
@@ -84,7 +91,7 @@ void Scene::LoadScene()
 					obj->AddComponent<RectRigidbody>(bodyType, density, id);
 					break;
 				}
-				case ComponentType::CIRCLE_RIGIDBODY:
+				case CIRCLE_RIGIDBODY:
 				{
 					b2WorldId& id = sl::GetWorldId();
 					float density;
@@ -96,13 +103,34 @@ void Scene::LoadScene()
 					obj->AddComponent<CircleRigidbody>(bodyType, density, id);
 					break;
 				}
-				case ComponentType::BUTTON:
+				case BUTTON:
 				{
 					int funcIdIndex;
 					ButtFuncId funcId;
 					file >> funcIdIndex;
 					funcId = (ButtFuncId)funcIdIndex;
 					obj->AddComponent<Button>(funcId);
+					break;
+				}
+				case DESTRUCTIBLE_ITEM:
+				{
+					float health;
+					file >> health;
+					obj->AddComponent<DestructibleItem>(health);
+					break;
+				}
+				case WINCONDITION_ITEM:
+				{
+					int score;
+					file >> score;
+					obj->AddComponent<WinConditionItem>(score);
+					break;
+				}
+				case LAUNCHER:
+				{
+					int ammo;
+					file >> ammo;
+					obj->AddComponent<Launcher>(2);
 					break;
 				}
 				default:

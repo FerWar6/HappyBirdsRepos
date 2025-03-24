@@ -2,7 +2,7 @@
 #include <vector>
 #include <functional>
 enum ButtonLayer {
-	UI,
+	EDITOR_UI,
 	EDITOR
 };
 class Button;

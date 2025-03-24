@@ -3,7 +3,6 @@
 void ButtonManager::UpdateButtonCalls()
 {
 	for (ButtonCall& call : calls) {
-		//std::cout << "button call made: " << call.layer << "\n";
 		if (call.layer == EDITOR) {
 			call.func();
 			EraseAllCalls();
@@ -11,8 +10,11 @@ void ButtonManager::UpdateButtonCalls()
 		}
 	}
 	for (ButtonCall& call : calls) {
-		call.func();
-		calls.erase(std::find(calls.begin(), calls.end(), call));
+		if (call.layer == EDITOR_UI) {
+			call.func();
+			EraseAllCalls();
+			return;
+		}
 	}
 }
 

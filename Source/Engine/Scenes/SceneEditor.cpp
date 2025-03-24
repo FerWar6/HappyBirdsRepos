@@ -26,6 +26,11 @@ SceneEditor::SceneEditor(Scene& scene)
 
 SceneEditor::~SceneEditor()
 {
+	currentScene->SaveScene(objects);
+	for (auto& obj : objects) {
+		delete obj;
+		obj = nullptr;
+	}
 	std::cout << "Closed editor \n";
 }
 
@@ -84,11 +89,6 @@ void SceneEditor::LoopEditor()
 		Render();
 	}
 	//shut down level editor
-	currentScene->SaveScene(objects);
-	for (auto& obj : objects) {
-		delete obj;
-		obj = nullptr;
-	}
 }
 
 void SceneEditor::Update()
@@ -125,13 +125,13 @@ void SceneEditor::Update()
 		bool ableToDeselectObj = true; // set this to false when selecting an object to prevent a nullrefex
 		for (auto& obj : objects) {
 			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver() && moveTool.GetCurrentMode() == MOVEMODE_IDLE) {
-				inputMan.buttonMan.AddButtonCall(UI, ((EditorItem*)obj->GetComponent(EDITOR_ITEM))->OnClick);
+				inputMan.buttonMan.AddButtonCall(EDITOR_UI, ((EditorItem*)obj->GetComponent(EDITOR_ITEM))->OnClick);
 				ableToDeselectObj = false;
 			}
 		}
 		if (selectedObj && ableToDeselectObj) {
 			std::function<void()> func = std::bind(&SceneEditor::ClearSelectedObj, this);
-			inputMan.buttonMan.AddButtonCall(UI, func);
+			inputMan.buttonMan.AddButtonCall(EDITOR_UI, func);
 		}
 	}
 	inputMan.buttonMan.UpdateButtonCalls();

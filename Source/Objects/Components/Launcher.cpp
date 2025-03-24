@@ -7,13 +7,14 @@
 #include "Engine/PreLoader.h"
 #include <cmath>
 #include <iostream>
-Launcher::Launcher(std::string txrNm, int numOfAmmo)
+Launcher::Launcher(int numOfAmmo)
     : Component(LAUNCHER),
     inputMan(sl::GetInputManager()),
     primed(false),
-    ammoCount(numOfAmmo)
+    ammoCount(numOfAmmo),
+    maxAmmo(numOfAmmo)
 {
-    sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
+    sf::Texture& txrRef = sl::GetPreLoader().GetTexture("PreviewDot");
     dotSprite.setTexture(txrRef);
     dotSprite.setOrigin(txrRef.getSize().x / 2, txrRef.getSize().y / 2);
     buttonMinRadius = 120;
@@ -104,7 +105,10 @@ void Launcher::Render(sf::RenderWindow& window)
 
 std::string Launcher::GetSaveData()
 {
-    return std::string();
+    std::string data;
+    data += std::to_string(type) + " ";
+    data += std::to_string(maxAmmo) + " ";
+    return data;
 }
 void Launcher::SpawnProjectile()
 {

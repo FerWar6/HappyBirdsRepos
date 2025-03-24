@@ -1,8 +1,9 @@
 #pragma once
 #include "Managers/InputManager.h"
+#include "Managers/CollisionManager.h"
+#include "Managers/GameManager.h"
 #include "Engine/PreLoader.h"
 #include "Engine/Scenes/Scene.h"
-
 class Object;
 class Engine
 {
@@ -23,8 +24,10 @@ public:
 	PreLoader& GetPreLoader();
 	//LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
+	GameManager& GetGameManager();
 
 	void LoadScene(std::string name);
+	void ReloadCurrentScene();
 
 	void OpenSceneSelection();
 	void OpenSceneEditor(Scene scene);
@@ -32,6 +35,8 @@ public:
 	const int worldScale = 50;
 private:
 	PreLoader preLoader;
+	CollisionManager collisionManager;
+	GameManager gameManager;
 	//LevelManager levelManager;
 	InputManager inputManager;
 	sf::RenderWindow* window;

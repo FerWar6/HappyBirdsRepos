@@ -12,6 +12,8 @@ namespace fs = std::filesystem;
 Engine::Engine()
 	: preLoader(),
 	inputManager(),
+	collisionManager(),
+	gameManager(*this),
 	currentScene(nullptr),
 	window(nullptr)
 {
@@ -22,39 +24,29 @@ Engine::Engine()
 
 void Engine::Start()
 {
+	collisionManager.Start();
 	window = &sl::GetWindow();
-	//LoadScene("MainMenu");
-	LoadScene("level2");
-
+	//LoadScene("level2");
+	
 	//OpenSceneEditor(allScenes[1]);
 
-	{
+	if(false) {
+		LoadScene("level2 - Copy");
 		Object* obj = new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
-		sf::Vector2f scale(1.5, 1.5);
-		SpriteRenderer* ren = obj->AddComponent<SpriteRenderer>("LauncherStand", scale, sf::Vector2f(25, 6));
+		SpriteRenderer* ren = obj->AddComponent<SpriteRenderer>("LauncherStand", true);
 		ren->lockRotation = true;
-		obj->AddComponent<SpriteRenderer>("Launcher", scale, sf::Vector2f(13, 87));
-		obj->AddComponent<Launcher>("PreviewDot", 2);
+		ren->SetOrigin(37, 9);
+		ren = obj->AddComponent<SpriteRenderer>("Launcher", true);
+		ren->SetOrigin(20, 130);
+		obj->AddComponent<Launcher>(2);
+		std::cout << obj->GetSaveData() << "\n";
 	}
+	else {
+		LoadScene("MainMenu");
 
-
-
-	//LoadScene("level1");
-	//LoadScene("MainMenu");
-	//{
-	//	new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
-	//	sf::Vector2f scale(1.5, 1.5);
-	//	SpriteRenderer* ren = new SpriteRenderer("LauncherStand", scale, sf::Vector2f(25, 6));
-	//	ren->lockRotation = true;
-	//	new SpriteRenderer("Launcher", scale, sf::Vector2f(13, 87));
-	//	new Launcher("PreviewDot", 2);
-	//}
-	//{
-	//	Object* obj = new Object(sf::Vector2f(200, 200));
-	//	new SpriteRenderer("LevelSelectButton", true);
-	//	new Button(ButtFuncId::MOVE_TO_SCENE);
+	}
+	
 	//	std::cout << obj->GetSaveData() << "\n";
-	//}
 }
 
 void Engine::Update()
@@ -69,6 +61,7 @@ void Engine::Update()
 
 void Engine::FixedUpdate()
 {
+	collisionManager.UpdateCollisions();
 	for (auto& obj : objects) {
 		obj->FixedUpdate();
 	}
@@ -91,6 +84,7 @@ void Engine::UpdateObjectsVector()
 		}
 		markedForDeletion.clear();
 	}
+	//gameManager.ClearedLevelCheck(); // checks if the level is completed when destroying an object
 }
 
 void Engine::AddObject(Object* o)
@@ -116,6 +110,11 @@ PreLoader& Engine::GetPreLoader()
 InputManager& Engine::GetInputManager()
 {
 	return inputManager;
+}
+
+GameManager& Engine::GetGameManager()
+{
+	return gameManager;
 }
 
 void Engine::LoadScenes()
@@ -149,6 +148,13 @@ void Engine::LoadScene(std::string name)
 		currentScene = newScene;
 		std::cout << "Scene loaded: " << newScene->sceneName << "\n";
 	}
+}
+
+void Engine::ReloadCurrentScene()
+{
+	ClearCurrentScene();
+	currentScene->LoadScene();
+	std::cout << "Scene reloaded: " << currentScene->sceneName << "\n";
 }
 
 void Engine::OpenSceneSelection()

@@ -166,6 +166,7 @@
     <ClInclude Include="Source\Objects\Components\EditorItem.h" />
     <ClInclude Include="Source\Objects\Components\SceneSelectButton.h" />
     <ClInclude Include="Source\Objects\Components\TextRenderer.h" />
+    <ClInclude Include="Source\Objects\Components\WinConditionItem.h" />
     <ClInclude Include="Source\UI\EditorMoveTool.h" />
     <ClInclude Include="Source\Objects\Components\Launcher.h" />
     <ClInclude Include="Source\Objects\Components\RectRigidbody.h" />
@@ -179,7 +180,7 @@
     <ClInclude Include="source\Engine\EngineCore.h" />
     <ClInclude Include="source\Engine\PreLoader.h" />
     <ClInclude Include="source\Engine\Renderer.h" />
-    <ClInclude Include="oldCode\GameManager.h" />
+    <ClInclude Include="Source\Managers\GameManager.h" />
     <ClInclude Include="source\Managers\ServiceLocator.h" />
     <ClInclude Include="source\Objects\Object.h" />
     <ClInclude Include="Source\Textures\FontItem.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Source\Managers\ButtonFunctions.cpp" />
     <ClCompile Include="Source\Managers\ButtonManager.cpp" />
     <ClCompile Include="Source\Managers\CollisionManager.cpp" />
+    <ClCompile Include="Source\Managers\GameManager.cpp" />
     <ClCompile Include="Source\Objects\Components\Button.cpp" />
     <ClCompile Include="Source\Objects\Components\CircleRigidbody.cpp" />
     <ClCompile Include="Source\Objects\Components\Component.cpp" />
@@ -206,6 +208,7 @@
     <ClCompile Include="Source\Objects\Components\EditorItem.cpp" />
     <ClCompile Include="Source\Objects\Components\SceneSelectButton.cpp" />
     <ClCompile Include="Source\Objects\Components\TextRenderer.cpp" />
+    <ClCompile Include="Source\Objects\Components\WinConditionItem.cpp" />
     <ClCompile Include="Source\UI\EditorMoveTool.cpp" />
     <ClCompile Include="Source\Objects\Components\Launcher.cpp" />
     <ClCompile Include="Source\Objects\Components\RectRigidbody.cpp" />
@@ -218,7 +221,6 @@
     <ClCompile Include="source\Engine\PreLoader.cpp" />
     <ClCompile Include="source\Engine\Renderer.cpp" />
     <ClCompile Include="source\Engine\main.cpp" />
-    <ClCompile Include="oldCode\GameManager.cpp" />
     <ClCompile Include="source\Objects\Object.cpp" />
     <ClCompile Include="Source\Textures\FontItem.cpp" />
     <ClCompile Include="source\Textures\SpriteSheet.cpp" />
