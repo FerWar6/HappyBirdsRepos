@@ -75,7 +75,6 @@ void SceneEditor::LoopEditor()
 		sf::Time elapsed = gameClock.restart();
 		accumulator += elapsed.asSeconds();
 
-		//TO-DO: check for any updates in gameobjects
 		while (accumulator >= timeStep) {
 			//engine fixedupdate functionality
 			for (auto& obj : objects) {
@@ -97,7 +96,7 @@ void SceneEditor::Update()
 	inputMan.UpdateInputs();
 
 
-	hierarchy.Update();
+	//hierarchy.Update(); //temp turned off bc its incomplete and in the way
 	moveTool.Update();
 	for (auto& obj : objects) {
 		obj->Update();
@@ -121,14 +120,12 @@ void SceneEditor::Update()
 		window.setTitle(currentScene->sceneName);
 		std::cout << "saved\n";
 	}
-	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(D)) {
-		//TODO - duplicate the selected object
-		selectedObj->GetSaveData();
-		std::cout << "duplicated\n";
+	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(D)) { // Duplicating object
+		new Object(selectedObj->GetSaveData());
 	}
-	if (inputMan.GetKeyDown(DELETEKEY)) {
-		//TODO - delete selected object
-		std::cout << "deleted\n";
+	if (inputMan.GetKeyDown(DELETEKEY)) { // Deleting object
+		DeleteObject(selectedObj);
+		selectedObj = nullptr;
 	}
 	if (inputMan.GetKeyDown(MOUSE_L)) { // needs to be after updating move tool
 
@@ -156,7 +153,7 @@ void SceneEditor::Render()
 	for (auto& obj : objects) {
 		obj->Render(window);
 	}
-	hierarchy.Render(window);
+	//hierarchy.Render(window);//temp turned off bc its incomplete and in the way
 	moveTool.Render(window);
 	window.display();
 }

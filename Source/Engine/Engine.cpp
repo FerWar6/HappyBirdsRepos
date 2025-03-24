@@ -39,7 +39,6 @@ void Engine::Start()
 	//obj->AddComponent<DestructibleItem>(100);
 	//obj->AddComponent<WinConditionItem>(1000);
 	//std::cout << obj->GetSaveData() << "\n";
-
 }
 
 void Engine::Update()
@@ -127,6 +126,7 @@ void Engine::LoadScenes()
 			std::cout << "Scene found: " << filepath << "\n"; //allScenes[allScenes.size() - 1].sceneName << 
 		}
 	}
+	gameManager.InitLevels(allScenes);
 }
 
 void Engine::ClearCurrentScene()

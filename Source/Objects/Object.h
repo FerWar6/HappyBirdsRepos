@@ -8,6 +8,7 @@ class Object
 {
 public:
 	Object();
+	Object(std::string data);
 	Object(Transform trans);
 	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1));
 	virtual void Update();

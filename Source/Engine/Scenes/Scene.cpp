@@ -30,6 +30,7 @@ void Scene::SaveScene(std::vector<Object*>& objects)
 
 void Scene::LoadScene()
 {
+	// TODO - make this system use the string data constructor of object
 	std::ifstream file; //this is a file pointer/cursor to somewhere in the file
 	file.open(pathToScene, std::ios::in); //read from text file
 	if (file.is_open()) {

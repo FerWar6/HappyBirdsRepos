@@ -9,6 +9,10 @@ GameManager::GameManager(Engine& eng)
 	levelClock(),
 	endLevelCheck(false)
 {}
+void GameManager::InitLevels(std::vector<Scene>&scenes)
+{
+	// TODO - detect all of the scenes with "level" inside of the name
+}
 void GameManager::Update()
 {
 	if (endLevelCheck) {
@@ -41,6 +45,11 @@ void GameManager::SetLastShotTaken(bool taken)
 {
 	levelClock.Reset();
 	endLevelCheck = taken;
+}
+
+void GameManager::OpenLevelSelection()
+{
+	engine.LoadScene("level1");
 }
 
 void GameManager::LoadNextLevel()

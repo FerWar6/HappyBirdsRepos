@@ -8,7 +8,7 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine, GameManager* gameMan)
 		ButtFuncId currentFunc = ButtFuncId(i);
 		switch (currentFunc) {
 		case LOADSCENE_LEVELSELECT:
-			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "level2 - Copy"));
+			buttonFunctions.emplace_back(currentFunc, std::bind(&GameManager::OpenLevelSelection, gameMan));
 			break;
 		case LOADSCENE_SCENESELECT:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::OpenSceneSelection, engine));

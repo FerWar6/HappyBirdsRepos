@@ -2,13 +2,250 @@
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
 #include "Engine/Scenes/SceneEditor.h"
-#include "Objects/Components/RectRigidbody.h" // needed to fix bug with rect rigidbody destructor not being called
+#include "Objects/Components/Components.h"
 #include <iostream>
+#include <sstream>
 
 Object::Object()
 	: transform()
 {
 	Start();
+}
+
+Object::Object(std::string data)
+{
+	Start();
+
+	bool inEditMode = sl::GetEngine().inEditMode;
+	std::istringstream stringData(data);
+
+	// Debug: Print raw input data
+	std::cout << "Raw data: " << data << std::endl;
+
+	// Read transform data
+	stringData >> transform.position.x >> transform.position.y >> transform.rotation >> transform.size.w >> transform.size.h;
+	std::cout << "Transform -> Position: (" << transform.position.x << ", " << transform.position.y
+		<< "), Rotation: " << transform.rotation
+		<< ", Size: (" << transform.size.w << ", " << transform.size.h << ")\n";
+
+	// Read number of components
+	int numOfComps;
+	stringData >> numOfComps;
+	std::cout << "Number of Components: " << numOfComps << std::endl;
+
+	// Loop through components
+	for (int i = 0; i < numOfComps; i++) {
+		int enumIndex;
+		stringData >> enumIndex;
+		ComponentType compType = (ComponentType)enumIndex;
+
+		std::cout << "Processing Component " << (i + 1) << " of type " << compType << std::endl;
+
+		switch (compType) {
+		case SPRITE_RENDERER:
+		{
+			std::string txrName;
+			bool useOwnSize;
+			bool lockRotation;
+			sf::Vector2f origin;
+			stringData >> txrName >> useOwnSize >> lockRotation >> origin.x >> origin.y;
+
+			std::cout << "Adding SpriteRenderer -> Texture: " << txrName
+				<< ", UseOwnSize: " << useOwnSize
+				<< ", LockRotation: " << lockRotation
+				<< ", Origin: (" << origin.x << ", " << origin.y << ")\n";
+
+			AddComponent<SpriteRenderer>(txrName, useOwnSize, lockRotation, origin);
+			break;
+		}
+		case RECT_RIGIDBODY:
+		{
+			b2WorldId& id = sl::GetWorldId();
+			float density;
+			int bodyTypeIndex;
+			b2BodyType bodyType;
+			stringData >> density >> bodyTypeIndex;
+			bodyType = (b2BodyType)bodyTypeIndex;
+
+			std::cout << "Adding RectRigidbody -> Density: " << density
+				<< ", BodyType: " << bodyType << std::endl;
+
+			RectRigidbody* body = AddComponent<RectRigidbody>(bodyType, density, id);
+			if (inEditMode) {
+				body->active = false;
+				std::cout << "RectRigidbody is inactive (edit mode)\n";
+			}
+			break;
+		}
+		case CIRCLE_RIGIDBODY:
+		{
+			b2WorldId& id = sl::GetWorldId();
+			float density;
+			int bodyTypeIndex;
+			b2BodyType bodyType;
+			stringData >> density >> bodyTypeIndex;
+			bodyType = (b2BodyType)bodyTypeIndex;
+
+			std::cout << "Adding CircleRigidbody -> Density: " << density
+				<< ", BodyType: " << bodyType << std::endl;
+
+			CircleRigidbody* body = AddComponent<CircleRigidbody>(bodyType, density, id);
+			if (inEditMode) {
+				body->active = false;
+				std::cout << "CircleRigidbody is inactive (edit mode)\n";
+			}
+			break;
+		}
+		case BUTTON:
+		{
+			int funcIdIndex;
+			ButtFuncId funcId;
+			stringData >> funcIdIndex;
+			funcId = (ButtFuncId)funcIdIndex;
+
+			std::cout << "Adding Button -> Function ID: " << funcId << std::endl;
+
+			Button* button = AddComponent<Button>(funcId);
+			if (inEditMode) {
+				button->active = false;
+				std::cout << "Button is inactive (edit mode)\n";
+			}
+			break;
+		}
+		case DESTRUCTIBLE_ITEM:
+		{
+			float health;
+			stringData >> health;
+
+			std::cout << "Adding DestructibleItem -> Health: " << health << std::endl;
+
+			AddComponent<DestructibleItem>(health);
+			break;
+		}
+		case WINCONDITION_ITEM:
+		{
+			int score;
+			stringData >> score;
+
+			std::cout << "Adding WinConditionItem -> Score: " << score << std::endl;
+
+			AddComponent<WinConditionItem>(score);
+			break;
+		}
+		case LAUNCHER:
+		{
+			int ammo;
+			stringData >> ammo;
+
+			std::cout << "Adding Launcher -> Ammo: " << ammo << std::endl;
+
+			Launcher* launcher = AddComponent<Launcher>(ammo);
+			if (inEditMode) {
+				launcher->active = false;
+				std::cout << "Launcher is inactive (edit mode)\n";
+			}
+			break;
+		}
+		default:
+			std::cout << "Invalid Component Type: " << compType << std::endl;
+			break;
+		}
+	}
+
+	// Add EditorItem if in edit mode
+	if (inEditMode) {
+		std::cout << "Adding EditorItem (edit mode enabled)" << std::endl;
+		AddComponent<EditorItem>();
+	}
+
+
+	//bool inEditMode = sl::GetEngine().inEditMode;
+	//std::istringstream stringData(data);
+	//
+	//stringData >> transform.position.x >> transform.position.y >> transform.rotation >> transform.size.w >> transform.size.h;
+	//int numOfComps;
+	//stringData >> numOfComps;
+
+	//for (int i = 0; i < numOfComps; i++) {
+	//	int enumIndex;
+	//	stringData >> enumIndex;
+	//	ComponentType compType = (ComponentType)enumIndex;
+
+	//	switch (compType) {
+	//	case SPRITE_RENDERER:
+	//	{
+	//		std::string txrName;
+	//		bool useOwnSize;
+	//		bool lockRotation;
+	//		sf::Vector2f origin;
+	//		stringData >> txrName >> useOwnSize >> lockRotation >> origin.x >> origin.y;
+	//		AddComponent<SpriteRenderer>(txrName, useOwnSize, lockRotation, origin);
+	//		break;
+	//	}
+	//	case RECT_RIGIDBODY:
+	//	{
+	//		b2WorldId& id = sl::GetWorldId();
+	//		float density;
+	//		int bodyTypeIndex;
+	//		b2BodyType bodyType;
+	//		stringData >> density >> bodyTypeIndex;
+	//		bodyType = (b2BodyType)bodyTypeIndex;
+	//		RectRigidbody* body = AddComponent<RectRigidbody>(bodyType, density, id);
+	//		if (inEditMode) body->active = false;
+	//		break;
+	//	}
+	//	case CIRCLE_RIGIDBODY:
+	//	{
+	//		b2WorldId& id = sl::GetWorldId();
+	//		float density;
+	//		int bodyTypeIndex;
+	//		b2BodyType bodyType;
+	//		stringData >> density >> bodyTypeIndex;
+	//		bodyType = (b2BodyType)bodyTypeIndex;
+	//		CircleRigidbody* body = AddComponent<CircleRigidbody>(bodyType, density, id);
+	//		if (inEditMode) body->active = false;
+	//		break;
+	//	}
+	//	case BUTTON:
+	//	{
+	//		int funcIdIndex;
+	//		ButtFuncId funcId;
+	//		stringData >> funcIdIndex;
+	//		funcId = (ButtFuncId)funcIdIndex;
+	//		Button* button = AddComponent<Button>(funcId);
+	//		if (inEditMode) button->active = false;
+	//		break;
+	//	}
+	//	case DESTRUCTIBLE_ITEM:
+	//	{
+	//		float health;
+	//		stringData >> health;
+	//		AddComponent<DestructibleItem>(health);
+	//		break;
+	//	}
+	//	case WINCONDITION_ITEM:
+	//	{
+	//		int score;
+	//		stringData >> score;
+	//		AddComponent<WinConditionItem>(score);
+	//		break;
+	//	}
+	//	case LAUNCHER:
+	//	{
+	//		int ammo;
+	//		stringData >> ammo;
+	//		Launcher* launcher = AddComponent<Launcher>(2);
+	//		if (inEditMode) launcher->active = false;
+	//		break;
+	//	}
+	//	default:
+	//		std::cout << "Invalid Component Type: " << compType << "\n";
+	//		break;
+	//	}
+	//}
+	//if (inEditMode) AddComponent<EditorItem>(); //adds editorItem if in edit mode
+
+	//Start();
 }
 
 Object::Object(Transform trans)
