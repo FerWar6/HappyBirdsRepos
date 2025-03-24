@@ -3,7 +3,8 @@
 #include "Objects/Object.h"
 Component::Component(ComponentType t)
 	: type(t),
-	object(sl::GetSelectedObj())
+	object(sl::GetSelectedObj()),
+	active(true)
 {}
 
 Component* Component::GetComponentPtr()

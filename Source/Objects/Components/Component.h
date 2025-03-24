@@ -17,4 +17,5 @@ public:
 	virtual std::string GetSaveData();
 	Object& object;
 	ComponentType type;
+	bool active;
 };

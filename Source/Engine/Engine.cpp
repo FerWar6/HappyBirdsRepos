@@ -26,27 +26,18 @@ void Engine::Start()
 {
 	collisionManager.Start();
 	window = &sl::GetWindow();
-	//LoadScene("level2");
-	
-	//OpenSceneEditor(allScenes[1]);
 
-	if(false) {
-		LoadScene("level2 - Copy");
-		Object* obj = new Object(sf::Vector2f(150, 700), 90, sf::Vector2f(600, 600));
-		SpriteRenderer* ren = obj->AddComponent<SpriteRenderer>("LauncherStand", true);
-		ren->lockRotation = true;
-		ren->SetOrigin(37, 9);
-		ren = obj->AddComponent<SpriteRenderer>("Launcher", true);
-		ren->SetOrigin(20, 130);
-		obj->AddComponent<Launcher>(2);
-		std::cout << obj->GetSaveData() << "\n";
-	}
-	else {
-		LoadScene("MainMenu");
+	LoadScene("MainMenu");
 
-	}
-	
-	//	std::cout << obj->GetSaveData() << "\n";
+	//Object* obj = new Object(sf::Vector2f(150, 700), 0, sf::Vector2f(1, 1));
+	//obj->AddComponent<SpriteRenderer>("StartButton", true);
+	//obj->AddComponent<Button>(LOADSCENE_LEVELSELECT);
+
+	//Object* obj = new Object(sf::Vector2f(700, 700), 0, sf::Vector2f(100, 100));
+	//obj->AddComponent<SpriteRenderer>("CannonBall", false, false, sf::Vector2f(0, 0));
+	//obj->AddComponent<CircleRigidbody>(b2_dynamicBody, 1, sl::GetWorldId());
+	//std::cout << obj->GetSaveData() << "\n";
+
 }
 
 void Engine::Update()

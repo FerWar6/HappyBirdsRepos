@@ -30,7 +30,6 @@ void Scene::SaveScene(std::vector<Object*>& objects)
 
 void Scene::LoadScene()
 {
-	//TODO - read the file and load all of the objects inside of the file
 	std::ifstream file; //this is a file pointer/cursor to somewhere in the file
 	file.open(pathToScene, std::ios::in); //read from text file
 	if (file.is_open()) {
@@ -44,7 +43,7 @@ void Scene::LoadScene()
 		file.seekg(0, std::ios::beg);
 
 		for (int i = 0; i < amountOfObj; i++) {
-
+			bool inEditMode = sl::GetEngine().inEditMode;
 			Transform transform;
 			file >> transform.position.x;
 			file >> transform.position.y;
@@ -88,7 +87,8 @@ void Scene::LoadScene()
 					file >> density;
 					file >> bodyTypeIndex;
 					bodyType = (b2BodyType)bodyTypeIndex;
-					obj->AddComponent<RectRigidbody>(bodyType, density, id);
+					RectRigidbody* body = obj->AddComponent<RectRigidbody>(bodyType, density, id);
+					if (inEditMode) body->active = false;
 					break;
 				}
 				case CIRCLE_RIGIDBODY:
@@ -100,7 +100,8 @@ void Scene::LoadScene()
 					file >> density;
 					file >> bodyTypeIndex;
 					bodyType = (b2BodyType)bodyTypeIndex;
-					obj->AddComponent<CircleRigidbody>(bodyType, density, id);
+					CircleRigidbody* body = obj->AddComponent<CircleRigidbody>(bodyType, density, id);
+					if (inEditMode) body->active = false;
 					break;
 				}
 				case BUTTON:
@@ -109,7 +110,8 @@ void Scene::LoadScene()
 					ButtFuncId funcId;
 					file >> funcIdIndex;
 					funcId = (ButtFuncId)funcIdIndex;
-					obj->AddComponent<Button>(funcId);
+					Button* button = obj->AddComponent<Button>(funcId);
+					if (inEditMode) button->active = false;
 					break;
 				}
 				case DESTRUCTIBLE_ITEM:
@@ -130,7 +132,8 @@ void Scene::LoadScene()
 				{
 					int ammo;
 					file >> ammo;
-					obj->AddComponent<Launcher>(2);
+					Launcher* launcher = obj->AddComponent<Launcher>(2);
+					if (inEditMode) launcher->active = false;
 					break;
 				}
 				default:
@@ -138,7 +141,7 @@ void Scene::LoadScene()
 					break;
 				}
 			}
-			if (sl::GetEngine().inEditMode) obj->AddComponent<EditorItem>(); //adds editorItem if in edit mode
+			if (inEditMode) obj->AddComponent<EditorItem>(); //adds editorItem if in edit mode
 		}
 		file.close();
 	}

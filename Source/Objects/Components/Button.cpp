@@ -13,6 +13,7 @@ Button::Button(ButtFuncId function)
 {}
 void Button::Update()
 {
+    if (!active) return;
     if (inputMan.GetKeyDown(MOUSE_L)) HandleClick();
     //bool to check if there is a sprite renderer
     // set the color of the spriterenderer if you have it
@@ -33,8 +34,7 @@ void Button::Update()
 void Button::HandleClick()
 {
     if (OnClick && HoveringOver()) {
-        inputMan.buttonMan.AddButtonCall(EDITOR_UI, OnClick);
-        //OnClick();
+        inputMan.buttonMan.AddButtonCall(GAME_UI, OnClick);
     }
 }
 

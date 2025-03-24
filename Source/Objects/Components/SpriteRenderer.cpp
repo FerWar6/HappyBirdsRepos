@@ -13,11 +13,8 @@ SpriteRenderer::SpriteRenderer(std::string txrNm)
 {
 	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	//the scale is the object size devided by the size of the texture on both x and y
-	sf::Vector2f scale;
-	scale.x = object.GetSize().x / txrRef.getSize().x;
-	scale.y = object.GetSize().y / txrRef.getSize().y;
 
-	Start(txrRef, scale, GetOriginFromTxr(txrRef.getSize()));
+	Start(txrRef, GetOriginFromTxr(txrRef.getSize()));
 }
 //this constructor is for adding a sprite to a button
 SpriteRenderer::SpriteRenderer(std::string txrNm, bool useSize)
@@ -29,7 +26,7 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, bool useSize)
 	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	//the scale is the object size devided by the size of the texture on both x and y
 	sf::Vector2f scale(1, 1);
-	Start(txrRef, scale, GetOriginFromTxr(txrRef.getSize()));
+	Start(txrRef, GetOriginFromTxr(txrRef.getSize()));
 }
 
 
@@ -42,16 +39,21 @@ SpriteRenderer::SpriteRenderer(std::string txrNm, bool useOwnSize, bool lockRota
 {
 	sf::Texture& txrRef = sl::GetPreLoader().GetTexture(txrNm);
 	if(origin.x == 0 && origin.y == 0) origin = GetOriginFromTxr(txrRef.getSize());
-	Start(txrRef, sf::Vector2f(1,1), origin);
+	Start(txrRef, origin);
 }
 
-void SpriteRenderer::Start(sf::Texture& txrRef, sf::Vector2f scale, sf::Vector2f origin)
+void SpriteRenderer::Start(sf::Texture& txrRef, sf::Vector2f origin)
 {
 	sprite.setTexture(txrRef);
 	sprite.setPosition(object.GetPos());
-	sprite.setScale(scale);
 	sprite.setOrigin(origin);
 	if (useOwnSize) object.SetSize((sf::Vector2f)txrRef.getSize());
+	else {
+		sf::Vector2f scale;
+		scale.x = object.GetSize().x / txrRef.getSize().x;
+		scale.y = object.GetSize().y / txrRef.getSize().y;
+		sprite.setScale(scale);
+	}
 }
 
 void SpriteRenderer::Render(sf::RenderWindow& window)
@@ -110,6 +112,8 @@ std::string SpriteRenderer::GetSaveData()
 	data += std::to_string(useOwnSize) + " ";
 	data += std::to_string(lockRotation) + " ";
 	sf::Vector2f origin = sprite.getOrigin();
+	sf::Vector2f txrSize = (sf::Vector2f)sl::GetPreLoader().GetTexture(txrName).getSize();
+	if (useOwnSize && txrSize / 2.f == origin) origin = sf::Vector2f(0, 0);
 	data += std::to_string(origin.x) + " ";
 	data += std::to_string(origin.y) + " ";
 	return data;

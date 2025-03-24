@@ -10,5 +10,6 @@ public:
 	std::string sceneName;
 	void SaveScene(std::vector<Object*>& objects);
 	void LoadScene();
+private:
 	std::string GetNameFromPath();
 };

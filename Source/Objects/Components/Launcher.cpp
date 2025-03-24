@@ -29,6 +29,7 @@ Launcher::Launcher(int numOfAmmo)
 
 void Launcher::Update()
 {
+    if (!active) return;
     //holding click primes the cannon
     //when primed you can move the cannon back to the center and unprime it
     //when primed you can move it back as far as you want and release to shoot the cannonball
@@ -53,6 +54,7 @@ void Launcher::Update()
 
 void Launcher::FixedUpdate()
 {
+    if (!active) return;
     //dont update unless the angle is valid
     if (primed) {
         object.SetRot(CalcAngle() + spriteRotationalOffset);
@@ -67,39 +69,39 @@ void Launcher::FixedUpdate()
 
 void Launcher::Render(sf::RenderWindow& window)
 {
-    if (primed) {
-        {
-            sf::CircleShape circle;
-            float radius = buttonMaxRadius;
-            circle.setRadius(radius);
-            circle.setOrigin(radius, radius);
-            circle.setPosition(object.GetPos());
-            sf::Color col(255, 255, 255, 25);
-            circle.setFillColor(col);
-            window.draw(circle);
-        } 
-        {
-            sf::CircleShape circle;
-            float radius = 10;
-            circle.setRadius(radius);
-            circle.setOrigin(radius, radius);
-            circle.setPosition(CalcLaunchPoint());
-            sf::Color col(255, 255, 255, 50);
-            circle.setFillColor(col);
-            window.draw(circle);
-        }
-        {
-            sf::CircleShape circle;
-            float radius = buttonMinRadius;
-            circle.setRadius(radius);
-            circle.setOrigin(radius, radius);
-            circle.setPosition(object.GetPos());
-            sf::Color col(255, 0, 0, 100);
-            circle.setFillColor(col);
-            window.draw(circle);
-        }
+    //if (primed) {
+    //    {
+    //        sf::CircleShape circle;
+    //        float radius = buttonMaxRadius;
+    //        circle.setRadius(radius);
+    //        circle.setOrigin(radius, radius);
+    //        circle.setPosition(object.GetPos());
+    //        sf::Color col(255, 255, 255, 25);
+    //        circle.setFillColor(col);
+    //        window.draw(circle);
+    //    } 
+    //    {
+    //        sf::CircleShape circle;
+    //        float radius = 10;
+    //        circle.setRadius(radius);
+    //        circle.setOrigin(radius, radius);
+    //        circle.setPosition(CalcLaunchPoint());
+    //        sf::Color col(255, 255, 255, 50);
+    //        circle.setFillColor(col);
+    //        window.draw(circle);
+    //    }
+    //    {
+    //        sf::CircleShape circle;
+    //        float radius = buttonMinRadius;
+    //        circle.setRadius(radius);
+    //        circle.setOrigin(radius, radius);
+    //        circle.setPosition(object.GetPos());
+    //        sf::Color col(255, 0, 0, 100);
+    //        circle.setFillColor(col);
+    //        window.draw(circle);
+    //    }
 
-    }
+    //}
     if(primed && (HoveringOver(buttonMinRadius)) ) DrawPreview(window);
 }
 
@@ -112,16 +114,15 @@ std::string Launcher::GetSaveData()
 }
 void Launcher::SpawnProjectile()
 {
-    ammoCount--;
     if (primed && (HoveringOver(buttonMinRadius))) {
         int scale = sl::GetEngine().worldScale;
         b2Vec2 spawnPos = b2Vec2{ CalcLaunchPoint().x / scale, CalcLaunchPoint().y / scale };
         Object* obj = new Object();
         float ballSize = 0.5f;
-        obj->AddComponent<CircleRigidbody>(spawnPos, ballSize, CalcLinearVelocity(), sl::GetWorldId());
+        obj->AddComponent<CircleRigidbody>(spawnPos, ballSize, CalcLinearVelocity(), sl::GetWorldId(), 2);
         obj->AddComponent<SpriteRenderer>("CannonBall");
         primed = false;
-        //std::cout << "created projectile \n";
+        ammoCount--;
     }
     else {
         primed = false;
@@ -219,7 +220,7 @@ void Launcher::MoveBackToBasePos()
 
 void Launcher::UpdatePreview()
 {
-    float startDistanceMultiplier = 1;
+    float startDistanceMultiplier = .5;
     float archLenght = 10;
     //y = h + x * tan(angle) - g * (x^2) / (2 * V0^2 * cos^2(angle))
 

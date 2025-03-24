@@ -9,7 +9,7 @@ public:
 	SpriteRenderer(std::string txrName, bool useOwnSize, bool lockRotation, sf::Vector2f origin);
 	sf::Sprite sprite;
 
-	void Start(sf::Texture& txrRef, sf::Vector2f scale, sf::Vector2f origin);
+	void Start(sf::Texture& txrRef, sf::Vector2f origin);
 	void Render(sf::RenderWindow& window) override;
 	Component* GetComponentPtr() override;
 

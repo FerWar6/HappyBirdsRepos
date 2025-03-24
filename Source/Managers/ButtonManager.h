@@ -2,8 +2,9 @@
 #include <vector>
 #include <functional>
 enum ButtonLayer {
+	GAME_UI,
 	EDITOR_UI,
-	EDITOR
+	EDITOR,
 };
 class Button;
 struct ButtonCall {

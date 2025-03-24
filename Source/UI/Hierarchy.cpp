@@ -12,7 +12,6 @@ Hierarchy::Hierarchy(std::vector<Object*>& objs)
 {
 	titleTxt.setFont(sl::GetPreLoader().GetFont("goofy"));
 	titleTxt.setPosition(sf::Vector2f(100, 100));
-	titleTxt.setString("goffy\ngoofy\ngoooy");
 }
 
 void Hierarchy::Update()
@@ -25,7 +24,7 @@ void Hierarchy::Update()
 			sl::GetSceneEditor().SetSelectedObj(objects[i]);
 		}
 	}
-	testField.Update();
+	//testField.Update();
 }
 
 void Hierarchy::Render(sf::RenderWindow& window)
@@ -42,7 +41,8 @@ void Hierarchy::Render(sf::RenderWindow& window)
 			window.draw(highlight);
 		}
 	}
-	testField.Render(window);
+	//testField.Render(window);
+	
 	//sf::FloatRect textBounds = titleTxt.getGlobalBounds();
 	//int border = 7;
 	//int grayness = 50;

@@ -7,10 +7,10 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 	for (int i = 0; i < numOfFunc; i++) {
 		ButtFuncId currentFunc = ButtFuncId(i);
 		switch (currentFunc) {
-		case MOVE_TO_SCENE:
+		case LOADSCENE_LEVELSELECT:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "level2 - Copy"));
 			break;
-		case MOVE_TO_SCENE_SELECTION:
+		case LOADSCENE_SCENESELECT:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::OpenSceneSelection, engine));
 			break;
 		case LOADSCENE_MAINMENU:

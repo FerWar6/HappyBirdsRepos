@@ -1,17 +1,6 @@
 #include "RectRigidbody.h"
 #include "Objects/Object.h"
 
-// This constructor is used to create a RectBody from a position and size
-RectRigidbody::RectRigidbody(b2Vec2 posInM, b2Vec2 sizeInM,
-    b2BodyType type, float dens, b2WorldId& id)
-    : Component(RECT_RIGIDBODY),
-    density(dens)
-{
-    object.SetPosInM(posInM);
-    object.SetSizeInM(sizeInM);
-    Start(type, id);
-}
-
 // This constructor is used for creating a RectBody on top of an existing object. Used to construct from scene data
 RectRigidbody::RectRigidbody(b2BodyType type, float dens, b2WorldId& id)
     : Component(RECT_RIGIDBODY),
@@ -42,6 +31,7 @@ RectRigidbody::~RectRigidbody()
 
 void RectRigidbody::FixedUpdate()
 {
+    if (!active) return;
     b2Vec2 pos = b2Body_GetPosition(bodyId);
     b2Rot rot = b2Body_GetRotation(bodyId);
     object.SetPosInM(pos);

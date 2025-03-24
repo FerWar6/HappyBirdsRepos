@@ -30,9 +30,10 @@ void EditorItem::Render(sf::RenderWindow& window)
     if (selected) {
         sf::RectangleShape outline(object.GetSize());
         outline.setPosition(object.GetPos());
+        outline.setRotation(object.GetRot());
         outline.setOrigin(outline.getSize() / 2.f);
         outline.setFillColor(sf::Color(0, 0, 0, 0));
-        outline.setOutlineThickness(-1); //size of the border
+        outline.setOutlineThickness(-2); //size of the border
         outline.setOutlineColor(sf::Color(255, 255, 255, 255));
         window.draw(outline);
     }

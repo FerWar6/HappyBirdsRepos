@@ -16,6 +16,13 @@ void ButtonManager::UpdateButtonCalls()
 			return;
 		}
 	}
+	for (ButtonCall& call : calls) {
+		if (call.layer == GAME_UI) {
+			call.func();
+			EraseAllCalls();
+			return;
+		}
+	}
 }
 
 void ButtonManager::AddButtonCall(ButtonLayer layer, std::function<void()>& onClick)

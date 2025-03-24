@@ -1,26 +1,6 @@
 #include "CircleRigidbody.h"
 #include "Objects/Object.h"
 
-CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, // TODO - clear up what each constructor does and put construction of the CircleBody inside of a start function like in RectBody
-    b2BodyType type, b2WorldId& id, float dens)
-    : Component(CIRCLE_RIGIDBODY),
-    density(dens)
-{
-    b2BodyDef defaultBody = b2DefaultBodyDef();
-    defaultBody.type = type;
-    defaultBody.position = posInM;
-    bodyId = b2CreateBody(id, &defaultBody);
-
-    // build circle body
-    b2ShapeDef shapeDef = b2DefaultShapeDef();
-    shapeDef.density = dens;
-
-    b2Circle circleData = { b2Vec2{0,0}, radiusInM };
-    b2CreateCircleShape(bodyId, &shapeDef, &circleData);
-
-    object.SetSizeInM(b2Vec2{ radiusInM * 2, radiusInM * 2 });
-}
-
 CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, b2Vec2 startVel, b2WorldId& id, float dens)
     : Component(CIRCLE_RIGIDBODY),
     density(dens)
@@ -65,10 +45,16 @@ CircleRigidbody::~CircleRigidbody()
 
 void CircleRigidbody::FixedUpdate()
 {
+    if (!active) return;
     b2Vec2 pos = b2Body_GetPosition(bodyId);
     b2Rot rot = b2Body_GetRotation(bodyId);
     object.SetPosInM(pos);
     object.SetRot(std::atan2(rot.s, rot.c) * 180 / 3.14159f);
+}
+
+b2BodyId& CircleRigidbody::GetBodyId()
+{
+    return bodyId;
 }
 
 b2BodyType CircleRigidbody::GetBodyType()
