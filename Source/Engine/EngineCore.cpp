@@ -8,16 +8,22 @@
 EngineCore::EngineCore()
 	: engine(),
 	inputManRef(engine.GetInputManager()),
-	renderer(engine.objects)
+	renderer(engine.objects),
+	worldPaused(false)
 {
+	sl::SetEngineCore(this);
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = { 0.0f, 9.8f };
     worldId = b2CreateWorld(&worldDef);
 	sl::SetWorldId(&worldId);
-	b2World_SetHitEventThreshold(worldId, 5);
 	engine.Start();
 	renderer.Start();
 	Start();
+}
+
+void EngineCore::SetPauseWorld(bool pause)
+{
+	worldPaused = pause;
 }
 
 void EngineCore::Start()
@@ -49,6 +55,7 @@ void EngineCore::LoopEngine()
 		while (accumulator >= timeStep) {
 			//std::cout << accumulator << "\n";
 			engine.FixedUpdate();
+			if(!worldPaused)
             b2World_Step(worldId, timeStep, 4);
 
             accumulator -= timeStep;

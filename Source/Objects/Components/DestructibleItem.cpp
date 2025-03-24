@@ -26,8 +26,8 @@ void DestructibleItem::Damage(float dmg)
 void DestructibleItem::DamageWithSpeed(float speed)
 {
     float dmg = speed * 7.5;
-    std::cout << "speed " << speed << "\n";
-    std::cout << "Damaged item " << dmg << "\n";
+    //std::cout << "speed " << speed << "\n";
+    //std::cout << "Damaged item " << dmg << "\n";
     if (curHealth - dmg >= 0) {
         curHealth -= dmg;
         if (object.HasComponent(SPRITE_RENDERER)) {

@@ -1,7 +1,7 @@
 #include "ButtonFunctions.h"
 #include "Engine/Engine.h"
 #include "Engine/Scenes/SceneEditor.h"
-void ButtonFunctions::LinkButtonFunctions(Engine* engine)
+void ButtonFunctions::LinkButtonFunctions(Engine* engine, GameManager* gameMan)
 {
 	int numOfFunc = static_cast<int>(ButtFuncId::BUTTON_FUNCTIONS_COUNT);
 	for (int i = 0; i < numOfFunc; i++) {
@@ -15,6 +15,9 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine)
 			break;
 		case LOADSCENE_MAINMENU:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "MainMenu"));
+			break;
+		case LOADSCENE_NEXTLEVEL:
+			buttonFunctions.emplace_back(currentFunc, std::bind(&GameManager::LoadNextLevel, gameMan));
 			break;
 		default:
 			std::cout << "Button function is missing id";

@@ -123,6 +123,7 @@ void Launcher::SpawnProjectile()
         obj->AddComponent<SpriteRenderer>("CannonBall");
         primed = false;
         ammoCount--;
+        if (ammoCount == 0) sl::GetEngine().GetGameManager().SetLastShotTaken(true);
     }
     else {
         primed = false;

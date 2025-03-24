@@ -7,6 +7,7 @@ class EngineCore
 {
 public:
 	EngineCore();
+	void SetPauseWorld(bool pause); // May be useless when resetting a level concidering the level already stopped moving when opening the stopmenu
 private:
 	void Start();
 	void LoopEngine();
@@ -15,6 +16,7 @@ private:
 	Renderer renderer;
 
 	b2WorldId worldId;
+	bool worldPaused;
 	sf::Clock gameClock;
 	sf::RenderWindow* window;
 	int fixedUpdateFrames = 60;

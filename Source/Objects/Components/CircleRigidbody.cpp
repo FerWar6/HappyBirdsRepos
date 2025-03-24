@@ -26,7 +26,7 @@ CircleRigidbody::CircleRigidbody(b2BodyType type, float dens, b2WorldId& id)
     density(dens)
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();
-    defaultBody.type = b2_dynamicBody;
+    defaultBody.type = type;
     defaultBody.position = object.GetPosInM();
     bodyId = b2CreateBody(id, &defaultBody);
 
@@ -34,7 +34,7 @@ CircleRigidbody::CircleRigidbody(b2BodyType type, float dens, b2WorldId& id)
     b2ShapeDef shapeDef = b2DefaultShapeDef();
     shapeDef.density = dens;
 
-    b2Circle circleData = { b2Vec2{0,0}, object.GetSize().x};
+    b2Circle circleData = { b2Vec2{0,0}, object.GetSizeInM().x / 2};
     b2CreateCircleShape(bodyId, &shapeDef, &circleData);
 }
 

@@ -25,9 +25,11 @@ public:
 	//LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
 	GameManager& GetGameManager();
+	CollisionManager& GetCollisionManager();
 
 	void LoadScene(std::string name);
 	void ReloadCurrentScene();
+	void LoadObjectsIntoScene(std::string name);
 
 	void OpenSceneSelection();
 	void OpenSceneEditor(Scene scene);

@@ -18,7 +18,7 @@ Engine::Engine()
 	window(nullptr)
 {
 	sl::SetEngine(this);
-	preLoader.buttonFunctions.LinkButtonFunctions(this);
+	preLoader.buttonFunctions.LinkButtonFunctions(this, &gameManager);
 	LoadScenes();
 }
 
@@ -33,9 +33,11 @@ void Engine::Start()
 	//obj->AddComponent<SpriteRenderer>("StartButton", true);
 	//obj->AddComponent<Button>(LOADSCENE_LEVELSELECT);
 
-	//Object* obj = new Object(sf::Vector2f(700, 700), 0, sf::Vector2f(100, 100));
+	//Object* obj = new Object(sf::Vector2f(700, 700), 0, sf::Vector2f(50, 50));
 	//obj->AddComponent<SpriteRenderer>("CannonBall", false, false, sf::Vector2f(0, 0));
 	//obj->AddComponent<CircleRigidbody>(b2_dynamicBody, 1, sl::GetWorldId());
+	//obj->AddComponent<DestructibleItem>(100);
+	//obj->AddComponent<WinConditionItem>(1000);
 	//std::cout << obj->GetSaveData() << "\n";
 
 }
@@ -44,6 +46,7 @@ void Engine::Update()
 {
 	inputManager.SetMousePos(*window);
 	inputManager.UpdateInputs();
+	gameManager.Update();
 	for (auto obj : objects) {
 		obj->Update();
 	}
@@ -108,6 +111,11 @@ GameManager& Engine::GetGameManager()
 	return gameManager;
 }
 
+CollisionManager& Engine::GetCollisionManager()
+{
+	return collisionManager;
+}
+
 void Engine::LoadScenes()
 {
 	for (const auto& entry : fs::directory_iterator(scenePath)) {
@@ -146,6 +154,13 @@ void Engine::ReloadCurrentScene()
 	ClearCurrentScene();
 	currentScene->LoadScene();
 	std::cout << "Scene reloaded: " << currentScene->sceneName << "\n";
+}
+
+void Engine::LoadObjectsIntoScene(std::string name)
+{
+	Scene* sceneToAdd = GetScene(name);
+	sceneToAdd->LoadScene();
+	std::cout << "Objects from scene added: " << sceneToAdd->sceneName << "\n";
 }
 
 void Engine::OpenSceneSelection()

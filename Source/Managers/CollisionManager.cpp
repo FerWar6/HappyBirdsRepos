@@ -13,6 +13,7 @@ void CollisionManager::Start()
 {
 	objects = &sl::GetEngine().objects;
 	worldId = &sl::GetWorldId();
+	b2World_SetHitEventThreshold(*worldId, 3);
 }
 
 void CollisionManager::UpdateCollisions()
@@ -29,9 +30,19 @@ void CollisionManager::UpdateCollisions()
 		{
 			const b2ContactHitEvent& hitEvent = contactEvents.hitEvents[i];
 			for (auto& obj : *objects) {
-				RectRigidbody* bodyPtr = (RectRigidbody*)obj->GetComponent(RECT_RIGIDBODY);
-				if (bodyPtr) {
-					if (bodyPtr->bodyId.index1 == hitEvent.shapeIdA.index1 || bodyPtr->bodyId.index1 == hitEvent.shapeIdB.index1) {
+				if (obj->HasComponent(RECT_RIGIDBODY)) {
+					RectRigidbody* rectBodyPtr = (RectRigidbody*)obj->GetComponent(RECT_RIGIDBODY);
+					if (rectBodyPtr->bodyId.index1 == hitEvent.shapeIdA.index1 || rectBodyPtr->bodyId.index1 == hitEvent.shapeIdB.index1) {
+						if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
+							DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
+							destructible->DamageWithSpeed(hitEvent.approachSpeed);
+						}
+					}
+					//std::cout << "bodyId index: " << bodyPtr->bodyId.index1 << "\n";
+				}
+				if (obj->HasComponent(CIRCLE_RIGIDBODY)) {
+					CircleRigidbody* circleBodyPtr = (CircleRigidbody*)obj->GetComponent(CIRCLE_RIGIDBODY);
+					if (circleBodyPtr->GetBodyId().index1 == hitEvent.shapeIdA.index1 || circleBodyPtr->GetBodyId().index1 == hitEvent.shapeIdB.index1) {
 						if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
 							DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
 							destructible->DamageWithSpeed(hitEvent.approachSpeed);
@@ -42,9 +53,14 @@ void CollisionManager::UpdateCollisions()
 				//std::cout << "hitEvent shapeA: " << hitEvent.shapeIdA.index1 << "\n";
 				//std::cout << "hitEvent shapeB: " << hitEvent.shapeIdB.index1 << "\n";
 			}
-			std::cout << " Point: (" << hitEvent.point.x << ", " << hitEvent.point.y << ")"
-				<< " Normal: (" << hitEvent.normal.x << ", " << hitEvent.normal.y << ")"
-				<< " Speed: " << hitEvent.approachSpeed << " m/s\n";
+			//std::cout << " Point: (" << hitEvent.point.x << ", " << hitEvent.point.y << ")"
+			//	<< " Normal: (" << hitEvent.normal.x << ", " << hitEvent.normal.y << ")"
+			//	<< " Speed: " << hitEvent.approachSpeed << " m/s\n";
 		}
 	}
+}
+
+bool CollisionManager::AwakeBodiesInWorld()
+{
+	return b2World_GetAwakeBodyCount(*worldId) > 0;
 }
