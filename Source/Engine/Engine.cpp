@@ -68,12 +68,14 @@ void Engine::UpdateObjectsVector()
 	}
 	if (!markedForDeletion.empty()) {
 		for (Object* obj : markedForDeletion) {
-			auto it = std::find(objects.begin(), objects.end(), obj);
-			if (it != objects.end()) {
-				objects.erase(it);
+			if (obj) {
+				auto it = std::find(objects.begin(), objects.end(), obj);
+				if (it != objects.end()) {
+					objects.erase(it);
+				}
+				delete obj;
+				obj = nullptr;
 			}
-			delete obj;
-			obj = nullptr;
 		}
 		markedForDeletion.clear();
 	}
@@ -87,6 +89,13 @@ void Engine::AddObject(Object* o)
 
 void Engine::DeleteObject(Object* o)
 {
+	//check if markedfordeletiond does not already contain the same object
+	for (auto objPtr : markedForDeletion) {
+		if (objPtr == o) {
+			std::cout << "Attempting to delete an already deleted object \n";
+			return;
+		}
+	}
 	markedForDeletion.push_back(o);
 }
 

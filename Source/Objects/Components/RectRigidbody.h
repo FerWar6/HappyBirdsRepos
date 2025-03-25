@@ -8,12 +8,13 @@ public:
 	RectRigidbody(b2BodyType type, float density, b2WorldId& id);
 	~RectRigidbody() override;
 	void FixedUpdate() override;
-	b2BodyId bodyId;
 
 	float density;
+	b2BodyId& GetBodyId();
 	b2BodyType GetBodyType();
 
 	std::string GetSaveData() override;
 private:
+	b2BodyId bodyId;
 	void Start(b2BodyType type, b2WorldId& id);
 };

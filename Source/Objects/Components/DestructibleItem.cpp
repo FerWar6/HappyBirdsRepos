@@ -15,7 +15,6 @@ void DestructibleItem::Damage(float dmg)
             spriteRen->sprite.setColor(sf::Color(255, 255, 255, 200));
         }
         curHealth -= dmg;
-        std::cout << "Damaged item " << dmg << "\n";
     }
     else
     {
@@ -44,7 +43,7 @@ void DestructibleItem::DamageWithSpeed(float speed)
 
 void DestructibleItem::DestroyItem()
 {
-    std::cout << "Destroyed item \n";
+    //std::cout << "Destroyed item \n";
     object.Delete();
 }
 std::string DestructibleItem::GetSaveData()

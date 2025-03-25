@@ -13,7 +13,6 @@ class SceneEditor
 public:
 	SceneEditor(Scene& scene);
 	~SceneEditor();
-	sf::Sprite moveWidgetSprite;
 	sf::Sprite gridSprite;
 	void OpenEditorWindow();
 

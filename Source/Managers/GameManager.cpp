@@ -13,21 +13,21 @@ void GameManager::InitLevels(std::vector<Scene>& scenes)
 {
 	// TODO - detect all of the scenes with "level" inside of the name
 	for (auto& scene : scenes) {
-		size_t pos = scene.sceneName.find('l'); // find a way to detect "level"
-		//if (pos != std::string::npos) {
-		//
+		if (scene.sceneName.find("level") != std::string::npos) { // detects if "level" is inside of the string sceneName
+			levels.push_back(&scene);
+			std::cout << "Level found: " << scene.sceneName << "\n";
+		}
 	}
 }
 void GameManager::Update()
 {
 	if (endLevelCheck) {
-		float resetTime = 1;
-		if (engine.GetCollisionManager().AwakeBodiesInWorld()) {
+		float resetTime = 2;
+		if (!engine.GetCollisionManager().AllBodiesAsleep()) {
 			levelClock.Reset();
 		}
 		else if(levelClock.GetTimeInSeconds() > resetTime){
 			engine.LoadObjectsIntoScene("EndLevelUI");
-			//sl::GetEngineCore().SetPauseWorld(true);
 			std::cout << "Reset Level\n";
 			endLevelCheck = false;
 		}
@@ -59,7 +59,10 @@ void GameManager::OpenLevelSelection()
 
 void GameManager::LoadNextLevel()
 {
-	std::cout << "Next level loaded \n";
+	int newIndex = 1;
+	Scene* newLevel = levels[newIndex];
+	engine.LoadScene(newLevel->sceneName);
+	currentLevel = newLevel;
 }
 
 void GameManager::OnLevelLoaded()

@@ -18,10 +18,6 @@ void CollisionManager::Start()
 
 void CollisionManager::UpdateCollisions()
 {
-	for (auto& obj : *objects) {
-		obj->Update();
-	}
-
 	b2ContactEvents contactEvents = b2World_GetContactEvents(*worldId);
 
 	if (contactEvents.hitCount > 0)
@@ -32,7 +28,7 @@ void CollisionManager::UpdateCollisions()
 			for (auto& obj : *objects) {
 				if (obj->HasComponent(RECT_RIGIDBODY)) {
 					RectRigidbody* rectBodyPtr = (RectRigidbody*)obj->GetComponent(RECT_RIGIDBODY);
-					if (rectBodyPtr->bodyId.index1 == hitEvent.shapeIdA.index1 || rectBodyPtr->bodyId.index1 == hitEvent.shapeIdB.index1) {
+					if (rectBodyPtr->GetBodyId().index1 == hitEvent.shapeIdA.index1 || rectBodyPtr->GetBodyId().index1 == hitEvent.shapeIdB.index1) {
 						if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
 							DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
 							destructible->DamageWithSpeed(hitEvent.approachSpeed);
@@ -63,4 +59,23 @@ void CollisionManager::UpdateCollisions()
 bool CollisionManager::AwakeBodiesInWorld()
 {
 	return b2World_GetAwakeBodyCount(*worldId) > 0;
+}
+
+bool CollisionManager::AllBodiesAsleep()
+{
+	//returns true if no bodies awake or the bodies awake move very little
+	if (b2World_GetAwakeBodyCount(*worldId) == 0) return true;
+	std::vector<b2BodyId> bodies;
+	for (auto& obj : *objects) {
+		if (obj->HasComponent(RECT_RIGIDBODY)) bodies.push_back(((RectRigidbody*)obj->GetComponent(RECT_RIGIDBODY))->GetBodyId());
+		if (obj->HasComponent(CIRCLE_RIGIDBODY)) bodies.push_back(((CircleRigidbody*)obj->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId());
+	}
+	for (auto& body : bodies) {
+		float yVelocityThreshold = 0.1f;
+		b2Vec2 velocity = b2Body_GetLinearVelocity(body);
+		if (velocity.y > yVelocityThreshold) {
+			return false;
+		}
+	}
+	return true;
 }

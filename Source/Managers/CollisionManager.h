@@ -10,6 +10,7 @@ public:
 	void Start();
 	void UpdateCollisions();
 	bool AwakeBodiesInWorld();
+	bool AllBodiesAsleep();
 private:
 	std::vector<Object*>* objects;
 	b2WorldId* worldId;

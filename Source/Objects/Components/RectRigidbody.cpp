@@ -40,6 +40,11 @@ void RectRigidbody::FixedUpdate()
     //std::cout << "x: " << pos.x << "y: " << pos.y << "\n";
 }
 
+b2BodyId& RectRigidbody::GetBodyId()
+{
+    return bodyId;
+}
+
 b2BodyType RectRigidbody::GetBodyType()
 {
     return b2Body_GetType(bodyId);
