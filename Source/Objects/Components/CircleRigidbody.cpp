@@ -8,6 +8,7 @@ CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, b2Vec2 startVel
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = b2_dynamicBody;
     defaultBody.position = posInM;
+    defaultBody.isEnabled = true;
     defaultBody.linearVelocity = startVel;
     bodyId = b2CreateBody(id, &defaultBody);
 
@@ -28,6 +29,7 @@ CircleRigidbody::CircleRigidbody(b2BodyType type, float dens, b2WorldId& id)
 {
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = type;
+    defaultBody.isEnabled = true;
     defaultBody.position = object.GetPosInM();
     bodyId = b2CreateBody(id, &defaultBody);
 

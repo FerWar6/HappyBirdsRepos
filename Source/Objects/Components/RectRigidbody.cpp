@@ -13,6 +13,7 @@ void RectRigidbody::Start(b2BodyType type, b2WorldId& id)
     // Creates the RectBody
     b2BodyDef defaultBody = b2DefaultBodyDef();
     defaultBody.type = type;
+    defaultBody.isEnabled = true;
     defaultBody.position = object.GetPosInM();
     bodyId = b2CreateBody(id, &defaultBody);
 

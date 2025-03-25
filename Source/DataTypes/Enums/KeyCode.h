@@ -39,7 +39,7 @@ enum KeyCode {
 	ESCAPE,
 
 	CONTROL,
-	DELETEKEY,
+	DELETEKEY, //DELETE is already taken by another enum
 
 	KEYCODE_COUNT
 };
