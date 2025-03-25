@@ -13,13 +13,13 @@ void CollisionManager::Start()
 {
 	objects = &sl::GetEngine().objects;
 	worldId = &sl::GetWorldId();
-	b2World_SetHitEventThreshold(*worldId, 3);
+	b2World_SetHitEventThreshold(*worldId, 3); // set the hit threshold to be at least 3 m/s to count as a hit
 }
 
-void CollisionManager::UpdateCollisions()
+void CollisionManager::UpdateCollisions() // updates the necessary components when collisions are detected
 {
 	b2ContactEvents contactEvents = b2World_GetContactEvents(*worldId);
-
+	// TODO - format this code better
 	if (contactEvents.hitCount > 0)
 	{
 		for (int i = 0; i < contactEvents.hitCount; ++i)
@@ -34,7 +34,6 @@ void CollisionManager::UpdateCollisions()
 							destructible->DamageWithSpeed(hitEvent.approachSpeed);
 						}
 					}
-					//std::cout << "bodyId index: " << bodyPtr->bodyId.index1 << "\n";
 				}
 				if (obj->HasComponent(CIRCLE_RIGIDBODY)) {
 					CircleRigidbody* circleBodyPtr = (CircleRigidbody*)obj->GetComponent(CIRCLE_RIGIDBODY);
@@ -44,26 +43,15 @@ void CollisionManager::UpdateCollisions()
 							destructible->DamageWithSpeed(hitEvent.approachSpeed);
 						}
 					}
-					//std::cout << "bodyId index: " << bodyPtr->bodyId.index1 << "\n";
 				}
-				//std::cout << "hitEvent shapeA: " << hitEvent.shapeIdA.index1 << "\n";
-				//std::cout << "hitEvent shapeB: " << hitEvent.shapeIdB.index1 << "\n";
 			}
-			//std::cout << " Point: (" << hitEvent.point.x << ", " << hitEvent.point.y << ")"
-			//	<< " Normal: (" << hitEvent.normal.x << ", " << hitEvent.normal.y << ")"
-			//	<< " Speed: " << hitEvent.approachSpeed << " m/s\n";
 		}
 	}
 }
 
-bool CollisionManager::AwakeBodiesInWorld()
-{
-	return b2World_GetAwakeBodyCount(*worldId) > 0;
-}
-
 bool CollisionManager::AllBodiesAsleep()
 {
-	//returns true if no bodies awake or the bodies awake move very little
+	// Returns true if no bodies awake or the bodies awake move very little
 	if (b2World_GetAwakeBodyCount(*worldId) == 0) return true;
 	std::vector<b2BodyId> bodies;
 	for (auto& obj : *objects) {

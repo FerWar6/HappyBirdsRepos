@@ -54,7 +54,7 @@ const sf::Vector2i& InputManager::GetMousePos()
 	return mousePos;
 }
 
-void InputManager::SetMousePos(sf::RenderWindow& win)
+void InputManager::SetMousePos(sf::RenderWindow& win) // TODO - update the setmousepos and updatemousepos to work inside of updateinputs
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
 	mousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);

@@ -22,6 +22,7 @@ struct ButtonCall {
 
 class ButtonManager
 {
+	// The button manager is used to add layers to buttons
 public:
 	ButtonManager() = default;
 	void UpdateButtonCalls();

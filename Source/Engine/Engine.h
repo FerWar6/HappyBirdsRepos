@@ -14,6 +14,8 @@ public:
 	void FixedUpdate();
 	void UpdateObjectsVector();
 
+	// When adding an object it gets added to markedForAddition 
+	// and when deleting an object it gets added to markedForDeletion
 	void AddObject(Object* obj);
 	void DeleteObject(Object* obj);
 
@@ -22,7 +24,6 @@ public:
 	std::vector<Object*> markedForDeletion;
 
 	PreLoader& GetPreLoader();
-	//LevelManager& GetLevelManager();
 	InputManager& GetInputManager();
 	GameManager& GetGameManager();
 	CollisionManager& GetCollisionManager();
@@ -31,22 +32,22 @@ public:
 	void ReloadCurrentScene();
 	void LoadObjectsIntoScene(std::string name);
 
-	void OpenSceneSelection();
+	Scene* GetScene(std::string name);
+	void OpenSceneSelection(); // Opens menu to choose a scene to edit
 	void OpenSceneEditor(Scene scene);
 	bool inEditMode = false;
-	const int worldScale = 50;
+	const int worldScale = 50; // TODO - is this the right place for worldScale?
+
 private:
 	PreLoader preLoader;
 	CollisionManager collisionManager;
 	GameManager gameManager;
-	//LevelManager levelManager;
 	InputManager inputManager;
 	sf::RenderWindow* window;
 
 	Scene* currentScene;
 	std::vector<Scene> allScenes;
 	std::string scenePath = "Assets/Scenes/";
-	void LoadScenes();
-	void ClearCurrentScene();
-	Scene* GetScene(std::string name);
+	void LoadScenes(); // Loads all of the scenes inside of scenePath into allScenes
+	void ClearCurrentScene(); // Marks all object inside scene for deletion
 };

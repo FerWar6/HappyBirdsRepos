@@ -18,8 +18,8 @@ Engine::Engine()
 	window(nullptr)
 {
 	sl::SetEngine(this);
-	preLoader.buttonFunctions.LinkButtonFunctions(this, &gameManager);
-	LoadScenes();
+	preLoader.buttonFunctions.LinkButtonFunctions(this, &gameManager); // Links button functions. this is used for objects to keep functionality after being stored as text
+	LoadScenes(); // Loads all of the scenes inside of scenePath into allScenes
 }
 
 void Engine::Start()
@@ -28,17 +28,6 @@ void Engine::Start()
 	window = &sl::GetWindow();
 
 	LoadScene("MainMenu");
-
-	//Object* obj = new Object(sf::Vector2f(150, 700), 0, sf::Vector2f(1, 1));
-	//obj->AddComponent<SpriteRenderer>("StartButton", true);
-	//obj->AddComponent<Button>(LOADSCENE_LEVELSELECT);
-
-	//Object* obj = new Object(sf::Vector2f(700, 700), 0, sf::Vector2f(50, 50));
-	//obj->AddComponent<SpriteRenderer>("CannonBall", false, false, sf::Vector2f(0, 0));
-	//obj->AddComponent<CircleRigidbody>(b2_dynamicBody, 1, sl::GetWorldId());
-	//obj->AddComponent<DestructibleItem>(100);
-	//obj->AddComponent<WinConditionItem>(1000);
-	//std::cout << obj->GetSaveData() << "\n";
 }
 
 void Engine::Update()
@@ -62,24 +51,22 @@ void Engine::FixedUpdate()
 
 void Engine::UpdateObjectsVector()
 {
+	// Adds or deletes objects before updating them to prevent nullrefex
 	if (!markedForAddition.empty()) {
 		objects.insert(objects.end(), markedForAddition.begin(), markedForAddition.end());
 		markedForAddition.clear();
 	}
 	if (!markedForDeletion.empty()) {
 		for (Object* obj : markedForDeletion) {
-			if (obj) {
-				auto it = std::find(objects.begin(), objects.end(), obj);
-				if (it != objects.end()) {
-					objects.erase(it);
-				}
-				delete obj;
-				obj = nullptr;
+			auto it = std::find(objects.begin(), objects.end(), obj);
+			if (it != objects.end()) {
+				objects.erase(it);
 			}
+			delete obj;
+			obj = nullptr;
 		}
 		markedForDeletion.clear();
 	}
-	//gameManager.ClearedLevelCheck(); // checks if the level is completed when destroying an object
 }
 
 void Engine::AddObject(Object* o)
@@ -89,10 +76,9 @@ void Engine::AddObject(Object* o)
 
 void Engine::DeleteObject(Object* o)
 {
-	//check if markedfordeletiond does not already contain the same object
+	// This is a check to prevent the same object from being deleted twice and breaking the code
 	for (auto objPtr : markedForDeletion) {
 		if (objPtr == o) {
-			std::cout << "Attempting to delete an already deleted object \n";
 			return;
 		}
 	}
@@ -103,11 +89,6 @@ PreLoader& Engine::GetPreLoader()
 {
 	return preLoader;
 }
-
-//LevelManager& Engine::GetLevelManager()
-//{
-//	return levelManager;
-//}
 
 InputManager& Engine::GetInputManager()
 {
@@ -129,16 +110,16 @@ void Engine::LoadScenes()
 	for (const auto& entry : fs::directory_iterator(scenePath)) {
 		std::string filepath = entry.path().string();
 
-		if (filepath.size() >= 4 && (filepath.compare(filepath.size() - 4, 4, ".txt") == 0))
+		if (filepath.size() >= 4 && (filepath.compare(filepath.size() - 4, 4, ".txt") == 0)) // Adds all text files as scenes inside of allScenes
 		{
 			allScenes.emplace_back(filepath);
-			std::cout << "Scene found: " << filepath << "\n"; //allScenes[allScenes.size() - 1].sceneName << 
+			std::cout << "Scene found: " << filepath << "\n";
 		}
 	}
 	gameManager.InitLevels(allScenes);
 }
 
-void Engine::ClearCurrentScene()
+void Engine::ClearCurrentScene() // Marks all object inside scene for deletion
 {
 	if (objects.size() > 0) {
 		markedForDeletion.insert(markedForDeletion.end(), objects.begin(), objects.end());
@@ -148,9 +129,8 @@ void Engine::ClearCurrentScene()
 
 void Engine::LoadScene(std::string name)
 {
-	//this prevents the game from loading the same scene twice, but there could be functionality to reload a scene
 	Scene* newScene = GetScene(name);
-	if (newScene != currentScene) {
+	if (newScene != currentScene) { // Check to prevent loading the same scene twice
 		ClearCurrentScene();
 		newScene->LoadScene();
 		currentScene = newScene;
@@ -165,14 +145,14 @@ void Engine::ReloadCurrentScene()
 	std::cout << "Scene reloaded: " << currentScene->sceneName << "\n";
 }
 
-void Engine::LoadObjectsIntoScene(std::string name)
+void Engine::LoadObjectsIntoScene(std::string name) // Load objects into the current scene without clearing the current scene
 {
 	Scene* sceneToAdd = GetScene(name);
 	sceneToAdd->LoadScene();
 	std::cout << "Objects from scene added: " << sceneToAdd->sceneName << "\n";
 }
 
-void Engine::OpenSceneSelection()
+void Engine::OpenSceneSelection() // Opens scene selection menu
 {
 	LoadScene("SceneSelect");
 
@@ -187,15 +167,13 @@ void Engine::OpenSceneSelection()
 	}
 }
 
-void Engine::OpenSceneEditor(Scene scene)
+void Engine::OpenSceneEditor(Scene scene) // Turns off engine window and opens scene editor
 {
-	{
-		window->setVisible(false);
-		inEditMode = true;
-		SceneEditor editor(scene);
-		inEditMode = false;
-		window->setVisible(true);
-	}
+	window->setVisible(false);
+	inEditMode = true;
+	SceneEditor editor(scene);
+	inEditMode = false;
+	window->setVisible(true);
 }
 
 Scene* Engine::GetScene(std::string name)

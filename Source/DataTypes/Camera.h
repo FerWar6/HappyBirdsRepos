@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics/View.hpp"
+#include "SFML/Graphics/RenderWindow.hpp"
 #include <iostream>
 class Camera {
 public:

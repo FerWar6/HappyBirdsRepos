@@ -1,6 +1,6 @@
 #include "ButtonManager.h"
 #include "Objects/Components/Button.h"
-void ButtonManager::UpdateButtonCalls()
+void ButtonManager::UpdateButtonCalls() // Calls the button functions
 {
 	for (ButtonCall& call : calls) {
 		if (call.layer == EDITOR) {

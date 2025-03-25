@@ -1,11 +1,7 @@
 #pragma once
-#include <box2d/collision.h>
-#include <box2d/id.h>
-#include <box2d/types.h>
-#include <box2d/box2d.h>
 #include "Objects/Object.h"
-#include "SFML/Graphics.hpp"
-#include <iostream>
+#include <box2d/box2d.h>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 class EngineCore;
 class Renderer
@@ -18,5 +14,5 @@ public:
 
 private:
 	sf::RenderWindow window;
-	std::vector<Object*>& gameObjectsRef;
+	std::vector<Object*>& objects;
 };

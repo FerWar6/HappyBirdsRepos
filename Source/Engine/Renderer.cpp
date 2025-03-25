@@ -1,14 +1,12 @@
 #include "Renderer.h"
 #include "Managers/ServiceLocator.h"
-#include <cmath>
-#define PI 3.14159265358979323846
 
 Renderer::Renderer(std::vector<Object*>& objRef)
-    : gameObjectsRef(objRef)
+    : objects(objRef)
 {
     int winWidth = 1500;
     int winHeight = 900;
-    std::string windowName = "Happy Birds";
+    std::string windowName = "Castle Clash";
     window.create(sf::VideoMode(winWidth, winHeight), windowName);
     sl::SetWindow(&window);
 }
@@ -20,7 +18,7 @@ void Renderer::Start()
 void Renderer::Render()
 {
     window.clear();
-    for (auto& obj : gameObjectsRef) {
+    for (auto& obj : objects) { // Render all objects in scene
         obj->Render(window);
     }
     window.display();

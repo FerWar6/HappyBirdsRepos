@@ -9,7 +9,7 @@
 namespace fs = std::filesystem;
 
 SceneEditor::SceneEditor(Scene& scene)
-	: currentScene(&scene),
+	: editorScene(&scene),
 	inputMan(sl::GetInputManager()),
 	cam(),
 	hierarchy(objects),
@@ -26,7 +26,7 @@ SceneEditor::SceneEditor(Scene& scene)
 
 SceneEditor::~SceneEditor()
 {
-	currentScene->SaveScene(objects);
+	editorScene->SaveScene(objects);
 	for (auto& obj : objects) {
 		delete obj;
 		obj = nullptr;
@@ -39,10 +39,10 @@ void SceneEditor::OpenEditorWindow()
 {
 	int winWidth = 1500;
 	int winHeight = 900;
-	std::string& name = currentScene->sceneName;
+	std::string& name = editorScene->sceneName;
 	window.create(sf::VideoMode(winWidth, winHeight), name);
 	cam.SetView(window);
-	currentScene->LoadScene(); // Load the current scene into the editor
+	editorScene->LoadScene(); // Load the current scene into the editor
 
 	// TODO - intergrate this into a grid component
 	sf::Texture& gridTxr = sl::GetPreLoader().GetTexture("GridSquare");
@@ -95,30 +95,27 @@ void SceneEditor::Update()
 	inputMan.UpdateMousePos();
 	inputMan.UpdateInputs();
 
-
 	//hierarchy.Update(); //temp turned off bc its incomplete and in the way
 	moveTool.Update();
 	for (auto& obj : objects) {
 		obj->Update();
 	}
-	if(inputMan.GetScrollWheel(SCROLL_UP)) {
+	if(inputMan.GetScrollWheel(SCROLL_UP)) { // Change camera zoom
 		cam.IncreaseZoom();
 	}
 	if (inputMan.GetScrollWheel(SCROLL_DOWN)) {
 		cam.DecreaseZoom();
 	}
-	if (inputMan.GetKey(MOUSE_R)) {
-		window.setTitle(currentScene->sceneName + "*");
+	if (inputMan.GetKey(MOUSE_R)) { // Adds camera grab functionality 
+		window.setTitle(editorScene->sceneName + "*");
 		sf::Vector2f newCamPos = (sf::Vector2f)(inputMan.GetOldMousePos() - inputMan.GetMousePos());
 		cam.SetPos(cam.GetPos() + newCamPos);
 	}
 	else {
 		inputMan.UpdateOldMousePos();
 	}
-	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(S)) {
-		//TODO - actually save the game
-		window.setTitle(currentScene->sceneName);
-		std::cout << "saved\n";
+	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(S)) { //TODO - actually save the game
+		window.setTitle(editorScene->sceneName);
 	}
 	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(D)) { // Duplicating object
 		new Object(selectedObj->GetSaveData());
@@ -127,7 +124,7 @@ void SceneEditor::Update()
 		DeleteObject(selectedObj);
 		selectedObj = nullptr;
 	}
-	if (inputMan.GetKeyDown(MOUSE_L)) { // needs to be after updating move tool
+	if (inputMan.GetKeyDown(MOUSE_L)) { // Object selection functionality
 
 		bool ableToDeselectObj = true; // set this to false when selecting an object to prevent a nullrefex
 		for (auto& obj : objects) {
@@ -170,6 +167,7 @@ void SceneEditor::DeleteObject(Object* o)
 
 void SceneEditor::UpdateObjectsVector()
 {
+	// Adds or deletes objects before updating them to prevent nullrefex
 	if (!markedForAddition.empty()) {
 		objects.insert(objects.end(), markedForAddition.begin(), markedForAddition.end());
 		markedForAddition.clear();
@@ -214,19 +212,18 @@ Camera& SceneEditor::GetCamera()
 	return cam;
 }
 
-void SceneEditor::LoadScenes()
-{
-	for (const auto& entry : fs::directory_iterator(scenePath)) {
-		std::string filepath = entry.path().string();
-
-		if (filepath.size() >= 4 && (filepath.compare(filepath.size() - 4, 4, ".txt") == 0))
-		{
-			allScenes.emplace_back(filepath);
-			std::cout << "file found!: " << filepath << "\n";
-		}
-	}
-}
-
+//void SceneEditor::LoadScenes()
+//{
+//	for (const auto& entry : fs::directory_iterator(scenePath)) {
+//		std::string filepath = entry.path().string();
+//
+//		if (filepath.size() >= 4 && (filepath.compare(filepath.size() - 4, 4, ".txt") == 0))
+//		{
+//			allScenes.emplace_back(filepath);
+//			std::cout << "file found!: " << filepath << "\n";
+//		}
+//	}
+//}
 //void SceneEditor::DebugScenes()
 //{
 //	int numOfScenes = allScenes.size();

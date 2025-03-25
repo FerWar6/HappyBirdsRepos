@@ -4,9 +4,11 @@
 #include <vector>
 #include <algorithm>
 
+// Not yet used event system
 template <typename ReturnType, typename... Param>
-struct Event
+class Event
 {
+public:
     Event() = default;
 
     void AddListener(std::function<ReturnType(Param...)> function)

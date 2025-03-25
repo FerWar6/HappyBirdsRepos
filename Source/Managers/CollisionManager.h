@@ -9,7 +9,6 @@ public:
 	CollisionManager();
 	void Start();
 	void UpdateCollisions();
-	bool AwakeBodiesInWorld();
 	bool AllBodiesAsleep();
 private:
 	std::vector<Object*>* objects;

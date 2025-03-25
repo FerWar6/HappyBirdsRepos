@@ -6,6 +6,8 @@ class Scene;
 class GameManager
 {
 public:
+    // Continue comments here ----------------------------------------------------------------------------------------
+    // The gamemanager handles game logic 
     GameManager(Engine& eng);
     void InitLevels(std::vector<Scene>& scenes);
     void Update();

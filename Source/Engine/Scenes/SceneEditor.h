@@ -1,10 +1,9 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include "DataTypes/Camera.h"
 #include "UI/Hierarchy.h"
 #include "UI/EditorMoveTool.h"
 #include "Engine/Scenes/Scene.h"
+#include <SFML/Graphics.hpp>
 class Object;
 class InputManager;
 
@@ -13,7 +12,7 @@ class SceneEditor
 public:
 	SceneEditor(Scene& scene);
 	~SceneEditor();
-	sf::Sprite gridSprite;
+	sf::Sprite gridSprite; // TODO - replace with grid component in the future
 	void OpenEditorWindow();
 
 	std::vector<Object*> objects;
@@ -28,16 +27,13 @@ public:
 	void ClearSelectedObj();
 	Camera& GetCamera();
 private:
+	void LoopEditor();
 	void Update();
-
 	void Render();
+	
 	InputManager& inputMan;
 	Object* selectedObj; // the selected object in the editor
-	Scene* currentScene;
-	void LoopEditor();
-	void LoadScenes();
-	std::vector<Scene> allScenes;
-	std::string scenePath = "Assets/Scenes/";
+	Scene* editorScene; // the scene currently open by the editor
 
 	Hierarchy hierarchy;
 	EditorMoveTool moveTool;
@@ -50,6 +46,10 @@ private:
 	float deltTime = 0.0f;
 	float accumulator = 0.0f;
 
+	// Outdated editor functionality
+	//std::vector<Scene> allScenes;
+	//std::string scenePath = "Assets/Scenes/";
+	//void LoadScenes();
 	//void OpenEditorConsole();
 	//void CheckInput();
 	//void DebugScenes();

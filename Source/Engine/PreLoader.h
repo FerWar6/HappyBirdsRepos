@@ -1,15 +1,14 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-
 #include "Textures/TextureItem.h"
 #include "Textures/SpriteSheet.h"
 #include "Textures/FontItem.h"
 #include "Managers/ButtonFunctions.h"
+#include <SFML/Graphics.hpp>
 class PreLoader
 {
 public:
 	PreLoader();
-	sf::Texture& GetTexture(std::string name);
+	sf::Texture& GetTexture(std::string name); // Returns a & to a preloaded texture
 	SpriteSheet& GetSpriteSheet(std::string name);
 	sf::Font& GetFont(std::string name);
 	std::vector<TextureItem>& GetTextureItems();
@@ -18,6 +17,7 @@ public:
 	
 	ButtonFunctions buttonFunctions;
 private:
+	// Loads textures spritesheets and fonts at compile time
 	void LoadTextures(std::string path);
 	void LoadSpriteSheets();
 	void LoadFonts(std::string path);

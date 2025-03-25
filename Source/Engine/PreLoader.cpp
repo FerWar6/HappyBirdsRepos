@@ -1,21 +1,21 @@
 #include "PreLoader.h"
+#include "Managers/ServiceLocator.h"
 #include <filesystem>
 #include <iostream>
-#include "Managers/ServiceLocator.h"
 namespace fs = std::filesystem;
 
 PreLoader::PreLoader()
 	: buttonFunctions()
 {
 	sl::SetPreLoader(this);
-	std::string assetsPath = "Assets";
-	std::string uiPath = "Assets/UI";
-	LoadTextures(uiPath);
+	std::string spritesPath = "Assets/Sprites";
+	std::string fontsPath = "Assets/Fonts";
+	LoadTextures(spritesPath);
 	LoadSpriteSheets();
-	LoadFonts(assetsPath);
+	LoadFonts(fontsPath);
 }
 
-sf::Texture& PreLoader::GetTexture(std::string name)
+sf::Texture& PreLoader::GetTexture(std::string name) // Checks if any TextureItems match the name and returns a & if it finds a match
 {
 	for (TextureItem& texture : GetTextureItems()) {
 		std::string textureName = texture.GetName();
@@ -29,10 +29,10 @@ sf::Texture& PreLoader::GetTexture(std::string name)
 			return texture.GetTexture();
 		}
 	}
-	std::cout << "unsuccessful return of texture: " << name << "\n";
+	std::cout << "Unsuccessful return of texture: " << name << "\n";
 }
 
-SpriteSheet& PreLoader::GetSpriteSheet(std::string name)
+SpriteSheet& PreLoader::GetSpriteSheet(std::string name) // Checks if any SpriteSheets match the name and returns a & if it finds a match
 {
 	for (SpriteSheet& sheet : GetSpriteSheets()) {
 		std::string sheetName = sheet.GetName();
@@ -40,10 +40,10 @@ SpriteSheet& PreLoader::GetSpriteSheet(std::string name)
 			return sheet;
 		}
 	}
-	std::cout << "unsuccessful return of sprite sheet: " << name << "\n";
+	std::cout << "Unsuccessful return of sprite sheet: " << name << "\n";
 }
 
-sf::Font& PreLoader::GetFont(std::string name)
+sf::Font& PreLoader::GetFont(std::string name) // Checks if any Fonts match the name and returns a & if it finds a match
 {
 	for (FontItem& font : GetFontItems()) {
 		std::string fontName = font.GetName();
@@ -51,7 +51,7 @@ sf::Font& PreLoader::GetFont(std::string name)
 			return font.GetFont();
 		}
 	}
-	std::cout << "unsuccessful return of font: " << name << "\n";
+	std::cout << "Unsuccessful return of font: " << name << "\n";
 }
 
 std::vector<TextureItem>& PreLoader::GetTextureItems()
@@ -109,6 +109,7 @@ void PreLoader::AddTexture(std::string p)
 {
 	textureItems.emplace_back(p);
 }
+
 void PreLoader::AddSpriteSheet(TextureItem& t)
 {
 	spriteSheets.emplace_back(t);
