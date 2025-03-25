@@ -9,9 +9,14 @@ GameManager::GameManager(Engine& eng)
 	levelClock(),
 	endLevelCheck(false)
 {}
-void GameManager::InitLevels(std::vector<Scene>&scenes)
+void GameManager::InitLevels(std::vector<Scene>& scenes)
 {
 	// TODO - detect all of the scenes with "level" inside of the name
+	for (auto& scene : scenes) {
+		size_t pos = scene.sceneName.find('l'); // find a way to detect "level"
+		//if (pos != std::string::npos) {
+		//
+	}
 }
 void GameManager::Update()
 {

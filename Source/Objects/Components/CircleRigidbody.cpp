@@ -14,6 +14,7 @@ CircleRigidbody::CircleRigidbody(b2Vec2 posInM, float radiusInM, b2Vec2 startVel
     // build circle body
     b2ShapeDef shapeDef = b2DefaultShapeDef();
     shapeDef.density = dens;
+    shapeDef.enableHitEvents = true;
 
     b2Circle circleData = { b2Vec2{0,0}, radiusInM };
     b2CreateCircleShape(bodyId, &shapeDef, &circleData);
@@ -33,7 +34,7 @@ CircleRigidbody::CircleRigidbody(b2BodyType type, float dens, b2WorldId& id)
     // build circle body
     b2ShapeDef shapeDef = b2DefaultShapeDef();
     shapeDef.density = dens;
-
+    shapeDef.enableHitEvents = true;
     b2Circle circleData = { b2Vec2{0,0}, object.GetSizeInM().x / 2};
     b2CreateCircleShape(bodyId, &shapeDef, &circleData);
 }

@@ -30,121 +30,18 @@ void Scene::SaveScene(std::vector<Object*>& objects)
 
 void Scene::LoadScene()
 {
-	// TODO - make this system use the string data constructor of object
 	std::ifstream file; //this is a file pointer/cursor to somewhere in the file
 	file.open(pathToScene, std::ios::in); //read from text file
 	if (file.is_open()) {
 		//count the amount of objects in file
 		std::string line;
 		int amountOfObj = 0;
-		while (std::getline(file, line)) {
+		while (std::getline(file, line)) { //gets a line of data from file and uses it to create an object
+			new Object(line);
 			amountOfObj++;
 		}
-		file.clear();
-		file.seekg(0, std::ios::beg);
-
-		for (int i = 0; i < amountOfObj; i++) {
-			bool inEditMode = sl::GetEngine().inEditMode;
-			Transform transform;
-			file >> transform.position.x;
-			file >> transform.position.y;
-			file >> transform.rotation;
-			file >> transform.size.w;
-			file >> transform.size.h;
-			//create object from data
-			Object* obj = new Object(transform);
-
-			//add components
-			int numOfComps;
-			file >> numOfComps;
-
-			for (int i = 0; i < numOfComps; i++) {
-				//create component based on data in file
-				int enumIndex;
-				file >> enumIndex;
-				ComponentType compType = (ComponentType)enumIndex;
-
-				switch (compType) {
-				case SPRITE_RENDERER:
-				{
-					std::string txrName;
-					bool useOwnSize;
-					bool lockRotation;
-					sf::Vector2f origin;
-					file >> txrName;
-					file >> useOwnSize;
-					file >> lockRotation;
-					file >> origin.x;
-					file >> origin.y;
-					obj->AddComponent<SpriteRenderer>(txrName, useOwnSize, lockRotation, origin);
-					break;
-				}
-				case RECT_RIGIDBODY:
-				{
-					b2WorldId& id = sl::GetWorldId();
-					float density;
-					int bodyTypeIndex;
-					b2BodyType bodyType;
-					file >> density;
-					file >> bodyTypeIndex;
-					bodyType = (b2BodyType)bodyTypeIndex;
-					RectRigidbody* body = obj->AddComponent<RectRigidbody>(bodyType, density, id);
-					if (inEditMode) body->active = false;
-					break;
-				}
-				case CIRCLE_RIGIDBODY:
-				{
-					b2WorldId& id = sl::GetWorldId();
-					float density;
-					int bodyTypeIndex;
-					b2BodyType bodyType;
-					file >> density;
-					file >> bodyTypeIndex;
-					bodyType = (b2BodyType)bodyTypeIndex;
-					CircleRigidbody* body = obj->AddComponent<CircleRigidbody>(bodyType, density, id);
-					if (inEditMode) body->active = false;
-					break;
-				}
-				case BUTTON:
-				{
-					int funcIdIndex;
-					ButtFuncId funcId;
-					file >> funcIdIndex;
-					funcId = (ButtFuncId)funcIdIndex;
-					Button* button = obj->AddComponent<Button>(funcId);
-					if (inEditMode) button->active = false;
-					break;
-				}
-				case DESTRUCTIBLE_ITEM:
-				{
-					float health;
-					file >> health;
-					obj->AddComponent<DestructibleItem>(health);
-					break;
-				}
-				case WINCONDITION_ITEM:
-				{
-					int score;
-					file >> score;
-					obj->AddComponent<WinConditionItem>(score);
-					break;
-				}
-				case LAUNCHER:
-				{
-					int ammo;
-					file >> ammo;
-					Launcher* launcher = obj->AddComponent<Launcher>(2);
-					if (inEditMode) launcher->active = false;
-					break;
-				}
-				default:
-					std::cout << "Invalid Component Type: " << compType << "\n";
-					break;
-				}
-			}
-			if (inEditMode) obj->AddComponent<EditorItem>(); //adds editorItem if in edit mode
-		}
 		file.close();
+		//file.seekg(0, std::ios::beg); // moves file cursor to the start of the file
 	}
 	else {
 		std::cout << "could find file: " << pathToScene << "\n";
