@@ -44,14 +44,14 @@ int SpriteSheet::GetFrameAmount(int animId)
         }
     }
 }
-bool SpriteSheet::IsFrameEmpty(sf::Vector2i pos)
+bool SpriteSheet::IsFrameEmpty(sf::Vector2i pos) // returns true if any pixels are found
 {
     int startX = std::max(0, pos.x);
     int startY = std::max(0, pos.y);
     int endX = std::min(pos.x + frameSize.x, static_cast<int>(texture.getSize().x));
     int endY = std::min(pos.y + frameSize.y, static_cast<int>(texture.getSize().y));
 
-    for (int x = startX; x < endX; x += 2) {
+    for (int x = startX; x < endX; x += 2) { // checks in steps of 2 to make it faster
         for (int y = startY; y < endY; y += 2) {
             sf::Color color = sheetImg.getPixel(x, y);
 

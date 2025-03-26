@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 class DestructibleItem : public Component
 {
+	// This component makes a body destructable
 public:
 	DestructibleItem(float health);
 	void Damage(float dmg);

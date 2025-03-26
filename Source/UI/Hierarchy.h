@@ -9,6 +9,7 @@ class InputManager;
 class Object;
 class Hierarchy : UIElement
 {
+	// the hierarchy is a WIP
 public:
 	Hierarchy(std::vector<Object*>& objs);
 	void Update() override;

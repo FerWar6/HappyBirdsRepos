@@ -1,7 +1,7 @@
 #pragma once
 #include "Components/Component.h"
 #include "DataTypes/Transform.h"
-#include "box2d/box2d.h"
+#include <box2d/box2d.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <memory>
 class Object
@@ -11,19 +11,18 @@ public:
 	Object(std::string data);
 	Object(Transform trans);
 	Object(sf::Vector2f pos, float rotation = 0, sf::Vector2f size = sf::Vector2f(1, 1));
-	virtual void Update();
-	virtual void FixedUpdate();
-	virtual void Render(sf::RenderWindow& window);
+	void Update();
+	void FixedUpdate();
+	void Render(sf::RenderWindow& window);
 
-	Component* GetComponent(ComponentType type);
+	Component* GetComponent(ComponentType type); // Get component using enum ComponentType
 	bool GetComponent(Component*& ptr, ComponentType type);
-	Component* GetComponent(int indexInVector);
 	std::vector<std::unique_ptr<Component>>& GetComponents();
 
 	template <typename T, typename... Args>
-	T* AddComponent(Args&&... args);
-	void AddComponent(std::unique_ptr<Component> component);
-	bool HasComponent(ComponentType type);
+	T* AddComponent(Args&&... args); // Add component functionailty
+	void AddComponent(std::unique_ptr<Component> component); // Add component functionality with worse syntax
+	bool HasComponent(ComponentType type); // returns true if object has the component
 
 	const sf::Vector2f GetPos();
 	const b2Vec2 GetPosInM();
@@ -40,8 +39,8 @@ public:
 	void SetSize(sf::Vector2f size);
 
 	const Transform GetTransform();
-	void Delete();
-	std::string GetSaveData();
+	void Delete(); // adds its own Object* to markedForDeletion
+	std::string GetSaveData(); // returns own transform plus all component data
 private:
 	void Start();
 	Transform transform;
@@ -49,11 +48,11 @@ private:
 };
 
 template<typename T, typename ...Args>
-inline T* Object::AddComponent(Args && ...args)
+T* Object::AddComponent(Args && ...args) // Add component functionality using template
 {
-	static_assert(std::is_base_of_v<Component, T>, "T must derive from Component");
-	auto component = std::make_unique<T>(std::forward<Args>(args)...);
-	T* rawPtr = component.get();
-	components.push_back(std::move(component));
-	return rawPtr;
+	static_assert(std::is_base_of_v<Component, T>, "T must derive from Component"); // try casting T as a component to check if T derives from base abstract class Component
+	auto component = std::make_unique<T>(std::forward<Args>(args)...); // Make unique pointer for the T using arguments
+	T* rawPtr = component.get(); // Gets raw ptr from component
+	components.push_back(std::move(component)); // adds unique ptr to components by moving it into the vector
+	return rawPtr; // return ptr (raw ptr, not unique ptr)
 }

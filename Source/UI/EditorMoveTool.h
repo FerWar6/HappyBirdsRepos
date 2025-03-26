@@ -28,8 +28,7 @@ public:
 
 private:
 	EditorMoveToolMode currentMode;
-	Object*& selectedObj;
+	Object*& selectedObj; // reference to the selectedobject inside of the sceneEditor
 	InputManager& inputMan;
-	void HandleClick();
 	bool HoveringOver(sf::FloatRect rect);
 };

@@ -7,12 +7,12 @@ class InputManager;
 class Button : public Component
 {
 public:
-	Button(ButtFuncId function);
+	Button(ButtFuncId function); 
 	void Update() override;
 	std::function<void()> OnClick;
 	std::string GetSaveData() override;
 private:
-	ButtFuncId funcId;
+	ButtFuncId funcId; // Enum of the button function
 	InputManager& inputMan;
 	void HandleClick();
 	bool HoveringOver();

@@ -5,7 +5,7 @@ class SceneEditor;
 class PreLoader;
 class InputManager;
 namespace sf { class RenderWindow; }
-class b2WorldId;
+struct b2WorldId;
 class Object;
 
 namespace ServiceLocator {
@@ -16,7 +16,7 @@ namespace ServiceLocator {
 
 	inline EngineCore* engineCore = nullptr;
 	inline EngineCore& GetEngineCore() { return *engineCore; }
-	inline void SetEngineCore(EngineCore* engC) { engineCore = engC; }
+	inline void SetEngineCore(EngineCore* core) { engineCore = core; }
 
 	inline SceneEditor* sceneEditor = nullptr;
 	inline SceneEditor& GetSceneEditor() { return *sceneEditor; }

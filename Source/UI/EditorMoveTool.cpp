@@ -12,7 +12,7 @@ EditorMoveTool::EditorMoveTool(Object*& selObj)
 	inputMan(sl::GetInputManager()),
 	currentMode(MOVEMODE_IDLE)
 {
-	moveSpriteX.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolX"));
+	moveSpriteX.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolX")); // sprite setup
 	moveSpriteY.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolY"));
 	moveSpriteXY.setTexture(sl::GetPreLoader().GetTexture("EditorMoveToolXY"));
 	moveSpriteX.setOrigin(sf::Vector2f(-26, 10));
@@ -25,6 +25,7 @@ EditorMoveTool::EditorMoveTool(Object*& selObj)
 
 void EditorMoveTool::Update()
 {
+	// arrow key move functionality
 	int increment = 50;
 	if (inputMan.GetKeyDownRepeat(ARROW_UP) && selectedObj) {
 		sf::Vector2f newPos = selectedObj->GetPos();
@@ -46,13 +47,13 @@ void EditorMoveTool::Update()
 		newPos.x += increment;
 		selectedObj->SetPos(newPos);
 	}
-	if (inputMan.GetKeyDown(MOUSE_L) && selectedObj) {
+	if (inputMan.GetKeyDown(MOUSE_L) && selectedObj) { // Grab and move functionality
 		for (auto moveSprite : moveSprites) {
 			if (HoveringOver(moveSprite->getGlobalBounds())) {
 				if (moveSprite == &moveSpriteX)
 				{
 					std::function<void()> func = std::bind(&EditorMoveTool::SetCurrentMode, this, MOVEMODE_X);
-					inputMan.buttonMan.AddButtonCall(EDITOR, func);
+					inputMan.buttonMan.AddButtonCall(EDITOR, func); // adds the function as a button call
 				}
 				if (moveSprite == &moveSpriteY)
 				{
@@ -67,13 +68,14 @@ void EditorMoveTool::Update()
 			}
 		}
 	}
-	if (inputMan.GetKeyUp(MOUSE_L) && selectedObj) {
+	if (inputMan.GetKeyUp(MOUSE_L) && selectedObj) { // Deselection
 		currentMode = MOVEMODE_IDLE;
 	}
+	// TODO - improve code structure, could be shorter
 	switch (currentMode) {
 		case MOVEMODE_X: {
 			sf::Vector2f newPos;
-			if (intervalMode()) {
+			if (intervalMode()) { // moves on x axis only
 				float xpos = round((inputMan.GetMousePos().x + mouseOffset.x) / interval) * interval;
 				newPos = sf::Vector2f(xpos, selectedObj->GetPos().y);
 			}
@@ -86,7 +88,7 @@ void EditorMoveTool::Update()
 
 		case MOVEMODE_Y: {
 			sf::Vector2f newPos;
-			if (intervalMode()) {
+			if (intervalMode()) { // moves on y axis only
 				float ypos = round((inputMan.GetMousePos().y + mouseOffset.y) / interval) * interval;
 				newPos = sf::Vector2f(selectedObj->GetPos().x, ypos);
 			}
@@ -99,7 +101,7 @@ void EditorMoveTool::Update()
 
 		case MOVEMODE_XY: {
 			sf::Vector2f newPos;
-			if (intervalMode()) {
+			if (intervalMode()) { // moves on X and y
 				float xpos = round((inputMan.GetMousePos().x + mouseOffset.x) / interval) * interval;
 				float ypos = round((inputMan.GetMousePos().y + mouseOffset.y) / interval) * interval;
 				newPos = sf::Vector2f(xpos, ypos);
@@ -119,7 +121,7 @@ void EditorMoveTool::Update()
 
 void EditorMoveTool::Render(sf::RenderWindow& window)
 {
-	if (selectedObj) {
+	if (selectedObj) { // render movetool if an object is selected
 		for (auto& moveSprite : moveSprites) {
 			moveSprite->setPosition(selectedObj->GetPos());
 			if (HoveringOver(moveSprite->getGlobalBounds())) moveSprite->setColor(sf::Color(155, 155, 155));
@@ -143,11 +145,6 @@ void EditorMoveTool::SetCurrentMode(EditorMoveToolMode newMode)
 {
 	mouseOffset = selectedObj->GetPos() - (sf::Vector2f)inputMan.GetMousePos();
 	currentMode = newMode;
-}
-
-void EditorMoveTool::HandleClick()
-{
-
 }
 
 bool EditorMoveTool::HoveringOver(sf::FloatRect rect)

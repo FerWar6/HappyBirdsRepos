@@ -8,6 +8,7 @@ RectRigidbody::RectRigidbody(b2BodyType type, float dens, b2WorldId& id)
 {
     Start(type, id);
 }
+
 void RectRigidbody::Start(b2BodyType type, b2WorldId& id)
 {
     // Creates the RectBody
@@ -59,4 +60,3 @@ std::string RectRigidbody::GetSaveData()
     data += std::to_string(b2Body_GetType(bodyId)) + " ";
     return data;
 }
-

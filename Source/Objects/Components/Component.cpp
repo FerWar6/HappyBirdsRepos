@@ -7,11 +7,6 @@ Component::Component(ComponentType t)
 	active(true)
 {}
 
-Component* Component::GetComponentPtr()
-{
-	return this;
-}
-
 std::string Component::GetSaveData()
 {
 	return std::string();

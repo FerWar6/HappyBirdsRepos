@@ -6,11 +6,10 @@ class TextRenderer : public Component
 {
 public:
 	TextRenderer(std::string fontName, std::string textContent);
-	sf::Text text;
 
 	void Render(sf::RenderWindow& window) override;
 	std::string GetSaveData() override;
 private:
+	sf::Text text;
 	std::string fontName;
-
 };

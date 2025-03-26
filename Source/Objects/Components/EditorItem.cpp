@@ -14,20 +14,9 @@ EditorItem::EditorItem()
     selected(false)
 {}
 
-void EditorItem::Update()
+void EditorItem::Render(sf::RenderWindow& window) 
 {
-    //bool hasRen = object.HasComponent(SPRITE_RENDERER);
-    //if (selected) {
-    //    ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(200, 200, 200));
-    //}
-    //else {
-    //    ((SpriteRenderer*)object.GetComponent(SPRITE_RENDERER))->sprite.setColor(sf::Color(255, 255, 255));
-    //}
-}
-
-void EditorItem::Render(sf::RenderWindow& window)
-{
-    if (selected) {
+    if (selected) { // Renders a white border around object when selected
         sf::RectangleShape outline(object.GetSize());
         outline.setPosition(object.GetPos());
         outline.setRotation(object.GetRot());
@@ -54,7 +43,7 @@ bool EditorItem::HoveringOver()
 
 void EditorItem::Select()
 {
-    if (!selected) {
+    if (!selected) { // Deselects when selected and selects when not selected
         sceneEditor.SetSelectedObj(&object);
     }
     else {

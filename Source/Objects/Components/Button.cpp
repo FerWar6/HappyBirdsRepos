@@ -14,31 +14,29 @@ Button::Button(ButtFuncId function)
 void Button::Update()
 {
     if (!active) return;
-    if (inputMan.GetKeyDown(MOUSE_L)) HandleClick();
-    //bool to check if there is a sprite renderer
-    // set the color of the spriterenderer if you have it
+    if (inputMan.GetKeyDown(MOUSE_L) && HoveringOver()) HandleClick(); // Do button function if player clicked on button
     if (object.HasComponent(ComponentType::SPRITE_RENDERER)) {
         SpriteRenderer* renPtr = (SpriteRenderer*)object.GetComponent(ComponentType::SPRITE_RENDERER);
         if (HoveringOver() && inputMan.GetKey(KeyCode::MOUSE_L)) {
-            renPtr->sprite.setColor(sf::Color(200, 200, 200));
+            renPtr->SetColor(sf::Color(200, 200, 200));
         }
         else if (HoveringOver()) {
-            renPtr->sprite.setColor(sf::Color(255, 255, 255));
+            renPtr->SetColor(sf::Color(255, 255, 255));
         }
         else {
-            renPtr->sprite.setColor(sf::Color(220, 220, 220));
+            renPtr->SetColor(sf::Color(220, 220, 220));
         }
     }
 }
 
 void Button::HandleClick()
 {
-    if (OnClick && HoveringOver()) {
-        inputMan.buttonMan.AddButtonCall(GAME_UI, OnClick);
+    if (OnClick) { // Check if OnClick is not a nullptr
+        inputMan.buttonMan.AddButtonCall(GAME_UI, OnClick); // Adds a buttonCall to the buttonManager
     }
 }
 
-bool Button::HoveringOver()
+bool Button::HoveringOver() // Returns true if mouse is inside of the bounds of the button
 {
     sf::Vector2i s = (sf::Vector2i)object.GetSize();
     sf::Vector2i p = (sf::Vector2i)object.GetPos();
@@ -51,6 +49,5 @@ std::string Button::GetSaveData()
     std::string data;
     data += std::to_string(type) + " ";
     data += std::to_string(funcId) + " ";
-    std::cout << data << "\n";
     return data;
 }

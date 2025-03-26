@@ -14,18 +14,16 @@ SceneSelectButton::SceneSelectButton(Scene& scene)
 void SceneSelectButton::Update()
 {
     if (inputMan.GetKeyDown(MOUSE_L)) HandleClick();
-    //bool to check if there is a sprite renderer
-    // set the color of the spriterenderer if you have it
-    if (object.HasComponent(ComponentType::SPRITE_RENDERER)) {
+    if (object.HasComponent(ComponentType::SPRITE_RENDERER)) { // Greys out sprite when hovering over and clicking on
         SpriteRenderer* renPtr = (SpriteRenderer*)object.GetComponent(ComponentType::SPRITE_RENDERER);
         if (HoveringOver() && inputMan.GetKey(KeyCode::MOUSE_L)) {
-            renPtr->sprite.setColor(sf::Color(200, 200, 200));
+            renPtr->SetColor(sf::Color(200, 200, 200));
         }
         else if (HoveringOver()) {
-            renPtr->sprite.setColor(sf::Color(255, 255, 255));
+            renPtr->SetColor(sf::Color(255, 255, 255));
         }
         else {
-            renPtr->sprite.setColor(sf::Color(220, 220, 220));
+            renPtr->SetColor(sf::Color(220, 220, 220));
         }
     }
 }

@@ -2,6 +2,7 @@
 #include "Objects/Components/Component.h"
 class WinConditionItem : public Component
 {
+	// TODO - change this component to just add score and have a bool determain if it is a wincondition
 public:
 	WinConditionItem(int scoreValue);
 	~WinConditionItem();

@@ -12,7 +12,7 @@ Object::Object()
 	Start();
 }
 
-Object::Object(std::string data)
+Object::Object(std::string data) // Construct object using string data
 {
 	Start();
 	bool inEditMode = sl::GetEngine().inEditMode;
@@ -144,7 +144,7 @@ void Object::Render(sf::RenderWindow& w) {
 	}
 }
 
-Component* Object::GetComponent(ComponentType type)
+Component* Object::GetComponent(ComponentType type) // Get component using enum ComponentType
 {
 	for (auto& comp : components) {
 		if (comp->type == type) return comp.get();
@@ -166,22 +166,17 @@ bool Object::GetComponent(Component*& ptr, ComponentType type)
 	return false;
 }
 
-Component* Object::GetComponent(int indexInVector)
-{
-	return components[indexInVector]->GetComponentPtr();
-}
-
 std::vector<std::unique_ptr<Component>>& Object::GetComponents()
 {
 	return components;
 }
 
-void Object::AddComponent(std::unique_ptr<Component> c)
+void Object::AddComponent(std::unique_ptr<Component> c) // Add component functionality with worse syntax
 {
 	components.push_back(std::move(c));
 }
 
-bool Object::HasComponent(ComponentType type)
+bool Object::HasComponent(ComponentType type) // returns true if object has the component
 {
 	for (auto& comp : components) {
 		if (comp->type == type) return true;
@@ -259,7 +254,7 @@ const Transform Object::GetTransform()
 	return transform;
 }
 
-void Object::Delete()
+void Object::Delete() // adds its own Object* to markedForDeletion
 {
 	Engine& eng = sl::GetEngine();
 	if (!eng.inEditMode) {
@@ -284,8 +279,9 @@ std::string Object::GetSaveData() // saves the transform, number of components a
 	if (HasComponent(EDITOR_ITEM)) numOfComps--; // if in editer mode the editor item component needs to be removed
 	data += std::to_string(numOfComps) + " ";
 
-	for (int i = 0; i < numOfComps; i++) {
-		data += GetComponent(i)->GetSaveData();
+	// TODO - add component type
+	for (auto& com : components) {
+		data += com->GetSaveData();
 	}
 	return data;
 }

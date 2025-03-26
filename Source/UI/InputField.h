@@ -3,6 +3,7 @@
 class InputManager;
 class InputField
 {
+	// the inputfield is a WIP
 public:
 	InputField(std::string newTxt, sf::Vector2f pos);
 	void Update();

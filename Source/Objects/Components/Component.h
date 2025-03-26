@@ -8,14 +8,12 @@ class Component
 {
 public:
 	Component(ComponentType t);
-	virtual ~Component() = default;
+	virtual ~Component() = default; // Deconstructor necesairy for calling deconstructor of varients of abstract class
 	virtual void Update() {}
 	virtual void FixedUpdate() {}
 	virtual void Render(sf::RenderWindow& window) {}
-	virtual void OnComponentAdded(Component& com) {}
-	virtual Component* GetComponentPtr();
 	virtual std::string GetSaveData();
-	Object& object;
-	ComponentType type;
+	Object& object; // Ref to the object the component is attached to
+	ComponentType type; // The component type stored in enum
 	bool active;
 };

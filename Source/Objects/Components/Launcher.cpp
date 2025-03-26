@@ -14,11 +14,11 @@ Launcher::Launcher(int numOfAmmo)
     ammoCount(numOfAmmo),
     maxAmmo(numOfAmmo)
 {
-    sf::Texture& txrRef = sl::GetPreLoader().GetTexture("PreviewDot");
+    sf::Texture& txrRef = sl::GetPreLoader().GetTexture("PreviewDot"); //set the sprite of the dots
     dotSprite.setTexture(txrRef);
     dotSprite.setOrigin(txrRef.getSize().x / 2, txrRef.getSize().y / 2);
-    buttonMinRadius = 120;
-    buttonMaxRadius = 500;
+    minRadius = 120;
+    maxRadius = 500;
     minVelocity = 5;
     maxVelocity = 15;
     amountOfDots = 15;
@@ -29,15 +29,10 @@ Launcher::Launcher(int numOfAmmo)
 
 void Launcher::Update()
 {
-    if (!active) return;
+    if (!active) return; // Turns off cannon functionality inside of edit mode
     //holding click primes the cannon
     //when primed you can move the cannon back to the center and unprime it
     //when primed you can move it back as far as you want and release to shoot the cannonball
-
-    //if (inputMan.GetKeyDown(MOUSE_L)) primed = true;
-    //if (inputMan.GetKeyDown(MOUSE_R)) primed = false;
-    //if (inputMan.GetKeyUp(MOUSE_L)) SpawnProjectile();
-
 
     if (ammoCount > 0) {
         if (inputMan.GetKeyDown(MOUSE_L)) {
@@ -52,57 +47,41 @@ void Launcher::Update()
     }
 }
 
-void Launcher::FixedUpdate()
+void Launcher::FixedUpdate() 
 {
-    if (!active) return;
-    //dont update unless the angle is valid
-    if (primed) {
+    if (!active) return; // Turns off cannon functionality inside of edit mode
+    if (primed) { // Updates preview when primed
         object.SetRot(CalcAngle() + spriteRotationalOffset);
         UpdatePreview();
     }
     else {
-        MoveBackToBasePos();
+        MoveBackToBasePos(); // moves back cannon when not primed
     }
     //std::cout << "Angle: " << CalcAngle() << "\n";
-
 }
 
 void Launcher::Render(sf::RenderWindow& window)
 {
-    //if (primed) {
-    //    {
-    //        sf::CircleShape circle;
-    //        float radius = buttonMaxRadius;
-    //        circle.setRadius(radius);
-    //        circle.setOrigin(radius, radius);
-    //        circle.setPosition(object.GetPos());
-    //        sf::Color col(255, 255, 255, 25);
-    //        circle.setFillColor(col);
-    //        window.draw(circle);
-    //    } 
-    //    {
-    //        sf::CircleShape circle;
-    //        float radius = 10;
-    //        circle.setRadius(radius);
-    //        circle.setOrigin(radius, radius);
-    //        circle.setPosition(CalcLaunchPoint());
-    //        sf::Color col(255, 255, 255, 50);
-    //        circle.setFillColor(col);
-    //        window.draw(circle);
-    //    }
-    //    {
-    //        sf::CircleShape circle;
-    //        float radius = buttonMinRadius;
-    //        circle.setRadius(radius);
-    //        circle.setOrigin(radius, radius);
-    //        circle.setPosition(object.GetPos());
-    //        sf::Color col(255, 0, 0, 100);
-    //        circle.setFillColor(col);
-    //        window.draw(circle);
-    //    }
+    //if (primed) { // Shows circles for the min and max cannon range
+    //    sf::CircleShape circle;
+    //    circle.setOrigin(10, 10);
 
+    //    circle.setRadius(maxRadius);
+    //    circle.setPosition(object.GetPos());
+    //    circle.setFillColor(sf::Color(255, 255, 255, 25));
+    //    window.draw(circle);
+
+    //    circle.setRadius(10);
+    //    circle.setPosition(CalcLaunchPoint());
+    //    circle.setFillColor(sf::Color(255, 255, 255, 50));
+    //    window.draw(circle);
+
+    //    circle.setRadius(minRadius);
+    //    circle.setPosition(object.GetPos());
+    //    circle.setFillColor(sf::Color(255, 0, 0, 100));
+    //    window.draw(circle);
     //}
-    if(primed && (HoveringOver(buttonMinRadius)) ) DrawPreview(window);
+    if(primed && (HoveringOver(minRadius)) ) DrawPreview(window); // Draws preview when primed
 }
 
 std::string Launcher::GetSaveData()
@@ -112,14 +91,16 @@ std::string Launcher::GetSaveData()
     data += std::to_string(maxAmmo) + " ";
     return data;
 }
-void Launcher::SpawnProjectile()
+
+void Launcher::SpawnProjectile() 
 {
-    if (primed && (HoveringOver(buttonMinRadius))) {
+    if (primed && (HoveringOver(minRadius))) { // Spawns cannonball when primed and releasing mouse
         int scale = sl::GetEngine().worldScale;
-        b2Vec2 spawnPos = b2Vec2{ CalcLaunchPoint().x / scale, CalcLaunchPoint().y / scale };
-        Object* obj = new Object();
-        float ballSize = 0.5f;
-        obj->AddComponent<CircleRigidbody>(spawnPos, ballSize, CalcLinearVelocity(), sl::GetWorldId(), 2);
+        float ballSize = 1;
+        float ballDensity = 2;
+        Object* obj = new Object(CalcLaunchPoint(), 0 , sf::Vector2f(ballSize * scale, ballSize * scale));
+        CircleRigidbody* body = obj->AddComponent<CircleRigidbody>(b2_dynamicBody, ballDensity, sl::GetWorldId());
+        body->SetVelocity(CalcLinearVelocity());
         obj->AddComponent<SpriteRenderer>("CannonBall");
         primed = false;
         ammoCount--;
@@ -132,56 +113,50 @@ void Launcher::SpawnProjectile()
 
 bool Launcher::HoveringOver(float min, float max)
 {
-    //return true when in between the range of the button radius
+    //return true if the distance to the mouse is bigger than the minDistance
     if (max == 0) return CalcDistanceToMouse() > min;
     return CalcDistanceToMouse() > min && CalcDistanceToMouse() < max;
 }
 
-float Launcher::CalcAngle()
+float Launcher::CalcAngle() // Calculates the angle from object to mouse
 {
-    //calculates the angle from object to mouse
     sf::Vector2i mousePos = inputMan.GetMousePos();
     sf::Vector2 launcherPos(object.GetPos());
     float angle = atan2(mousePos.y - launcherPos.y, mousePos.x - launcherPos.x);
-    //float angle = atan2(launcherPos.y - mousePos.y, launcherPos.x - mousePos.x);
     angle = angle * 180 / 3.14159f;
     return std::clamp(angle, minAngle, maxAngle);
 }
 
-bool Launcher::IsAngleValid()
+bool Launcher::IsAngleValid() // returns if the angle is between minAngle and maxAngle
 {
     float angle = CalcAngle();
     return angle == minAngle || angle == maxAngle;
 }
 
-float Launcher::CalcDistanceToMouse()
+float Launcher::CalcDistanceToMouse() // Calculates the distance between the mouse and cannon
 {
-    //calculates distance from object to mouse
     sf::Vector2i mousePos = inputMan.GetMousePos();
     sf::Vector2f launchPoint(object.GetPos());
     return sqrt(pow(launchPoint.x - mousePos.x, 2) + pow(launchPoint.y - mousePos.y, 2) * 1.0);
 }
 
-float Launcher::CalcInvalidAngleDistance()
+float Launcher::CalcInvalidAngleDistance() // Calculates what velocity to use when angle is invalid
 {
     bool useWidth = inputMan.GetMousePos().y < object.GetPos().y;
     if (useWidth) return inputMan.GetMousePos().x - object.GetPos().x;
     return object.GetPos().y - inputMan.GetMousePos().y;
 }
 
-float Launcher::CalcVelocity()
+float Launcher::CalcVelocity() // Calculates velocity based on the distance from object to mouse and maps that to a velocity
 {
-    //calculates velocity based on the distance from object to mouse and maps that to a velocity
     float distance = CalcDistanceToMouse();
-    float velocity = std::clamp(distance - buttonMinRadius, (float)0, buttonMaxRadius - buttonMinRadius);
-    velocity = velocity / (buttonMaxRadius - buttonMinRadius) * (maxVelocity - minVelocity) + minVelocity;
+    float velocity = std::clamp(distance - minRadius, (float)0, maxRadius - minRadius);
+    velocity = velocity / (maxRadius - minRadius) * (maxVelocity - minVelocity) + minVelocity;
     return velocity;
 }
 
-b2Vec2 Launcher::CalcLinearVelocity()
+b2Vec2 Launcher::CalcLinearVelocity() // Calculates the linear velocity an object would get if launched at a specific angle and velocity
 {
-    //calculates the linear velocity an object would get if launched at a specific angle and velocity
-    //used to shoot the cannonball
     b2Vec2 launchMomentum;
     float distance = CalcVelocity();
     float radians = CalcAngle() / 180 * 3.14159f;
@@ -193,9 +168,8 @@ b2Vec2 Launcher::CalcLinearVelocity()
     return launchMomentum;
 }
 
-sf::Vector2f Launcher::CalcLaunchPoint()
+sf::Vector2f Launcher::CalcLaunchPoint() // Calculates the tip of the cannon where the cannon ball is shot from and preview is drawn from
 {
-    //calculates the tip of the cannon where the cannon ball is shot from and preview is drawn from
     sf::Vector2 launcherPos(object.GetPos());
     float angle = CalcAngle() / 180 * 3.14159f;
     sf::Vector2f pos;
@@ -219,7 +193,7 @@ void Launcher::MoveBackToBasePos()
     }
 }
 
-void Launcher::UpdatePreview()
+void Launcher::UpdatePreview() // Updates the dotpositions / preview
 {
     float startDistanceMultiplier = .5;
     float archLenght = 10;
@@ -270,7 +244,7 @@ void Launcher::SetPreview(float angle, float velocity, sf::Vector2f previewPos)
     }
 }
 
-void Launcher::DrawPreview(sf::RenderWindow& window)
+void Launcher::DrawPreview(sf::RenderWindow& window) // Draws dots at all points in dotPositions
 {
     int i = 0;
     for (auto dot : dotPositions) { 
@@ -286,9 +260,8 @@ void Launcher::DrawPreview(sf::RenderWindow& window)
 
 float Launcher::GetXWidth(float angle, float velocity, int amountOfDots, float arcLenght)
 {
-    	float g = 9.8f;
+    float g = 9.8f;
 	float newArchLenght;
-
 
 	double low = 0.0, high = 100.0;
 	double tolerance = 0.00000000001;
@@ -308,14 +281,13 @@ float Launcher::GetXWidth(float angle, float velocity, int amountOfDots, float a
 	//std::cout << "returnValue : " << (returnValue > 2 ? returnValue : 2) << "\n";
 	//std::cout << "retrunValue: " << returnValue << "\n";
 	return returnValue;
-	//return returnValue > 2 ? returnValue : 2;
 }
 
-double Launcher::GetArchLength(double x, float angle, float velocity)
+double Launcher::GetArchLength(double x, float angle, float velocity) // Get arch length using numerical intergration
 {
     float g = 9.8f;
-    int n = 100; // Number of intervals for integration
-    double h = x / n; // Step size
+    int n = 100;
+    double h = x / n; 
     double sum = 0.0;
 
     for (int i = 0; i <= n; ++i) {
@@ -329,5 +301,5 @@ double Launcher::GetArchLength(double x, float angle, float velocity)
             sum += 4 * f;
     }
 
-    return (h / 3.0) * sum; // Simpson's Rule for numerical integration
+    return (h / 3.0) * sum;
 }
