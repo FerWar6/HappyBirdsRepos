@@ -30,6 +30,7 @@ sf::Texture& PreLoader::GetTexture(std::string name) // Checks if any TextureIte
 		}
 	}
 	std::cout << "Unsuccessful return of texture: " << name << "\n";
+	throw std::runtime_error("Texture not found: " + name); // fixes warning
 }
 
 SpriteSheet& PreLoader::GetSpriteSheet(std::string name) // Checks if any SpriteSheets match the name and returns a & if it finds a match
@@ -41,6 +42,7 @@ SpriteSheet& PreLoader::GetSpriteSheet(std::string name) // Checks if any Sprite
 		}
 	}
 	std::cout << "Unsuccessful return of sprite sheet: " << name << "\n";
+	throw std::runtime_error("SpriteSheet not found: " + name); // fixes warning
 }
 
 sf::Font& PreLoader::GetFont(std::string name) // Checks if any Fonts match the name and returns a & if it finds a match
@@ -52,6 +54,7 @@ sf::Font& PreLoader::GetFont(std::string name) // Checks if any Fonts match the 
 		}
 	}
 	std::cout << "Unsuccessful return of font: " << name << "\n";
+	throw std::runtime_error("Font not found: " + name); // fixes warning
 }
 
 std::vector<TextureItem>& PreLoader::GetTextureItems()
