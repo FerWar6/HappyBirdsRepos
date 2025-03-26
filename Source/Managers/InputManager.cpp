@@ -14,7 +14,7 @@ InputManager::InputManager()
 	InstantiateInputKeys();
 }
 
-void InputManager::UpdateInputs()
+void InputManager::UpdateInputs() // Updates states of all inputKeys
 {
 	float repeatTime = 0.15f;
 	for (auto& input : inputKeys) {
@@ -39,12 +39,11 @@ void InputManager::UpdateInputs()
 			}
 		}
 	}
-	if (scrollDelta == 1 || scrollDelta == -1) {
+	if (scrollDelta == 1 || scrollDelta == -1) { // Updates scroll wheel
 		if (scrollDelta == 1) wheelState = SCROLL_UP;
 		if (scrollDelta == -1) wheelState = SCROLL_DOWN;
 		scrollDelta = 0;
-	}
-	else if (scrollDelta == 0 && wheelState == SCROLL_UP || wheelState == SCROLL_DOWN) {
+	} else if (scrollDelta == 0 && wheelState == SCROLL_UP || wheelState == SCROLL_DOWN) {
 		wheelState = SCROLL_IDLE;
 	}
 }
@@ -67,7 +66,8 @@ void InputManager::UpdateMousePos()
 	mousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
 }
 
-const sf::Vector2i& InputManager::GetOldMousePos()
+const sf::Vector2i& InputManager::GetOldMousePos() // Old mouse pos is used for dragging in scene editor
+// TODO - put old mouse pos inside of scene editor
 {
 	return oldMousePos;
 }
@@ -112,7 +112,7 @@ bool InputManager::GetKeyUp(KeyCode key)
 	return false;
 }
 
-bool InputManager::GetKey(KeyCode key)
+bool InputManager::GetKey(KeyCode key) // Gets if key is being pressed down using windows API
 {
 	switch (key) {
 	case A:
@@ -241,12 +241,12 @@ bool InputManager::GetKey(KeyCode key)
 	}
 }
 
-void InputManager::SetWindow(sf::RenderWindow& win)
+void InputManager::SetWindow(sf::RenderWindow& win) // Set the window the cursorpos will be calculated on
 {
 	window = &win;
 }
 
-std::string& InputManager::GetTextInput()
+std::string& InputManager::GetTextInput() // Used to detect text inputs
 {
 	return textInput;
 }
@@ -262,7 +262,7 @@ void InputManager::HandleEvent(const sf::Event& event)
 	}
 }
 
-void InputManager::InstantiateInputKeys()
+void InputManager::InstantiateInputKeys() 
 {
 	for (int i = 0; i < KeyCode::KEYCODE_COUNT; i++) {
 		inputKeys.emplace_back((KeyCode)i);

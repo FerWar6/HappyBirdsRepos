@@ -9,7 +9,7 @@ class b2WorldId;
 class Object;
 
 namespace ServiceLocator {
-
+	 // The ServiceLocator handles easily accessing important classes inside of the engine/game
 	inline Engine* engine = nullptr;
 	inline Engine& GetEngine() { return *engine; }
 	inline void SetEngine(Engine* eng) { engine = eng; }

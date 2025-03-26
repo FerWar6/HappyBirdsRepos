@@ -25,13 +25,13 @@ public:
 	bool GetKeyUp(KeyCode key);
 	bool GetKey(KeyCode key);
 	
-	void HandleEvent(const sf::Event& event);
+	void HandleEvent(const sf::Event& event); // Used for scroll wheel detection
 	void SetWindow(sf::RenderWindow& win);
 	ButtonManager buttonMan;
 	std::string& GetTextInput();
 private:
 	std::string textInput;
-	ScrollWheelState wheelState; //the state of the mouse scroll wheel
+	ScrollWheelState wheelState; // The state of the mouse scroll wheel
 	float scrollDelta = 0.0f;
 
 	sf::RenderWindow* window;
@@ -39,6 +39,6 @@ private:
 	sf::Vector2i mousePos;
 	sf::Vector2i oldMousePos;
 
-	void InstantiateInputKeys();
+	void InstantiateInputKeys(); // Creates an inputkey for each element in the KeyCode enum
 	std::vector<InputKey> inputKeys;
 };
