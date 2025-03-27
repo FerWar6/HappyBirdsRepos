@@ -19,29 +19,27 @@ void CollisionManager::Start()
 void CollisionManager::UpdateCollisions() // updates the necessary components when collisions are detected
 {
 	b2ContactEvents contactEvents = b2World_GetContactEvents(*worldId);
-	// TODO - format this code better
-	if (contactEvents.hitCount > 0)
+	for (int i = 0; i < contactEvents.hitCount; ++i)
 	{
-		for (int i = 0; i < contactEvents.hitCount; ++i)
-		{
-			const b2ContactHitEvent& hitEvent = contactEvents.hitEvents[i];
-			for (auto& obj : *objects) {
-				if (obj->HasComponent(RECT_RIGIDBODY)) {
-					RectRigidbody* rectBodyPtr = (RectRigidbody*)obj->GetComponent(RECT_RIGIDBODY);
-					if (rectBodyPtr->GetBodyId().index1 == hitEvent.shapeIdA.index1 || rectBodyPtr->GetBodyId().index1 == hitEvent.shapeIdB.index1) {
-						if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
-							DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
-							destructible->DamageWithSpeed(hitEvent.approachSpeed);
-						}
+		const b2ContactHitEvent& hitEvent = contactEvents.hitEvents[i];
+		for (auto& obj : *objects) {
+			RectRigidbody* rectBodyPtr = nullptr;
+			CircleRigidbody* circleBodyPtr = nullptr;
+			if(obj->HasComponent(RECT_RIGIDBODY)) rectBodyPtr = (RectRigidbody*)obj->GetComponent(RECT_RIGIDBODY);
+			if(obj->HasComponent(CIRCLE_RIGIDBODY)) circleBodyPtr = (CircleRigidbody*)obj->GetComponent(CIRCLE_RIGIDBODY);
+			if (rectBodyPtr) {
+				if (rectBodyPtr->GetBodyId().index1 == hitEvent.shapeIdA.index1 || rectBodyPtr->GetBodyId().index1 == hitEvent.shapeIdB.index1) {
+					if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
+						DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
+						destructible->DamageWithSpeed(hitEvent.approachSpeed);
 					}
 				}
-				if (obj->HasComponent(CIRCLE_RIGIDBODY)) {
-					CircleRigidbody* circleBodyPtr = (CircleRigidbody*)obj->GetComponent(CIRCLE_RIGIDBODY);
-					if (circleBodyPtr->GetBodyId().index1 == hitEvent.shapeIdA.index1 || circleBodyPtr->GetBodyId().index1 == hitEvent.shapeIdB.index1) {
-						if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
-							DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
-							destructible->DamageWithSpeed(hitEvent.approachSpeed);
-						}
+			}
+			if (circleBodyPtr) {
+				if (circleBodyPtr->GetBodyId().index1 == hitEvent.shapeIdA.index1 || circleBodyPtr->GetBodyId().index1 == hitEvent.shapeIdB.index1) {
+					if (obj->HasComponent(DESTRUCTIBLE_ITEM)) {
+						DestructibleItem* destructible = (DestructibleItem*)obj->GetComponent(DESTRUCTIBLE_ITEM);
+						destructible->DamageWithSpeed(hitEvent.approachSpeed);
 					}
 				}
 			}

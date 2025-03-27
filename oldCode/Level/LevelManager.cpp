@@ -126,7 +126,6 @@
 //		}		
 //		case ComponentType::BUTTON:
 //		{
-//			//TODO - save the onclick function of the button component
 //			//saves onclick function
 //			RectRigidbody* rectBody = (RectRigidbody*)component;
 //			break;
@@ -235,7 +234,6 @@
 //	}
 //}
 //
-////TODO - use a template to make this into 1 function
 //std::string LevelManager::AddToSring(float num)
 //{
 //	return std::to_string(num) + " ";

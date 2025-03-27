@@ -35,6 +35,7 @@ private:
 	Object* selectedObj; // the selected object in the editor
 	Scene* editorScene; // the scene currently open by the editor
 
+	sf::Vector2f grabPos; // the position the of when camera grab started
 	Hierarchy hierarchy;
 	EditorMoveTool moveTool;
 	Camera cam;
