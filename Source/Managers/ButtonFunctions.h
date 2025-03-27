@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <vector>
+#include "Events/Event.h"
 class Engine;
 class GameManager;
 enum ButtFuncId {
@@ -8,6 +9,7 @@ enum ButtFuncId {
 	LOADSCENE_SCENESELECT,
 	LOADSCENE_MAINMENU,
 	LOADSCENE_NEXTLEVEL,
+	QUITGAME,
 	BUTTON_FUNCTIONS_COUNT
 };
 struct ButtonFunction {

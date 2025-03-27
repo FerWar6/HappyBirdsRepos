@@ -19,6 +19,9 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine, GameManager* gameMan)
 		case LOADSCENE_NEXTLEVEL:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&GameManager::LoadNextLevel, gameMan));
 			break;
+		case QUITGAME:
+			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::Quit, engine));
+			break;
 		default:
 			std::cout << "Button function is missing id";
 		}

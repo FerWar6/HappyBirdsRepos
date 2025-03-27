@@ -27,7 +27,7 @@ void GameManager::Update()
 		}
 		else if(levelClock.GetTimeInSeconds() > resetTime){
 			engine.LoadObjectsIntoScene("EndLevelUI");
-			std::cout << "Reset Level\n";
+			//std::cout << "Reset Level\n";
 			endLevelCheck = false;
 		}
 	}

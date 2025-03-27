@@ -37,6 +37,7 @@ public:
 	void OpenSceneEditor(Scene scene);
 	bool inEditMode = false;
 
+	void Quit();
 private:
 	PreLoader preLoader;
 	CollisionManager collisionManager;

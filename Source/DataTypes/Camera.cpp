@@ -3,8 +3,7 @@
 
 Camera::Camera()
 	:	followObject(nullptr)
-{
-}
+{}
 
 void Camera::MoveToTarget()
 {
@@ -12,9 +11,8 @@ void Camera::MoveToTarget()
 		sf::Vector2f newPos = sf::Vector2f(followObject->GetPos().x - 750, followObject->GetPos().y - 400);
 		float xpos = lerp(position.x, newPos.x, speed);
 		float ypos = lerp(position.y, newPos.y, speed);
-		SetPos(xpos, ypos);
+		SetPos(xpos, position.y);
 	}
-	
 }
 
 

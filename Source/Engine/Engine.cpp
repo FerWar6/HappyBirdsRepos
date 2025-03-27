@@ -176,6 +176,11 @@ void Engine::OpenSceneEditor(Scene scene) // Turns off engine window and opens s
 	window->setVisible(true);
 }
 
+void Engine::Quit()
+{
+	(*window).close();
+}
+
 Scene* Engine::GetScene(std::string name)
 {
 	for (auto& scene : allScenes) {
