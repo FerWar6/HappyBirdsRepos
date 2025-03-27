@@ -14,10 +14,6 @@ public:
 	void SetMousePos(sf::RenderWindow& win);
 	void UpdateMousePos();
 
-	const sf::Vector2i& GetOldMousePos();
-	void SetOldMousePos(sf::RenderWindow& win);
-	void UpdateOldMousePos();
-	
 	bool GetScrollWheel(ScrollWheelState state);
 	
 	bool GetKeyDown(KeyCode key);

@@ -11,7 +11,7 @@ namespace fs = std::filesystem;
 SceneEditor::SceneEditor(Scene& scene)
 	: editorScene(&scene),
 	inputMan(sl::GetInputManager()),
-	cam(),
+	camera(),
 	hierarchy(objects),
 	moveTool(selectedObj),
 	selectedObj(nullptr)
@@ -41,7 +41,7 @@ void SceneEditor::OpenEditorWindow()
 	int winHeight = 900;
 	std::string& name = editorScene->sceneName;
 	window.create(sf::VideoMode(winWidth, winHeight), name);
-	cam.SetView(window);
+	camera.SetView(window);
 	editorScene->LoadScene(); // Load the current scene into the editor
 
 	// TODO - intergrate this into a grid component
@@ -101,18 +101,18 @@ void SceneEditor::Update()
 		obj->Update();
 	}
 	if(inputMan.GetScrollWheel(SCROLL_UP)) { // Change camera zoom
-		cam.IncreaseZoom();
+		camera.IncreaseZoom();
 	}
 	if (inputMan.GetScrollWheel(SCROLL_DOWN)) {
-		cam.DecreaseZoom();
+		camera.DecreaseZoom();
 	}
 	if (inputMan.GetKey(MOUSE_R)) { // Adds camera grab functionality 
 		window.setTitle(editorScene->sceneName + "*");
-		sf::Vector2f newCamPos = (sf::Vector2f)(inputMan.GetOldMousePos() - inputMan.GetMousePos());
-		cam.SetPos(cam.GetPos() + newCamPos);
+		sf::Vector2f newCamPos = grabPos - (sf::Vector2f)inputMan.GetMousePos();
+		camera.SetPos(camera.GetPos() + newCamPos);
 	}
 	else {
-		inputMan.UpdateOldMousePos();
+		grabPos = (sf::Vector2f)inputMan.GetMousePos();
 	}
 	if (inputMan.GetKey(CONTROL) && inputMan.GetKeyDown(S)) { //TODO - actually save the game
 		window.setTitle(editorScene->sceneName);
@@ -144,7 +144,7 @@ void SceneEditor::Update()
 void SceneEditor::Render()
 {
 	window.clear();
-	window.setView(cam.GetView());
+	window.setView(camera.GetView());
 	window.draw(gridSprite); // replace this with grid component
 
 	for (auto& obj : objects) {
@@ -207,9 +207,9 @@ void SceneEditor::ClearSelectedObj()
 	selectedObj = nullptr;
 }
 
-Camera& SceneEditor::GetCamera()
+SceneEditorCamera& SceneEditor::GetCamera()
 {
-	return cam;
+	return camera;
 }
 
 //void SceneEditor::LoadScenes()

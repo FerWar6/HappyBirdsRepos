@@ -24,7 +24,7 @@ void DestructibleItem::Damage(float dmg)
 
 void DestructibleItem::DamageWithSpeed(float speed) // Calculate the speed to the dmg
 {
-    float dmg = speed * 7.5;
+    float dmg = speed * 7.5f;
     //std::cout << "speed " << speed << "\n";
     std::cout << "Damaged item " << dmg << "\n";
     if (curHealth - dmg >= 0) { // Changes sprite alpha when damaged

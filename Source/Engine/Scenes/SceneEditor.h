@@ -1,5 +1,5 @@
 #pragma once
-#include "DataTypes/Camera.h"
+#include "DataTypes/SceneEditorCamera.h"
 #include "UI/Hierarchy.h"
 #include "UI/EditorMoveTool.h"
 #include "Engine/Scenes/Scene.h"
@@ -25,7 +25,7 @@ public:
 	void SetSelectedObj(Object* obj);
 	Object*& GetSelectedObj();
 	void ClearSelectedObj();
-	Camera& GetCamera();
+	SceneEditorCamera& GetCamera();
 private:
 	void LoopEditor();
 	void Update();
@@ -38,7 +38,7 @@ private:
 	sf::Vector2f grabPos; // the position the of when camera grab started
 	Hierarchy hierarchy;
 	EditorMoveTool moveTool;
-	Camera cam;
+	SceneEditorCamera camera;
 	sf::RenderWindow window;
 	sf::Clock gameClock;
 

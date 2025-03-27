@@ -7,6 +7,7 @@ class EngineCore
 {
 public:
 	EngineCore();
+	const int worldScale = 50;
 private:
 	void Start();
 	void LoopEngine();

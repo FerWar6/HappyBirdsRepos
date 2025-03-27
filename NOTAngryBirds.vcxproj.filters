@@ -132,5 +132,6 @@
     <ClCompile Include="Source\Managers\CollisionManager.cpp" />
     <ClCompile Include="Source\Objects\Components\WinConditionItem.cpp" />
     <ClCompile Include="Source\Managers\GameManager.cpp" />
+    <ClCompile Include="Source\DataTypes\Camera.cpp" />
   </ItemGroup>
 </Project>

@@ -191,6 +191,7 @@
     <ClInclude Include="Source\UI\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\DataTypes\Camera.cpp" />
     <ClCompile Include="Source\DataTypes\Size.cpp" />
     <ClCompile Include="Source\DataTypes\Transform.cpp" />
     <ClCompile Include="Source\DataTypes\Vector2.cpp" />

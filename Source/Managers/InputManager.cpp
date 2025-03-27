@@ -66,24 +66,6 @@ void InputManager::UpdateMousePos()
 	mousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
 }
 
-const sf::Vector2i& InputManager::GetOldMousePos() // Old mouse pos is used for dragging in scene editor
-// TODO - put old mouse pos inside of scene editor
-{
-	return oldMousePos;
-}
-
-void InputManager::SetOldMousePos(sf::RenderWindow& win)
-{
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
-	oldMousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
-}
-
-void InputManager::UpdateOldMousePos()
-{
-	sf::RenderWindow& win = *window;
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(win);
-	oldMousePos = (sf::Vector2i)win.mapPixelToCoords(pixelPos);
-}
 bool InputManager::GetScrollWheel(ScrollWheelState state)
 {
 	return wheelState == state;

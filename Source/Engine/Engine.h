@@ -36,7 +36,6 @@ public:
 	void OpenSceneSelection(); // Opens menu to choose a scene to edit
 	void OpenSceneEditor(Scene scene);
 	bool inEditMode = false;
-	const int worldScale = 50; // TODO - is this the right place for worldScale?
 
 private:
 	PreLoader preLoader;

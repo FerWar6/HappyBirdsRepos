@@ -3,7 +3,7 @@
 #include "Managers/ServiceLocator.h"
 #include "Objects/Components/CircleRigidbody.h"
 #include "Objects/Components/SpriteRenderer.h"
-#include "Engine/Engine.h"
+#include "Engine/EngineCore.h"
 #include "Engine/PreLoader.h"
 #include <cmath>
 #include <iostream>
@@ -20,7 +20,7 @@ Launcher::Launcher(int numOfAmmo)
     minRadius = 120;
     maxRadius = 500;
     minVelocity = 5;
-    maxVelocity = 15;
+    maxVelocity = 20;
     amountOfDots = 15;
     minAngle = -70;
     maxAngle = 10;
@@ -95,13 +95,14 @@ std::string Launcher::GetSaveData()
 void Launcher::SpawnProjectile() 
 {
     if (primed && (HoveringOver(minRadius))) { // Spawns cannonball when primed and releasing mouse
-        int scale = sl::GetEngine().worldScale;
+        int scale = sl::GetEngineCore().worldScale;
         float ballSize = 1;
         float ballDensity = 2;
         Object* obj = new Object(CalcLaunchPoint(), 0 , sf::Vector2f(ballSize * scale, ballSize * scale));
         CircleRigidbody* body = obj->AddComponent<CircleRigidbody>(b2_dynamicBody, ballDensity, sl::GetWorldId());
         body->SetVelocity(CalcLinearVelocity());
         obj->AddComponent<SpriteRenderer>("CannonBall");
+        sl::GetRenderer().GetCamera().SetFollowObject(obj);
         primed = false;
         ammoCount--;
         if (ammoCount == 0) sl::GetEngine().GetGameManager().SetLastShotTaken(true);

@@ -183,4 +183,6 @@ Scene* Engine::GetScene(std::string name)
 			return &scene;
 		}
 	}
+	std::cout << "Scene not found: " << name << "\n";
+	return nullptr;
 }

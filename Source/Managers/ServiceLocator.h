@@ -1,6 +1,7 @@
 #pragma once
 class Engine;
 class EngineCore;
+class Renderer;
 class SceneEditor;
 class PreLoader;
 class InputManager;
@@ -17,6 +18,10 @@ namespace ServiceLocator {
 	inline EngineCore* engineCore = nullptr;
 	inline EngineCore& GetEngineCore() { return *engineCore; }
 	inline void SetEngineCore(EngineCore* core) { engineCore = core; }
+
+	inline Renderer* renderer = nullptr;
+	inline Renderer& GetRenderer() { return *renderer; }
+	inline void SetRenderer(Renderer* r) { renderer = r; }
 
 	inline SceneEditor* sceneEditor = nullptr;
 	inline SceneEditor& GetSceneEditor() { return *sceneEditor; }

@@ -1,6 +1,7 @@
 #include "Object.h"
 #include "Managers/ServiceLocator.h"
 #include "Engine/Engine.h"
+#include "Engine/EngineCore.h"
 #include "Engine/Scenes/SceneEditor.h"
 #include "Objects/Components/Components.h"
 #include <iostream>
@@ -191,13 +192,13 @@ const sf::Vector2f Object::GetPos()
 
 const b2Vec2 Object::GetPosInM()
 {
-	int scale = sl::GetEngine().worldScale;
+	int scale = sl::GetEngineCore().worldScale;
 	return b2Vec2{ transform.position.x / scale, transform.position.y / scale};
 }
 
 void Object::SetPosInM(b2Vec2 posInM)
 {
-	int scale = sl::GetEngine().worldScale;
+	int scale = sl::GetEngineCore().worldScale;
 	transform.position.x = posInM.x * scale;
 	transform.position.y = posInM.y * scale;
 }
@@ -231,14 +232,14 @@ const sf::Vector2f Object::GetSize()
 
 const b2Vec2 Object::GetSizeInM()
 {
-	int scale = sl::GetEngine().worldScale;
+	int scale = sl::GetEngineCore().worldScale;
 	//std::cout << transform.size.w / scale << "\n";
 	return b2Vec2{ transform.size.w / scale, transform.size.h / scale };
 }
 
 void Object::SetSizeInM(b2Vec2 posInM)
 {
-	int scale = sl::GetEngine().worldScale;
+	int scale = sl::GetEngineCore().worldScale;
 	transform.size.w = posInM.x * scale;
 	transform.size.h = posInM.y * scale;
 }
@@ -279,7 +280,6 @@ std::string Object::GetSaveData() // saves the transform, number of components a
 	if (HasComponent(EDITOR_ITEM)) numOfComps--; // if in editer mode the editor item component needs to be removed
 	data += std::to_string(numOfComps) + " ";
 
-	// TODO - add component type
 	for (auto& com : components) {
 		data += com->GetSaveData();
 	}

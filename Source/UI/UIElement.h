@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "DataTypes/Transform.h"
-#include "DataTypes/Camera.h"
+#include "DataTypes/SceneEditorCamera.h"
 class UIElement
 {
 public:
@@ -11,6 +11,6 @@ public:
 	virtual void FixedUpdate() {};
 	virtual void Render(sf::RenderWindow& window) {};
 private:
-	Camera& cam;
+	SceneEditorCamera& cam;
 	Transform transform;
 };
