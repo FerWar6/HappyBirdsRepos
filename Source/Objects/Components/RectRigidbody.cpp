@@ -16,6 +16,11 @@ void RectRigidbody::Start(b2BodyType type, b2WorldId& id)
     defaultBody.type = type;
     defaultBody.isEnabled = true;
     defaultBody.position = object.GetPosInM();
+    float radians = object.GetRot() * 3.14159f / 180.0f;
+    b2Rot rot;
+    rot.s = std::sin(radians);
+    rot.c = std::cos(radians);
+    defaultBody.rotation = rot;
     bodyId = b2CreateBody(id, &defaultBody);
 
     b2Vec2 sizeInM = object.GetSizeInM();
