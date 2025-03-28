@@ -23,8 +23,13 @@ void GameManager::InitLevels(std::vector<Scene>& scenes)
 void GameManager::Update()
 {
 	if (launchedProjectile) {
-		b2BodyId bodyId = ((CircleRigidbody*)launchedProjectile->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId();
-		if (engine.GetCollisionManager().IsBodyAsleep(bodyId)) {
+		float resetTime = 1;
+		b2BodyId& bodyId = ((CircleRigidbody*)launchedProjectile->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId();
+		//std::cout << "IsAsleep " << engine.GetCollisionManager().IsBodyAsleep(bodyId) << "\n";
+		if (!engine.GetCollisionManager().IsBodyAsleep(bodyId)) {
+			levelClock.Reset();
+		}
+		else if (levelClock.GetTimeInSeconds() > resetTime) {
 			launchedProjectile = nullptr;
 			sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
 		}

@@ -103,10 +103,10 @@ void Launcher::SpawnProjectile()
         body->SetVelocity(CalcLinearVelocity());
         obj->AddComponent<SpriteRenderer>("CannonBall");
         sl::GetRenderer().GetCamera().SetFollowObject(obj);
+        sl::GetEngine().GetGameManager().SetLaunchedProjectile(obj);
         primed = false;
         ammoCount--;
         if (ammoCount == 0) sl::GetEngine().GetGameManager().SetLastShotTaken(true);
-        else sl::GetEngine().GetGameManager().SetLaunchedProjectile(&object);
     }
     else {
         primed = false;
