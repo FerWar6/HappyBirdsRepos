@@ -9,7 +9,7 @@ public:
 	CollisionManager();
 	void Start();
 	void UpdateCollisions();
-	bool IsBodyAsleep(b2BodyId id);
+	bool IsBodyAsleep(b2BodyId& id);
 	bool AllBodiesAsleep();
 private:
 	std::vector<Object*>* objects;
