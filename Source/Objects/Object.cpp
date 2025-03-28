@@ -91,7 +91,7 @@ Object::Object(std::string data) // Construct object using string data
 		{
 			int ammo;
 			stringData >> ammo;
-			Launcher* launcher = AddComponent<Launcher>(2);
+			Launcher* launcher = AddComponent<Launcher>(ammo);
 			if (inEditMode) launcher->active = false;
 			break;
 		}
