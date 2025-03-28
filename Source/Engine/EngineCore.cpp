@@ -18,6 +18,11 @@ EngineCore::EngineCore()
 	Start();
 }
 
+float EngineCore::GetDeltaTime()
+{
+	return deltaTime;
+}
+
 void EngineCore::Start()
 {
 	window = &sl::GetWindow();
@@ -40,6 +45,7 @@ void EngineCore::LoopEngine()
 		}
 
 		sf::Time elapsed = gameClock.restart();
+		deltaTime = elapsed.asSeconds();
 		accumulator += elapsed.asSeconds();
 
 		engine.UpdateObjectsVector();

@@ -159,6 +159,7 @@
     <ClInclude Include="Source\Managers\ButtonManager.h" />
     <ClInclude Include="Source\Managers\CollisionManager.h" />
     <ClInclude Include="Source\Objects\Components\Button.h" />
+    <ClInclude Include="Source\Objects\Components\CameraPan.h" />
     <ClInclude Include="Source\Objects\Components\CircleRigidbody.h" />
     <ClInclude Include="Source\Objects\Components\Component.h" />
     <ClInclude Include="Source\Objects\Components\Components.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Source\Managers\CollisionManager.cpp" />
     <ClCompile Include="Source\Managers\GameManager.cpp" />
     <ClCompile Include="Source\Objects\Components\Button.cpp" />
+    <ClCompile Include="Source\Objects\Components\CameraPan.cpp" />
     <ClCompile Include="Source\Objects\Components\CircleRigidbody.cpp" />
     <ClCompile Include="Source\Objects\Components\Component.cpp" />
     <ClCompile Include="Source\Objects\Components\DestructibleItem.cpp" />

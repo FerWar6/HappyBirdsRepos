@@ -95,6 +95,9 @@ Object::Object(std::string data) // Construct object using string data
 			if (inEditMode) launcher->active = false;
 			break;
 		}
+		case CAMERA_PAN:
+			AddComponent<CameraPan>();
+			break;
 		default:
 			std::cout << "Invalid Component Type: " << compType << "\n";
 			break;

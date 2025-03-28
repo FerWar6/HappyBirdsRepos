@@ -25,6 +25,6 @@ private:
 	sf::Vector2f position;
 	Object* followObject;
 	sf::Vector2f targetPosition;
-	float speed = 0.0015f;
+	float speed = 3;
 	float lerp(float a, float b, float t);
 };

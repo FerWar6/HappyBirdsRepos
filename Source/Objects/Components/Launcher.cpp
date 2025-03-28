@@ -25,6 +25,8 @@ Launcher::Launcher(int numOfAmmo)
     minAngle = -70;
     maxAngle = 10;
     moveSpeed = 1;
+
+    sl::GetEngine().GetGameManager().SetLauncherPtr(this);
 }
 
 void Launcher::Update()

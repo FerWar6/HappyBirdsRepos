@@ -77,6 +77,7 @@
     <ClInclude Include="Source\Objects\Components\DestructibleItem.h" />
     <ClInclude Include="Source\Managers\CollisionManager.h" />
     <ClInclude Include="Source\Objects\Components\WinConditionItem.h" />
+    <ClInclude Include="Source\Objects\Components\CameraPan.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Engine\Engine.cpp">
@@ -133,5 +134,6 @@
     <ClCompile Include="Source\Objects\Components\WinConditionItem.cpp" />
     <ClCompile Include="Source\Managers\GameManager.cpp" />
     <ClCompile Include="Source\DataTypes\Camera.cpp" />
+    <ClCompile Include="Source\Objects\Components\CameraPan.cpp" />
   </ItemGroup>
 </Project>

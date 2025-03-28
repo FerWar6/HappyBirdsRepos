@@ -10,3 +10,4 @@
 #include "Objects/Components/EditorItem.h"
 #include "Objects/Components/DestructibleItem.h"
 #include "Objects/Components/WinConditionItem.h"
+#include "Objects/Components/CameraPan.h"

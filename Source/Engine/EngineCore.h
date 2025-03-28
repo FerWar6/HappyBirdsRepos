@@ -7,6 +7,7 @@ class EngineCore
 {
 public:
 	EngineCore();
+	float GetDeltaTime();
 	const int worldScale = 50;
 private:
 	void Start();
@@ -21,6 +22,6 @@ private:
 	sf::Clock gameClock;
 	int fixedUpdateFrames = 60;
 	const float timeStep = 1.0f / fixedUpdateFrames;
-	float deltTime = 0.0f;
+	float deltaTime = 0.0f;
 	float accumulator = 0.0f;
 };
