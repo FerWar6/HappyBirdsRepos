@@ -106,6 +106,7 @@ void Launcher::SpawnProjectile()
         primed = false;
         ammoCount--;
         if (ammoCount == 0) sl::GetEngine().GetGameManager().SetLastShotTaken(true);
+        else sl::GetEngine().GetGameManager().SetLaunchedProjectile(&object);
     }
     else {
         primed = false;

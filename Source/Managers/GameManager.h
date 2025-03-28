@@ -3,6 +3,7 @@
 #include <vector>
 class Engine;
 class Scene;
+class Object;
 class GameManager
 {
 public:
@@ -17,7 +18,9 @@ public:
     void OpenLevelSelection();
     void LoadNextLevel();
     void OnLevelLoaded();
+    void SetLaunchedProjectile(Object* obj);
 private:
+    Object* launchedProjectile;
     Scene* currentLevel;
     std::vector<Scene*> levels;
     Engine& engine;

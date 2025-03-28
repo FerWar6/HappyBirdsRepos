@@ -2,12 +2,14 @@
 #include "Engine/Engine.h"
 #include "Engine/EngineCore.h"
 #include "Objects/Object.h"
+#include "Objects/Components/Components.h"
 #include "Managers/ServiceLocator.h"
 GameManager::GameManager(Engine& eng)
 	: playerScore(0),
 	engine(eng),
 	levelClock(),
-	endLevelCheck(false)
+	endLevelCheck(false),
+	launchedProjectile(nullptr)
 {}
 void GameManager::InitLevels(std::vector<Scene>& scenes)
 {
@@ -20,6 +22,13 @@ void GameManager::InitLevels(std::vector<Scene>& scenes)
 }
 void GameManager::Update()
 {
+	if (launchedProjectile) {
+		b2BodyId bodyId = ((CircleRigidbody*)launchedProjectile->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId();
+		if (engine.GetCollisionManager().IsBodyAsleep(bodyId)) {
+			launchedProjectile = nullptr;
+			sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
+		}
+	}
 	if (endLevelCheck) {
 		float resetTime = 2; // Amount of seconds it takes for level to reset after all bodies are asleep
 		if (!engine.GetCollisionManager().AllBodiesAsleep()) {
@@ -67,4 +76,9 @@ void GameManager::LoadNextLevel() // Cycles trough the indeces of levels to load
 void GameManager::OnLevelLoaded()
 {
 	endLevelCheck = false;
+}
+
+void GameManager::SetLaunchedProjectile(Object* obj)
+{
+	launchedProjectile = obj;
 }

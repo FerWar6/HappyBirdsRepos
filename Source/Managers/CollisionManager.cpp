@@ -47,6 +47,16 @@ void CollisionManager::UpdateCollisions() // updates the necessary components wh
 	}
 }
 
+bool CollisionManager::IsBodyAsleep(b2BodyId id)
+{
+	float yVelocityThreshold = 0.1f;
+	b2Vec2 velocity = b2Body_GetLinearVelocity(id);
+	if (velocity.y > yVelocityThreshold) {
+		return false;
+	}
+	return true;
+}
+
 bool CollisionManager::AllBodiesAsleep()
 {
 	// Returns true if no bodies awake or the bodies awake move very little

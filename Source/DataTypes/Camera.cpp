@@ -13,6 +13,11 @@ void Camera::MoveToTarget()
 		float ypos = lerp(position.y, newPos.y, speed);
 		SetPos(xpos, position.y);
 	}
+	else {
+		float newxpos = 0;
+		float xpos = lerp(position.x, newxpos, speed);
+		SetPos(xpos, position.y);
+	}
 }
 
 
