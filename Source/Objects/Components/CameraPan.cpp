@@ -5,7 +5,7 @@
 CameraPan::CameraPan()
 	: Component(CAMERA_PAN)
 {
-	sl::GetEngine().GetGameManager().SetCameraPan(&object);
+	if(!sl::GetEngine().inEditMode) sl::GetEngine().GetGameManager().SetCameraPan(&object);
 }
 
 std::string CameraPan::GetSaveData()

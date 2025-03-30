@@ -8,19 +8,18 @@ Camera::Camera()
 
 void Camera::MoveToTarget()
 {
-	float deltaTime = sl::GetEngineCore().GetDeltaTime();
 	if (followObject) {
-		sf::Vector2f newPos = sf::Vector2f(followObject->GetPos().x - 750, followObject->GetPos().y - 400);
 		//std::cout << deltaTime << " deltatime\n";
-		float xpos = lerp(position.x, newPos.x, speed * deltaTime);
-		float ypos = lerp(position.y, newPos.y, speed * deltaTime);
+		float xpos = lerp(position.x, followObject->GetPos().x - offset, speed);
 		SetPos(xpos, position.y);
 	}
 	else {
 		float newxpos = 0;
-		float xpos = lerp(position.x, newxpos, speed * deltaTime);
+		float xpos = lerp(position.x, newxpos, speed);
 		SetPos(xpos, position.y);
 	}
+	//std::cout << speed << " cam speed\n";
+
 }
 
 
@@ -48,6 +47,7 @@ void Camera::SetPos(float x, float y)
 	sf::Vector2f newPos = pos - position;
 	view.move(newPos);
 	position = pos;
+
 	//std::cout << "x: " << position.x << " y: " << position.y << "\n";
 }
 
@@ -56,19 +56,24 @@ sf::Vector2f& Camera::GetPos()
 	return position;
 }
 
-sf::Vector2f& Camera::GetTargetPos()
-{
-	return targetPosition;
-}
-
-void Camera::SetTargetPos(sf::Vector2f targetPos)
-{
-	targetPosition = targetPos;
-}
-
 void Camera::SetCamSpeed(float s)
 {
 	speed = s;
+}
+
+bool Camera::ReachedTarget()
+{
+	float reachedThreshold = 0.1f;
+	float targetPos;
+	if (followObject) targetPos = followObject->GetPos().x - offset;
+	else targetPos = 0;
+	if (targetPos > position.x) {
+		return targetPos < position.x + reachedThreshold;
+	}
+	else if (targetPos < position.x) {
+		return targetPos > position.x - reachedThreshold;
+	}
+	return false;
 }
 
 void Camera::SetFollowObject(Object* obj)
@@ -76,7 +81,13 @@ void Camera::SetFollowObject(Object* obj)
 	followObject = obj;
 }
 
+Object* Camera::GetFollowObject()
+{
+	return followObject;
+}
+
 float Camera::lerp(float a, float b, float t)
 {
-	return a + t * (b - a);
+	float deltaTime = sl::GetEngineCore().GetDeltaTime();
+	return a + (t * deltaTime) * (b - a);
 }

@@ -14,17 +14,15 @@ public:
 	void SetPos(sf::Vector2f pos);
 	void SetPos(float x, float y);
 
-	sf::Vector2f& GetTargetPos();
-	void SetTargetPos(sf::Vector2f targetPos);
-
 	void SetCamSpeed(float speed);
-
+	bool ReachedTarget();
 	void SetFollowObject(Object* obj);
+	Object* GetFollowObject();
 private:
+	float offset = 750 - 200; //sets the camera more to the right
 	sf::View view;
 	sf::Vector2f position;
 	Object* followObject;
-	sf::Vector2f targetPosition;
 	float speed = 3;
 	float lerp(float a, float b, float t);
 };

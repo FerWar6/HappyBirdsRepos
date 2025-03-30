@@ -8,56 +8,102 @@ GameManager::GameManager(Engine& eng)
 	: playerScore(0),
 	engine(eng),
 	levelClock(),
-	endLevelCheck(false),
+	resetLevelClock(),
+	wonLevel(false),
+	lostLevel(false),
+	isInLevel(false),
+	lastShotTaken(false),
 	launchedProjectile(nullptr),
 	launcherPtr(nullptr)
 {}
 
-
 void GameManager::Update()
 {
+	if (sl::GetInputManager().GetKeyDown(ARROW_RIGHT) && isInLevel) {
+		currentLevelIndex++;
+		LoadLevelWithIndex();
+	}
+}
+
+
+void GameManager::FixedUpdate()
+{
+	//std::cout << "in level: " << isInLevel << "\n";
+	if (!isInLevel) return;
+	//std::cout << "win objects alseep: " << AllWinObjectsAlseep() << "  amount of winObjects: " << winItems.size() << "\n";
 	if (panningLevel)
 	{
 		if (levelClock.GetTimeInSeconds() > panTime) {
 			sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
 			if (launcherPtr) launcherPtr->active = true;
+			sl::GetRenderer().GetCamera().SetCamSpeed(followCamSpeed);
 			panningLevel = false;
 		}
 		return;
 	}
-
-	winObjects.erase(std::remove(winObjects.begin(), winObjects.end(), nullptr), winObjects.end()); // remove nullptrs from winObjects
-	//std::cout << AllWinObjectsAlseep() << " all winobjects asleep\n";
-	if (launchedProjectile) {
-		float resetTime = 1;
+	if (!wonLevel) {
+		resetLevelClock.Reset();
+		wonLevel = winItems.size() == 0;
+	}
+	else if (wonLevel) {
+		launcherPtr->active = false;
+		float lingerOnLevelTime = 3;
+		if (resetLevelClock.GetTimeInSeconds() > lingerOnLevelTime) {
+			sl::GetRenderer().GetCamera().SetCamSpeed(moveToMenuSpeed);
+			sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
+			if (sl::GetRenderer().GetCamera().ReachedTarget()) {
+				engine.LoadObjectsIntoScene("WonLevelUI");
+				wonLevel = false;
+				launchedProjectile = nullptr;
+				isInLevel = false;
+				currentLevelIndex++;
+			}
+		}
+	}
+	if (launchedProjectile && launchedProjectile->HasComponent(CIRCLE_RIGIDBODY)) {
+		launcherPtr->active = false;
+		float resetTime = 1.5;
 		b2BodyId& bodyId = ((CircleRigidbody*)launchedProjectile->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId();
 		//std::cout << "IsAsleep " << engine.GetCollisionManager().IsBodyAsleep(bodyId) << "\n";
-		if (!engine.GetCollisionManager().IsBodyAsleep(bodyId)) {
+		if (!engine.GetCollisionManager().IsBodyAsleep(bodyId) || !AllWinObjectsAlseep()) {
 			levelClock.Reset();
 		}
 		else if (levelClock.GetTimeInSeconds() > resetTime) {
 			launchedProjectile = nullptr;
-			sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
+			if (!wonLevel && lastShotTaken) {
+				lostLevel = true;
+			}
+			else {
+				sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
+				launcherPtr->active = true;
+			}
 		}
 	}
-	if (endLevelCheck) {
-		float resetTime = 2; // Amount of seconds it takes for level to reset after all bodies are asleep
-		if (!engine.GetCollisionManager().AllBodiesAsleep()) {
-			levelClock.Reset();
-		}
-		else if(levelClock.GetTimeInSeconds() > resetTime){
-			engine.LoadObjectsIntoScene("EndLevelUI");
-			//std::cout << "Reset Level\n";
-			endLevelCheck = false;
+	if (lostLevel) {
+		sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
+		sl::GetRenderer().GetCamera().SetCamSpeed(moveToMenuSpeed);
+		if (sl::GetRenderer().GetCamera().ReachedTarget()) {
+			engine.LoadObjectsIntoScene("LostLevelUI");
+			wonLevel = false;
+			lostLevel = false;
+			lastShotTaken = false;
+			isInLevel = false;
 		}
 	}
+	//delay for second before moving to menu
 }
 
 void GameManager::OnLevelLoaded()
 {
-	panningLevel = true;
-	sl::GetRenderer().GetCamera().SetCamSpeed(panSpeed);
+	if (sl::GetRenderer().GetCamera().GetFollowObject()) {
+		panningLevel = true;
+		sl::GetRenderer().GetCamera().SetCamSpeed(panSpeed);
+	}
+	wonLevel = false;
+	lastShotTaken = false;
 	if (launcherPtr) launcherPtr->active = false;
+	isInLevel = true;
+	resetLevelClock.Reset();
 	levelClock.Reset();
 
 	//pan the camera, wait for amout of seconds and pan back
@@ -77,43 +123,49 @@ void GameManager::AddPlayerScore(int score)
 }
 void GameManager::SetLastShotTaken(bool taken)
 {
-	levelClock.Reset();
-	endLevelCheck = taken;
+	lastShotTaken = taken;
 }
 
-void GameManager::OpenLevelSelection()
+void GameManager::OpenLevelSelection() //outdated
 {
 	engine.LoadScene("level1");
 	OnLevelLoaded();
 }
 
-void GameManager::LoadNextLevel() // Cycles trough the indeces of levels to load next level
+void GameManager::LoadLevelWithIndex() //uses the current level index and loads it
 {
-	int newIndex = 1;
-	Scene* newLevel = levels[newIndex];
-	engine.LoadScene(newLevel->sceneName);
-	currentLevel = newLevel;
+	if (currentLevelIndex >= levels.size()) { // checks if there are any more levels to play
+		engine.LoadScene("ThankYouForPlaying");
+		currentLevelIndex = 0;
+		return;
+	}
+	engine.LoadScene(levels[currentLevelIndex]->sceneName);
+	OnLevelLoaded();
 }
-
 
 void GameManager::SetLaunchedProjectile(Object* obj)
 {
 	launchedProjectile = obj;
 }
 
-void GameManager::AddWinObject(Object* obj)
+void GameManager::AddWinObject(WinConditionItem* item)
 {
-	winObjects.push_back(obj);
+	winItems.push_back(item);
+}
+
+void GameManager::DeleteWinObject(WinConditionItem* item)
+{
+	auto it = std::find(winItems.begin(), winItems.end(), item);
+	if (it != winItems.end()) {
+		winItems.erase(it);
+	}
 }
 
 bool GameManager::AllWinObjectsAlseep()
 {
-	for (Object* obj : winObjects) {
-		if (obj) {
-			b2BodyId& bodyId = ((CircleRigidbody*)obj->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId();
-			if (!engine.GetCollisionManager().IsBodyAsleep(bodyId)) {
-				return false;
-			}
+	for (WinConditionItem* winItem : winItems) {
+		if (winItem) {
+			if (winItem->IsMoving()) return false;
 		}
 	}
 	return true;

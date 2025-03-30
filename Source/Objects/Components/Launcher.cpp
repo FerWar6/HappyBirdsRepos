@@ -51,8 +51,8 @@ void Launcher::Update()
 
 void Launcher::FixedUpdate() 
 {
-    if (!active) return; // Turns off cannon functionality inside of edit mode
     if (primed) { // Updates preview when primed
+        if (!active) return; // Turns off cannon functionality inside of edit mode
         object.SetRot(CalcAngle() + spriteRotationalOffset);
         UpdatePreview();
     }
@@ -99,7 +99,7 @@ void Launcher::SpawnProjectile()
     if (primed && (HoveringOver(minRadius))) { // Spawns cannonball when primed and releasing mouse
         int scale = sl::GetEngineCore().worldScale;
         float ballSize = 1;
-        float ballDensity = 2;
+        float ballDensity = 1;
         Object* obj = new Object(CalcLaunchPoint(), 0 , sf::Vector2f(ballSize * scale, ballSize * scale));
         CircleRigidbody* body = obj->AddComponent<CircleRigidbody>(b2_dynamicBody, ballDensity, sl::GetWorldId());
         body->SetVelocity(CalcLinearVelocity());

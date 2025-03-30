@@ -26,7 +26,7 @@ EditorMoveTool::EditorMoveTool(Object*& selObj)
 void EditorMoveTool::Update()
 {
 	// arrow key move functionality
-	int increment = 50;
+	int increment = interval;
 	if (inputMan.GetKeyDownRepeat(ARROW_UP) && selectedObj) {
 		sf::Vector2f newPos = selectedObj->GetPos();
 		newPos.y -= increment;

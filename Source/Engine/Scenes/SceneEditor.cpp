@@ -127,7 +127,8 @@ void SceneEditor::Update()
 	if (inputMan.GetKeyDown(MOUSE_L)) { // Object selection functionality
 
 		bool ableToDeselectObj = true; // set this to false when selecting an object to prevent a nullrefex
-		for (auto& obj : objects) {
+		for (int i = objects.size() - 1; i >= 0; --i) { // loop through objects backwards to not select the background
+			auto& obj = objects[i];
 			if (((EditorItem*)obj->GetComponent(EDITOR_ITEM))->HoveringOver() && moveTool.GetCurrentMode() == MOVEMODE_IDLE) {
 				inputMan.buttonMan.AddButtonCall(EDITOR_UI, ((EditorItem*)obj->GetComponent(EDITOR_ITEM))->OnClick);
 				ableToDeselectObj = false;

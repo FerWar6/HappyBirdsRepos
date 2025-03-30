@@ -7,6 +7,7 @@ public:
 	WinConditionItem(int scoreValue);
 	~WinConditionItem();
 	void Update() override;
+	bool IsMoving();
 	std::string GetSaveData() override;
 private:
 	int score; //the score the player will earn when killing this winCondition

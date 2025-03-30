@@ -44,6 +44,7 @@ void Engine::Update()
 void Engine::FixedUpdate()
 {
 	collisionManager.UpdateCollisions();
+	gameManager.FixedUpdate();
 	for (auto& obj : objects) {
 		obj->FixedUpdate();
 	}
@@ -130,12 +131,10 @@ void Engine::ClearCurrentScene() // Marks all object inside scene for deletion
 void Engine::LoadScene(std::string name)
 {
 	Scene* newScene = GetScene(name);
-	if (newScene != currentScene) { // Check to prevent loading the same scene twice
-		ClearCurrentScene();
-		newScene->LoadScene();
-		currentScene = newScene;
-		std::cout << "Scene loaded: " << newScene->sceneName << "\n";
-	}
+	ClearCurrentScene();
+	newScene->LoadScene();
+	currentScene = newScene;
+	std::cout << "Scene loaded: " << newScene->sceneName << "\n";
 }
 
 void Engine::ReloadCurrentScene()

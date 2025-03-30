@@ -16,8 +16,8 @@ void ButtonFunctions::LinkButtonFunctions(Engine* engine, GameManager* gameMan)
 		case LOADSCENE_MAINMENU:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::LoadScene, engine, "MainMenu"));
 			break;
-		case LOADSCENE_NEXTLEVEL:
-			buttonFunctions.emplace_back(currentFunc, std::bind(&GameManager::LoadNextLevel, gameMan));
+		case LOADSCENE_CURRENTLEVEL:
+			buttonFunctions.emplace_back(currentFunc, std::bind(&GameManager::LoadLevelWithIndex, gameMan));
 			break;
 		case QUITGAME:
 			buttonFunctions.emplace_back(currentFunc, std::bind(&Engine::Quit, engine));
