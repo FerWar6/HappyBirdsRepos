@@ -156,7 +156,7 @@ void Engine::OpenSceneSelection() // Opens scene selection menu
 	LoadScene("SceneSelect");
 
 	sf::Vector2f basePos(750, 150);
-	int margin = 50 + 10;
+	int margin = 50 - 5;
 	for (auto& scene : allScenes) {
 		Object* obj = new Object(basePos);
 		obj->AddComponent<SpriteRenderer>("SceneSelectionButton", true);

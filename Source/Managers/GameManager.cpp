@@ -19,6 +19,10 @@ GameManager::GameManager(Engine& eng)
 
 void GameManager::Update()
 {
+	if (sl::GetInputManager().GetKeyDown(ARROW_LEFT) && isInLevel) {
+		currentLevelIndex--;
+		LoadLevelWithIndex();
+	}
 	if (sl::GetInputManager().GetKeyDown(ARROW_RIGHT) && isInLevel) {
 		currentLevelIndex++;
 		LoadLevelWithIndex();
@@ -134,11 +138,12 @@ void GameManager::OpenLevelSelection() //outdated
 
 void GameManager::LoadLevelWithIndex() //uses the current level index and loads it
 {
-	if (currentLevelIndex >= levels.size()) { // checks if there are any more levels to play
+	if (currentLevelIndex > 0 && currentLevelIndex >= levels.size()) { // checks if there are any more levels to play
 		engine.LoadScene("ThankYouForPlaying");
 		currentLevelIndex = 0;
 		return;
 	}
+	if (currentLevelIndex == -1) currentLevelIndex = 0;
 	engine.LoadScene(levels[currentLevelIndex]->sceneName);
 	OnLevelLoaded();
 }
