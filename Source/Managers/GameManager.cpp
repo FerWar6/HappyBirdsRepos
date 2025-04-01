@@ -13,12 +13,14 @@ GameManager::GameManager(Engine& eng)
 	lostLevel(false),
 	isInLevel(false),
 	lastShotTaken(false),
+	panningLevel(false),
 	launchedProjectile(nullptr),
 	launcherPtr(nullptr)
 {}
 
 void GameManager::Update()
 {
+	// shortcuts for easily moving through levels
 	if (sl::GetInputManager().GetKeyDown(ARROW_LEFT) && isInLevel) {
 		currentLevelIndex--;
 		LoadLevelWithIndex();
@@ -33,9 +35,9 @@ void GameManager::Update()
 void GameManager::FixedUpdate()
 {
 	//std::cout << "in level: " << isInLevel << "\n";
-	if (!isInLevel) return;
+	if (!isInLevel) return; // stops gamelogic from running when not in a level
 	//std::cout << "win objects alseep: " << AllWinObjectsAlseep() << "  amount of winObjects: " << winItems.size() << "\n";
-	if (panningLevel)
+	if (panningLevel) // logic for panning the camera to show level
 	{
 		if (levelClock.GetTimeInSeconds() > panTime) {
 			sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
@@ -49,7 +51,7 @@ void GameManager::FixedUpdate()
 		resetLevelClock.Reset();
 		wonLevel = winItems.size() == 0;
 	}
-	else if (wonLevel) {
+	else if (wonLevel) { // show next level menu when all winobjects are destroyed/all enemies are dead
 		launcherPtr->active = false;
 		float lingerOnLevelTime = 3;
 		if (resetLevelClock.GetTimeInSeconds() > lingerOnLevelTime) {
@@ -64,7 +66,7 @@ void GameManager::FixedUpdate()
 			}
 		}
 	}
-	if (launchedProjectile && launchedProjectile->HasComponent(CIRCLE_RIGIDBODY)) {
+	if (launchedProjectile && launchedProjectile->HasComponent(CIRCLE_RIGIDBODY)) { //manages camera following the cannonball
 		launcherPtr->active = false;
 		float resetTime = 1.5;
 		b2BodyId& bodyId = ((CircleRigidbody*)launchedProjectile->GetComponent(CIRCLE_RIGIDBODY))->GetBodyId();
@@ -83,7 +85,7 @@ void GameManager::FixedUpdate()
 			}
 		}
 	}
-	if (lostLevel) {
+	if (lostLevel) { // shows game over screen when player lost the level
 		sl::GetRenderer().GetCamera().SetFollowObject(nullptr);
 		sl::GetRenderer().GetCamera().SetCamSpeed(moveToMenuSpeed);
 		if (sl::GetRenderer().GetCamera().ReachedTarget()) {
@@ -94,12 +96,12 @@ void GameManager::FixedUpdate()
 			isInLevel = false;
 		}
 	}
-	//delay for second before moving to menu
 }
 
-void GameManager::OnLevelLoaded()
+void GameManager::OnLevelLoaded() // resets logic when entering a level
 {
 	if (sl::GetRenderer().GetCamera().GetFollowObject()) {
+		//pan the camera, wait for amout of seconds and pan back
 		panningLevel = true;
 		sl::GetRenderer().GetCamera().SetCamSpeed(panSpeed);
 	}
@@ -109,11 +111,9 @@ void GameManager::OnLevelLoaded()
 	isInLevel = true;
 	resetLevelClock.Reset();
 	levelClock.Reset();
-
-	//pan the camera, wait for amout of seconds and pan back
 }
 
-void GameManager::ClearedLevelCheck()
+void GameManager::ClearedLevelCheck() // returns true when level is cleared/all winobjects are destroyed
 {
 	for (auto& obj : engine.objects) {
 		if (obj->HasComponent(WINCONDITION_ITEM)) return;
@@ -166,7 +166,7 @@ void GameManager::DeleteWinObject(WinConditionItem* item)
 	}
 }
 
-bool GameManager::AllWinObjectsAlseep()
+bool GameManager::AllWinObjectsAlseep() // returns true when all win objects are asleep
 {
 	for (WinConditionItem* winItem : winItems) {
 		if (winItem) {
@@ -176,12 +176,12 @@ bool GameManager::AllWinObjectsAlseep()
 	return true;
 }
 
-void GameManager::SetCameraPan(Object* obj)
+void GameManager::SetCameraPan(Object* obj) // sets the camera's pan object
 {
 	sl::GetRenderer().GetCamera().SetFollowObject(obj);
 }
 
-void GameManager::InitLevels(std::vector<Scene>& scenes)
+void GameManager::InitLevels(std::vector<Scene>& scenes) // Gets all scenes that contain "level" and adds it to levels
 {
 	for (auto& scene : scenes) {
 		if (scene.sceneName.find("level") != std::string::npos) { // returns true if "level" is inside of the string sceneName
